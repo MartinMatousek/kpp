@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { GlobalStyles } from "@mui/material";
 import Discount from "./components/Discount";
 import AdditionalInfo from "./components/AdditionalInfo";
@@ -41,76 +42,108 @@ import {
   FlatTaxBand,
 } from "./App.styles";
 
+interface FormData {
+  earnings: number;
+  expenses: number;
+  withVAT: boolean;
+  isFlatRate: boolean;
+  flatRate: number;
+  isMonthly: boolean;
+
+  taxpayerDiscount: boolean;
+  spouseDiscount: boolean;
+  spouseZTPDiscount: boolean;
+  disabledDiscount: boolean;
+  disabledThreeDiscount: boolean;
+  ztpDiscount: boolean;
+  childrenDiscount: boolean;
+  numberOfChildren: number;
+  numberOfZtpChildren: number;
+
+  investmentInsurance: number;
+  interestPaid: number;
+  otherExpenses: number;
+
+  selectedYear: number;
+  earningsVATRate: number;
+}
+
 function App() {
-  //base inputs
-  const [earnings, setEarnings] = useState(0);
-  const [expenses, setExpenses] = useState(0);
-  const [withVAT, setWithVAT] = useState(false);
-  const [isFlatRate, setIsFlatRate] = useState(false);
-  const [flatRate, setFlatRate] = useState(0);
-  const [isMonthly, setIsMonthly] = useState(false);
-
-  //tmp values
-  const [savedExpenses, setSavedExpenses] = useState(0);
-  const [savedFlatRate, setSavedFlatRate] = useState(DEFAULT_FLAT_RATE_PERCENTAGE);
-
-  //discounts
-  const [taxpayerDiscount, setTaxpayerDiscount] = useState(true);
-  const [spouseDiscount, setSpouseDiscount] = useState(false);
-  const [spouseZTPDiscount, setSpouseZTPDiscount] = useState(false);
-  const [disabledDiscount, setDisabledDiscount] = useState(false);
-  const [disabledThreeDiscount, setDisabledThreeDiscount] = useState(false);
-  const [ztpDiscount, setZtpDiscount] = useState(false);
-  const [childrenDiscount, setChildrenDiscount] = useState(false);
-  const [numberOfChildren, setNumberOfChildren] = useState(0);
-  const [numberOfZtpChildren, setNumberOfZtpChildren] = useState(0);
-
-  //expenses
-  const [investmentInsurance, setInvestmentInsurance] = useState(0);
-  const [interestPaid, setInterestPaid] = useState(0);
-  const [otherExpenses, setOtherExpenses] = useState(0);
-
-  //year data
   const availableYears: number[] = getAvailableYears();
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [yearData, setYearData] = useState<YearData>(
-    loadYearData(Number(selectedYear))
+  const currentYear = new Date().getFullYear();
+  const initialYearData = loadYearData(currentYear);
+
+  const { watch, setValue } = useForm<FormData>({
+    defaultValues: {
+      earnings: 0,
+      expenses: 0,
+      withVAT: false,
+      isFlatRate: false,
+      flatRate: 0,
+      isMonthly: false,
+      taxpayerDiscount: true,
+      spouseDiscount: false,
+      spouseZTPDiscount: false,
+      disabledDiscount: false,
+      disabledThreeDiscount: false,
+      ztpDiscount: false,
+      childrenDiscount: false,
+      numberOfChildren: 0,
+      numberOfZtpChildren: 0,
+      investmentInsurance: 0,
+      interestPaid: 0,
+      otherExpenses: 0,
+      selectedYear: currentYear,
+      earningsVATRate:
+        initialYearData.vatRates[initialYearData.vatRates.length - 1] / 100,
+    },
+  });
+
+  const formValues = watch();
+
+  const [savedExpenses, setSavedExpenses] = useState(0);
+  const [savedFlatRate, setSavedFlatRate] = useState(
+    DEFAULT_FLAT_RATE_PERCENTAGE
   );
 
-  //vat calculations
-  const [earningsVATRate, setEarningsVATRate] = useState(
-    yearData.vatRates[yearData.vatRates.length - 1] / 100
-  );
-  const earningsWithoutVAT = withVAT
-    ? earnings / (1 + earningsVATRate)
-    : earnings;
-  const earningsWithVAT = withVAT ? earnings : earnings * (1 + earningsVATRate);
+  const [yearData, setYearData] = useState<YearData>(initialYearData);
+
+  const earningsWithoutVAT = formValues.withVAT
+    ? formValues.earnings / (1 + formValues.earningsVATRate)
+    : formValues.earnings;
+  const earningsWithVAT = formValues.withVAT
+    ? formValues.earnings
+    : formValues.earnings * (1 + formValues.earningsVATRate);
 
   const discountsInput: DiscountsInput = {
-    taxpayer: taxpayerDiscount,
-    spouse: spouseDiscount,
-    spouseZTP: spouseZTPDiscount,
-    disabled: disabledDiscount,
-    disabledThree: disabledThreeDiscount,
-    ztp: ztpDiscount,
+    taxpayer: formValues.taxpayerDiscount,
+    spouse: formValues.spouseDiscount,
+    spouseZTP: formValues.spouseZTPDiscount,
+    disabled: formValues.disabledDiscount,
+    disabledThree: formValues.disabledThreeDiscount,
+    ztp: formValues.ztpDiscount,
     children: {
-      enabled: childrenDiscount,
-      count: numberOfChildren,
-      ztpCount: numberOfZtpChildren,
+      enabled: formValues.childrenDiscount,
+      count: formValues.numberOfChildren,
+      ztpCount: formValues.numberOfZtpChildren,
     },
   };
 
   const taxes = useTaxCalculator({
     yearData,
     earningsWithoutVAT,
-    expenses,
+    expenses: formValues.expenses,
     discounts: discountsInput,
-    investmentInsurance,
-    interestPaid,
-    otherExpenses,
+    investmentInsurance: formValues.investmentInsurance,
+    interestPaid: formValues.interestPaid,
+    otherExpenses: formValues.otherExpenses,
   });
 
-  const flatTax = computeFlatTax(yearData, earningsWithoutVAT, flatRate);
+  const flatTax = computeFlatTax(
+    yearData,
+    earningsWithoutVAT,
+    formValues.flatRate
+  );
   const flatTaxMonthly = flatTax.monthly;
   const flatTaxYearly = flatTax.yearly;
   const totalStandardYearly = taxes.health + taxes.social + taxes.tax;
@@ -123,9 +156,9 @@ function App() {
       <HeaderContainer>
         <HeaderTitle>Kalkulačka</HeaderTitle>
         <Dropdown
-          value={selectedYear}
+          value={formValues.selectedYear}
           onChange={(value) => {
-            setSelectedYear(Number(value));
+            setValue("selectedYear", Number(value));
             setYearData(loadYearData(Number(value)));
           }}
           options={availableYears.map((year) => ({
@@ -137,46 +170,60 @@ function App() {
 
       <Card>
         <AdditionalInfo
-          isChecked={withVAT}
-          setIsChecked={setWithVAT}
+          isChecked={formValues.withVAT}
+          setIsChecked={(checked) => {
+            const value =
+              typeof checked === "function"
+                ? checked(formValues.withVAT)
+                : checked;
+            setValue("withVAT", value);
+          }}
           text="Částky včetně DPH"
         />
         <InputRow>
           <MoneyInput
-            number={withVAT ? earnings : earningsWithoutVAT}
+            number={
+              formValues.withVAT ? formValues.earnings : earningsWithoutVAT
+            }
             setNumber={(newEarningsValue) => {
-              const newEarnings = typeof newEarningsValue === 'function' 
-                ? newEarningsValue(withVAT ? earnings : earningsWithoutVAT)
-                : newEarningsValue;
-              
-              if (withVAT) {
-                setEarnings(newEarnings);
-              } else {
-                setEarnings(newEarnings);
-              }
-              const newEarningsWithoutVAT = withVAT
-                ? newEarnings / (1 + earningsVATRate)
+              const newEarnings =
+                typeof newEarningsValue === "function"
+                  ? newEarningsValue(
+                      formValues.withVAT
+                        ? formValues.earnings
+                        : earningsWithoutVAT
+                    )
+                  : newEarningsValue;
+
+              setValue("earnings", newEarnings);
+
+              const newEarningsWithoutVAT = formValues.withVAT
+                ? newEarnings / (1 + formValues.earningsVATRate)
                 : newEarnings;
 
               if (
                 newEarningsWithoutVAT > yearData.flatRate.limit &&
-                isFlatRate
+                formValues.isFlatRate
               ) {
-                setSavedFlatRate(flatRate);
-                setIsFlatRate(false);
-                setFlatRate(0);
-                setExpenses(savedExpenses);
-              } else if (isFlatRate) {
-                setExpenses(
-                  Math.round(newEarningsWithoutVAT * (Number(flatRate) / PERCENTAGE_DIVISOR))
+                setSavedFlatRate(formValues.flatRate);
+                setValue("isFlatRate", false);
+                setValue("flatRate", 0);
+                setValue("expenses", savedExpenses);
+              } else if (formValues.isFlatRate) {
+                setValue(
+                  "expenses",
+                  Math.round(
+                    newEarningsWithoutVAT *
+                      (Number(formValues.flatRate) / PERCENTAGE_DIVISOR)
+                  )
                 );
               }
             }}
             text="Příjmy:"
           />
           <Dropdown
-            value={earningsVATRate}
-            onChange={(value) => setEarningsVATRate(Number(value))}
+            value={formValues.earningsVATRate}
+            onChange={(value) => setValue("earningsVATRate", Number(value))}
             options={
               yearData?.vatRates.map((rate) => ({
                 value: rate / 100,
@@ -186,53 +233,70 @@ function App() {
           />
         </InputRow>
         <VATInfo
-          amount={withVAT ? earningsWithoutVAT : earningsWithVAT}
-          withVAT={withVAT}
+          amount={formValues.withVAT ? earningsWithoutVAT : earningsWithVAT}
+          withVAT={formValues.withVAT}
         />
         <AdditionalInfo
-          isChecked={isFlatRate}
+          isChecked={formValues.isFlatRate}
           disabled={earningsWithoutVAT > yearData.flatRate.limit}
           disabledTooltip={`Paušální výdaje nelze využívat s příjmy nad ${yearData.flatRate.limit.toLocaleString(
             "cs-CZ"
           )} Kč`}
           setIsChecked={(checked) => {
-            setIsFlatRate(checked);
-            if (!checked) {
-              setSavedFlatRate(flatRate);
-              setFlatRate(0);
-              setExpenses(savedExpenses);
+            const isChecked =
+              typeof checked === "function"
+                ? checked(formValues.isFlatRate)
+                : checked;
+            setValue("isFlatRate", isChecked);
+            if (!isChecked) {
+              setSavedFlatRate(formValues.flatRate);
+              setValue("flatRate", 0);
+              setValue("expenses", savedExpenses);
             } else {
-              setSavedExpenses(expenses);
+              setSavedExpenses(formValues.expenses);
               const rateToUse = savedFlatRate;
-              setFlatRate(rateToUse);
-              setExpenses(Math.round(earningsWithoutVAT * (rateToUse / PERCENTAGE_DIVISOR)));
+              setValue("flatRate", rateToUse);
+              setValue(
+                "expenses",
+                Math.round(
+                  earningsWithoutVAT * (rateToUse / PERCENTAGE_DIVISOR)
+                )
+              );
             }
           }}
           text="Paušální výdaje"
         />
         {earningsWithoutVAT > yearData.flatRate.limit &&
-          isFlatRate &&
+          formValues.isFlatRate &&
           (() => {
-            setIsFlatRate(false);
-            setSavedFlatRate(flatRate);
-            setFlatRate(0);
-            setExpenses(savedExpenses);
+            setValue("isFlatRate", false);
+            setSavedFlatRate(formValues.flatRate);
+            setValue("flatRate", 0);
+            setValue("expenses", savedExpenses);
             return null;
           })()}
         <InputRow>
           <MoneyInput
-            number={expenses}
-            setNumber={setExpenses}
+            number={formValues.expenses}
+            setNumber={(value) =>
+              setValue(
+                "expenses",
+                typeof value === "function" ? value(formValues.expenses) : value
+              )
+            }
             text="Výdaje:"
-            disabled={isFlatRate}
+            disabled={formValues.isFlatRate}
           />
-          {isFlatRate && (
+          {formValues.isFlatRate && (
             <Dropdown
-              value={flatRate}
+              value={formValues.flatRate}
               onChange={(value) => {
-                setFlatRate(Number(value));
-                setExpenses(
-                  Math.round(earningsWithoutVAT * (Number(value) / PERCENTAGE_DIVISOR))
+                setValue("flatRate", Number(value));
+                setValue(
+                  "expenses",
+                  Math.round(
+                    earningsWithoutVAT * (Number(value) / PERCENTAGE_DIVISOR)
+                  )
                 );
               }}
               options={[
@@ -247,19 +311,40 @@ function App() {
 
         <h2>Slevy na dani</h2>
         <Discount
-          isChecked={taxpayerDiscount}
-          setIsChecked={setTaxpayerDiscount}
+          isChecked={formValues.taxpayerDiscount}
+          setIsChecked={(value) =>
+            setValue(
+              "taxpayerDiscount",
+              typeof value === "function"
+                ? value(formValues.taxpayerDiscount)
+                : value
+            )
+          }
           text="Sleva na poplatníka"
         />
         <Discount
-          isChecked={spouseDiscount}
-          setIsChecked={setSpouseDiscount}
+          isChecked={formValues.spouseDiscount}
+          setIsChecked={(value) =>
+            setValue(
+              "spouseDiscount",
+              typeof value === "function"
+                ? value(formValues.spouseDiscount)
+                : value
+            )
+          }
           text={`Sleva na manžela/manželku pečující o dítě do ${CHILD_CARE_AGE_LIMIT} let`}
         />
-        {spouseDiscount ? (
+        {formValues.spouseDiscount ? (
           <AdditionalInfo
-            isChecked={spouseZTPDiscount}
-            setIsChecked={setSpouseZTPDiscount}
+            isChecked={formValues.spouseZTPDiscount}
+            setIsChecked={(value) =>
+              setValue(
+                "spouseZTPDiscount",
+                typeof value === "function"
+                  ? value(formValues.spouseZTPDiscount)
+                  : value
+              )
+            }
             text="Manžel/manželka se ZTP/P"
           />
         ) : (
@@ -272,77 +357,148 @@ function App() {
           </HiddenInput>
         )}
         <Discount
-          isChecked={disabledDiscount}
-          setIsChecked={(checked) => {
-            setDisabledDiscount(checked);
-            if (checked) setDisabledThreeDiscount(false);
+          isChecked={formValues.disabledDiscount}
+          setIsChecked={(value) => {
+            const checked =
+              typeof value === "function"
+                ? value(formValues.disabledDiscount)
+                : value;
+            setValue("disabledDiscount", checked);
+            if (checked) setValue("disabledThreeDiscount", false);
           }}
           text="Sleva pro invalidní důchod I. a II. Stupně"
         />
         <Discount
-          isChecked={disabledThreeDiscount}
-          setIsChecked={(checked) => {
-            setDisabledThreeDiscount(checked);
-            if (checked) setDisabledDiscount(false);
+          isChecked={formValues.disabledThreeDiscount}
+          setIsChecked={(value) => {
+            const checked =
+              typeof value === "function"
+                ? value(formValues.disabledThreeDiscount)
+                : value;
+            setValue("disabledThreeDiscount", checked);
+            if (checked) setValue("disabledDiscount", false);
           }}
           text="Sleva pro invalidní důchod III. Stupně"
         />
         <Discount
-          isChecked={ztpDiscount}
-          setIsChecked={setZtpDiscount}
+          isChecked={formValues.ztpDiscount}
+          setIsChecked={(value) =>
+            setValue(
+              "ztpDiscount",
+              typeof value === "function"
+                ? value(formValues.ztpDiscount)
+                : value
+            )
+          }
           text="Sleva pro držitele průkazu ZTP/P"
         />
         <Discount
-          isChecked={childrenDiscount}
-          setIsChecked={setChildrenDiscount}
+          isChecked={formValues.childrenDiscount}
+          setIsChecked={(value) =>
+            setValue(
+              "childrenDiscount",
+              typeof value === "function"
+                ? value(formValues.childrenDiscount)
+                : value
+            )
+          }
           text="Sleva na dítě/děti"
         />
-        {childrenDiscount ? (
+        {formValues.childrenDiscount ? (
           <ChildrenInputContainer>
             <ChildInput
-              number={numberOfChildren}
-              setNumber={setNumberOfChildren}
+              number={formValues.numberOfChildren}
+              setNumber={(value) =>
+                setValue(
+                  "numberOfChildren",
+                  typeof value === "function"
+                    ? value(formValues.numberOfChildren)
+                    : value
+                )
+              }
               text="Počet dětí"
               maxNumber={MAX_CHILDREN}
             />
             <ChildInput
-              number={numberOfZtpChildren}
-              setNumber={setNumberOfZtpChildren}
+              number={formValues.numberOfZtpChildren}
+              setNumber={(value) =>
+                setValue(
+                  "numberOfZtpChildren",
+                  typeof value === "function"
+                    ? value(formValues.numberOfZtpChildren)
+                    : value
+                )
+              }
               text="Z toho ZTP/P"
-              maxNumber={numberOfChildren}
+              maxNumber={formValues.numberOfChildren}
             />
           </ChildrenInputContainer>
         ) : (
           <ChildrenInputContainerHidden>
             <ChildInput
-              number={numberOfChildren}
-              setNumber={setNumberOfChildren}
+              number={formValues.numberOfChildren}
+              setNumber={(value) =>
+                setValue(
+                  "numberOfChildren",
+                  typeof value === "function"
+                    ? value(formValues.numberOfChildren)
+                    : value
+                )
+              }
               text="Počet dětí"
               maxNumber={MAX_CHILDREN}
             />
             <ChildInput
-              number={numberOfZtpChildren}
-              setNumber={setNumberOfZtpChildren}
+              number={formValues.numberOfZtpChildren}
+              setNumber={(value) =>
+                setValue(
+                  "numberOfZtpChildren",
+                  typeof value === "function"
+                    ? value(formValues.numberOfZtpChildren)
+                    : value
+                )
+              }
               text="Z toho ZTP/P"
-              maxNumber={numberOfChildren}
+              maxNumber={formValues.numberOfChildren}
             />
           </ChildrenInputContainerHidden>
         )}
 
         <h2>Nezdanitelné částky</h2>
         <NonTaxableInput
-          number={investmentInsurance}
-          setNumber={setInvestmentInsurance}
+          number={formValues.investmentInsurance}
+          setNumber={(value) =>
+            setValue(
+              "investmentInsurance",
+              typeof value === "function"
+                ? value(formValues.investmentInsurance)
+                : value
+            )
+          }
           text="Zaplacené investiční připojištění:"
         />
         <NonTaxableInput
-          number={interestPaid}
-          setNumber={setInterestPaid}
+          number={formValues.interestPaid}
+          setNumber={(value) =>
+            setValue(
+              "interestPaid",
+              typeof value === "function"
+                ? value(formValues.interestPaid)
+                : value
+            )
+          }
           text="Zaplacené úroky:"
         />
         <NonTaxableInput
-          number={otherExpenses}
-          setNumber={setOtherExpenses}
+          number={formValues.otherExpenses}
+          setNumber={(value) =>
+            setValue(
+              "otherExpenses",
+              typeof value === "function"
+                ? value(formValues.otherExpenses)
+                : value
+            )
+          }
           text="Ostatní:"
         />
 
@@ -356,26 +512,43 @@ function App() {
       <ResultsContainer>
         <FormBox title="Odvody a daně">
           <ResultItem
-            number={isMonthly ? Math.round(taxes.health / MONTHS_IN_YEAR) : taxes.health}
+            number={
+              formValues.isMonthly
+                ? Math.round(taxes.health / MONTHS_IN_YEAR)
+                : taxes.health
+            }
             text="Zdravotní pojištění"
           />
           <ResultItem
-            number={isMonthly ? Math.round(taxes.social / MONTHS_IN_YEAR) : taxes.social}
+            number={
+              formValues.isMonthly
+                ? Math.round(taxes.social / MONTHS_IN_YEAR)
+                : taxes.social
+            }
             text="Důchodové pojištění"
           />
           <ResultItem
-            number={isMonthly ? Math.round(taxes.tax / MONTHS_IN_YEAR) : taxes.tax}
+            number={
+              formValues.isMonthly
+                ? Math.round(taxes.tax / MONTHS_IN_YEAR)
+                : taxes.tax
+            }
             text="Daň z příjmu"
           />
           <ResultItem
             number={
-              isMonthly
-                ? Math.round((taxes.health + taxes.social + taxes.tax) / MONTHS_IN_YEAR)
+              formValues.isMonthly
+                ? Math.round(
+                    (taxes.health + taxes.social + taxes.tax) / MONTHS_IN_YEAR
+                  )
                 : taxes.health + taxes.social + taxes.tax
             }
             text="Celkem"
           />
-          <PeriodToggle isMonthly={isMonthly} setIsMonthly={setIsMonthly} />
+          <PeriodToggle
+            isMonthly={formValues.isMonthly}
+            setIsMonthly={(value) => setValue("isMonthly", value)}
+          />
         </FormBox>
 
         {flatTax.bandId !== null && (
@@ -393,8 +566,8 @@ function App() {
               text="Rozdíl měsíčně"
               isDifference={true}
             />
-            <ResultItem 
-              number={Math.round(diffYearly)} 
+            <ResultItem
+              number={Math.round(diffYearly)}
               text="Rozdíl ročně"
               isDifference={true}
             />
