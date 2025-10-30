@@ -14,6 +14,7 @@ export interface YearData {
     };
   };
   flatRate: {
+    limit: number;
     bands: Array<{
       id: 1 | 2 | 3;
       monthly: number;

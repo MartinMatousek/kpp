@@ -5,10 +5,11 @@ import "./Components.css";
 interface BooleanButtonProps {
   isChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  disabled?: boolean;
 }
 
-export default function BooleanButton({ isChecked, setIsChecked }: BooleanButtonProps) {
+export default function BooleanButton({ isChecked, setIsChecked, disabled = false }: BooleanButtonProps) {
   return (
-    <Switch className="styled-switch" checked={isChecked} onClick={() => setIsChecked(!isChecked)} />
+    <Switch className="styled-switch" checked={isChecked} disabled={disabled} onClick={() => setIsChecked(!isChecked)} />
   );
 }

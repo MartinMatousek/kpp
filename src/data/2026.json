@@ -6,6 +6,7 @@
     "social": { "rate": 0.292, "baseRatio": 0.5, "minMonthly": 5720 }
   },
   "flatRate": {
+    "limit": 2000000,
     "bands": [
       { "id": 1, "monthly": 9984, "incomeLimit": 1000000, "expenseLimit": 0 },
       { "id": 1, "monthly": 9984, "incomeLimit": 1500000, "expenseLimit": 60 },
