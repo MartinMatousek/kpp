@@ -1,4 +1,12 @@
 import type { YearData } from "./YearData";
+const HEALTH_BASE_RATIO = 0.5;
+const SOCIAL_BASE_RATIO = 0.55;
+const DEFAULT_HEALTH_RATE = 0.135;
+const DEFAULT_SOCIAL_RATE = 0.292;
+const MONTHS_IN_YEAR = 12;
+const PERCENTAGE_DIVISOR = 100;
+const CHILD_DISCOUNT_THRESHOLD_SECOND = 2;
+const CHILD_DISCOUNT_THRESHOLD_THIRD = 3;
 
 export interface ChildrenDiscountInput {
 	enabled: boolean;
@@ -72,7 +80,7 @@ function progressiveTax(yearData: YearData, base: number): number {
 		if (remaining <= 0) break;
 		const span = Math.min(remaining, limit - prevLimit);
 		if (span > 0) {
-			tax += span * (b.rate / 100);
+			tax += span * (b.rate / PERCENTAGE_DIVISOR);
 			remaining -= span;
 			prevLimit = limit;
 		}
@@ -96,24 +104,24 @@ function computeDiscounts(yearData: YearData, d: DiscountsInput): number {
 
 	let children = 0;
 	if (childCount >= 1) children += ds.child.first;
-	if (childCount >= 2) children += ds.child.second;
-	if (childCount >= 3) children += ds.child.third * (childCount - 2);
+	if (childCount >= CHILD_DISCOUNT_THRESHOLD_SECOND) children += ds.child.second;
+	if (childCount >= CHILD_DISCOUNT_THRESHOLD_THIRD) children += ds.child.third * (childCount - CHILD_DISCOUNT_THRESHOLD_SECOND);
     
     if (ztpCount >= 1) children += ds.child.first;
-	if (ztpCount >= 2) children += ds.child.second;
-	if (ztpCount >= 3) children += ds.child.third * (ztpCount - 2);
+	if (ztpCount >= CHILD_DISCOUNT_THRESHOLD_SECOND) children += ds.child.second;
+	if (ztpCount >= CHILD_DISCOUNT_THRESHOLD_THIRD) children += ds.child.third * (ztpCount - CHILD_DISCOUNT_THRESHOLD_SECOND);
 
 	return taxpayer + spouse + disabled + disabledThree + ztp + children;
 }
 
 function computeContribution(yearData: YearData, profit: number, kind: 'health' | 'social'): number {
 	const data = yearData.contributions?.[kind];
-	const rate = data?.rate ?? (kind === 'health' ? 0.135 : 0.292);
-	const baseRatio = kind === 'health' ? 0.5 : 0.55;
+	const rate = data?.rate ?? (kind === 'health' ? DEFAULT_HEALTH_RATE : DEFAULT_SOCIAL_RATE);
+	const baseRatio = kind === 'health' ? HEALTH_BASE_RATIO : SOCIAL_BASE_RATIO;
 	const minMonthly = data?.minMonthly ?? 0;
 
 	const yearly = profit * rate * baseRatio;
-	const minYearly = minMonthly * 12;
+	const minYearly = minMonthly * MONTHS_IN_YEAR;
 	return Math.max(yearly, minYearly);
 }
 

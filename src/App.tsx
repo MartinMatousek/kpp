@@ -19,6 +19,12 @@ import { useTaxCalculator } from "./hooks/useTaxCalculator";
 import type { DiscountsInput } from "./utils/taxCalculator";
 import { computeFlatTax } from "./utils/FlatTax";
 
+const DEFAULT_FLAT_RATE_PERCENTAGE = 60;
+const PERCENTAGE_DIVISOR = 100;
+const MONTHS_IN_YEAR = 12;
+const MAX_CHILDREN = 20;
+const CHILD_CARE_AGE_LIMIT = 3;
+
 function App() {
   //base inputs
   const [earnings, setEarnings] = useState(0);
@@ -30,7 +36,7 @@ function App() {
 
   //tmp values
   const [savedExpenses, setSavedExpenses] = useState(0);
-  const [savedFlatRate, setSavedFlatRate] = useState(60);
+  const [savedFlatRate, setSavedFlatRate] = useState(DEFAULT_FLAT_RATE_PERCENTAGE);
 
   //discounts
   const [taxpayerDiscount, setTaxpayerDiscount] = useState(true);
@@ -93,7 +99,7 @@ function App() {
   const flatTaxYearly = flatTax.yearly;
   const totalStandardYearly = taxes.health + taxes.social + taxes.tax;
   const diffYearly = flatTaxYearly - totalStandardYearly;
-  const diffMonthly = Math.round(diffYearly / 12);
+  const diffMonthly = Math.round(diffYearly / MONTHS_IN_YEAR);
 
   return (
     <>
@@ -135,7 +141,7 @@ function App() {
               setExpenses(savedExpenses);
             } else if (isFlatRate) {
               setExpenses(
-                Math.round(newEarningsWithoutVAT * (Number(flatRate) / 100))
+                Math.round(newEarningsWithoutVAT * (Number(flatRate) / PERCENTAGE_DIVISOR))
               );
             }
           }}
@@ -162,7 +168,7 @@ function App() {
                 setExpenses(savedExpenses);
               } else if (isFlatRate) {
                 setExpenses(
-                  Math.round(newEarningsWithoutVAT * (Number(flatRate) / 100))
+                  Math.round(newEarningsWithoutVAT * (Number(flatRate) / PERCENTAGE_DIVISOR))
                 );
               }
             }}
@@ -199,7 +205,7 @@ function App() {
               setSavedExpenses(expenses);
               const rateToUse = savedFlatRate;
               setFlatRate(rateToUse);
-              setExpenses(Math.round(earningsWithoutVAT * (rateToUse / 100)));
+              setExpenses(Math.round(earningsWithoutVAT * (rateToUse / PERCENTAGE_DIVISOR)));
             }
           }}
           text="Paušální výdaje"
@@ -226,7 +232,7 @@ function App() {
               onChange={(value) => {
                 setFlatRate(Number(value));
                 setExpenses(
-                  Math.round(earningsWithoutVAT * (Number(value) / 100))
+                  Math.round(earningsWithoutVAT * (Number(value) / PERCENTAGE_DIVISOR))
                 );
               }}
               options={[
@@ -248,7 +254,7 @@ function App() {
         <Discount
           isChecked={spouseDiscount}
           setIsChecked={setSpouseDiscount}
-          text="Sleva na manžela/manželku pečující o dítě do 3 let"
+          text={`Sleva na manžela/manželku pečující o dítě do ${CHILD_CARE_AGE_LIMIT} let`}
         />
         {spouseDiscount ? (
           <AdditionalInfo
@@ -305,7 +311,7 @@ function App() {
               number={numberOfChildren}
               setNumber={setNumberOfChildren}
               text="Počet dětí"
-              maxNumber={20}
+              maxNumber={MAX_CHILDREN}
             />
             <ChildInput
               number={numberOfZtpChildren}
@@ -329,7 +335,7 @@ function App() {
               number={numberOfChildren}
               setNumber={setNumberOfChildren}
               text="Počet dětí"
-              maxNumber={20}
+              maxNumber={MAX_CHILDREN}
             />
             <ChildInput
               number={numberOfZtpChildren}
@@ -374,21 +380,21 @@ function App() {
       >
         <FormBox title="Odvody a daně">
           <ResultItem
-            number={isMonthly ? Math.round(taxes.health / 12) : taxes.health}
+            number={isMonthly ? Math.round(taxes.health / MONTHS_IN_YEAR) : taxes.health}
             text="Zdravotní pojištění"
           />
           <ResultItem
-            number={isMonthly ? Math.round(taxes.social / 12) : taxes.social}
+            number={isMonthly ? Math.round(taxes.social / MONTHS_IN_YEAR) : taxes.social}
             text="Důchodové pojištění"
           />
           <ResultItem
-            number={isMonthly ? Math.round(taxes.tax / 12) : taxes.tax}
+            number={isMonthly ? Math.round(taxes.tax / MONTHS_IN_YEAR) : taxes.tax}
             text="Daň z příjmu"
           />
           <ResultItem
             number={
               isMonthly
-                ? Math.round((taxes.health + taxes.social + taxes.tax) / 12)
+                ? Math.round((taxes.health + taxes.social + taxes.tax) / MONTHS_IN_YEAR)
                 : taxes.health + taxes.social + taxes.tax
             }
             text="Celkem"
