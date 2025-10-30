@@ -384,8 +384,13 @@ function App() {
             <ResultItem
               number={Math.round(diffMonthly)}
               text="Rozdíl měsíčně"
+              isDifference={true}
             />
-            <ResultItem number={Math.round(diffYearly)} text="Rozdíl ročně" />
+            <ResultItem 
+              number={Math.round(diffYearly)} 
+              text="Rozdíl ročně"
+              isDifference={true}
+            />
           </FormBox>
         )}
       </div>

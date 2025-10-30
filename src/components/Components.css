@@ -51,9 +51,25 @@
   font-weight: 600;
 }
 
+.result-positive {
+  color: #dc3545;
+}
+
+.result-negative {
+  color: #06bb00ff;
+}
+
 .result-currency {
   margin-left: 0.35rem;
   color: #666;
+}
+
+.result-currency.result-positive {
+  color: #dc354580;
+}
+
+.result-currency.result-negative {
+  color: #06bb0080;
 }
 
 .child-input::-webkit-inner-spin-button {
