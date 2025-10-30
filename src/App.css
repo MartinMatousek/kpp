@@ -55,3 +55,54 @@
   font-weight: bold;
   margin-top: 0.4em;
 }
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.header-title {
+  margin-left: 15%;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.hidden-input {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.children-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.children-input-container-hidden {
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.tax-base-display {
+  font-size: 1.3em;
+  margin-top: 2em;
+}
+
+.results-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}

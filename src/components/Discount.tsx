@@ -1,6 +1,7 @@
 import React from "react";
 import BooleanButton from "./BooleanButton";
 import { Tooltip } from "@mui/material";
+import "./Components.css";
 
 interface DiscountProps {
   isChecked: boolean;
@@ -19,12 +20,12 @@ export default function Discount({ isChecked, setIsChecked, text }: DiscountProp
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+    <div className="discount-container">
       <Tooltip title={isOverflowing ? text.toString() : ""} arrow>
         <span 
           ref={spanRef}
           onMouseEnter={checkOverflow}
-          style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+          className="discount-label"
         >
           {text}
         </span>

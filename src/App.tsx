@@ -103,15 +103,8 @@ function App() {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "1em",
-        }}
-      >
-        <h1 style={{ marginLeft: "15%" }}>Kalkulačka</h1>
+      <div className="header-container">
+        <h1 className="header-title">Kalkulačka</h1>
         <Dropdown
           label="Rok"
           value={selectedYear}
@@ -147,7 +140,7 @@ function App() {
           }}
           text="s DPH"
         />
-        <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
+        <div className="input-row">
           <MoneyInput
             number={earnings}
             setNumber={(number) => {
@@ -219,7 +212,7 @@ function App() {
             setExpenses(savedExpenses);
             return null;
           })()}
-        <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
+        <div className="input-row">
           <MoneyInput
             number={expenses}
             setNumber={setExpenses}
@@ -263,7 +256,7 @@ function App() {
             text="Manžel/manželka se ZTP/P"
           />
         ) : (
-          <div style={{ visibility: "hidden", pointerEvents: "none" }}>
+          <div className="hidden-input">
             <AdditionalInfo
               isChecked={false}
               setIsChecked={() => {}}
@@ -298,15 +291,7 @@ function App() {
           text="Sleva na dítě/děti"
         />
         {childrenDiscount ? (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 16,
-              marginTop: 8,
-            }}
-          >
+          <div className="children-input-container">
             <ChildInput
               number={numberOfChildren}
               setNumber={setNumberOfChildren}
@@ -321,16 +306,7 @@ function App() {
             />
           </div>
         ) : (
-          <div
-            style={{
-              visibility: "hidden",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 16,
-              marginTop: 8,
-            }}
-          >
+          <div className="children-input-container-hidden">
             <ChildInput
               number={numberOfChildren}
               setNumber={setNumberOfChildren}
@@ -363,21 +339,14 @@ function App() {
           text="Ostatní:"
         />
 
-        <div style={{ fontSize: "1.3em", marginTop: "2em" }}>
+        <div className="tax-base-display">
           <b>Základ daně</b>
           <br />
           {taxes.taxBase.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginTop: "2rem",
-          justifyContent: "center",
-        }}
-      >
+      <div className="results-container">
         <FormBox title="Odvody a daně">
           <ResultItem
             number={isMonthly ? Math.round(taxes.health / MONTHS_IN_YEAR) : taxes.health}

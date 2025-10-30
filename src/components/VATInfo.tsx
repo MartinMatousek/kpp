@@ -1,4 +1,4 @@
-import Colors from "./Colors";
+import "./Components.css";
 
 interface VATInfoProps {
   amount: number;
@@ -7,7 +7,7 @@ interface VATInfoProps {
 
 export default function VATInfo({ amount, withVAT }: VATInfoProps) {
   return (
-    <div style={{ fontSize: '0.9em', color: Colors.gray(), marginLeft: '6em', marginTop: '0.5em', textDecoration: 'underline' }}>
+    <div className="vat-info">
       {amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} Kč {withVAT ? 'bez DPH' : 's DPH'}
     </div>
   );

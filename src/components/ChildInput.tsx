@@ -17,7 +17,7 @@ export default function ChildInput({
 }: ChildInputProps) {
   const [showWarning, setShowWarning] = useState(false);
   return (
-    <div style={{ position: "relative" }}>
+    <div className="child-input-container">
       <label>{text}</label>
       <input
         type="number"
@@ -39,18 +39,7 @@ export default function ChildInput({
         value={number}
       />
       {showWarning && (
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "100%",
-            color: "red",
-            fontSize: "0.85em",
-            marginTop: 4,
-            whiteSpace: "nowrap",
-            zIndex: 10,
-          }}
-        >
+        <div className="child-input-warning">
           Zadaný počet ZTP/P je větší než počet dětí.
         </div>
       )}

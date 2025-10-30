@@ -241,3 +241,132 @@
   background-color: #ffffff;
   border: 1px solid #BEBEBE;
 }
+
+/* MoneyInput styles */
+.money-input-container {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0;
+}
+
+.money-input-label {
+  min-width: 5em;
+}
+
+.money-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.money-input-currency {
+  position: absolute;
+  right: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+}
+
+/* Dropdown styles */
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0;
+}
+
+.dropdown-label {
+  margin-bottom: 0.3em;
+  font-size: 0.9em;
+}
+
+/* VATInfo styles */
+.vat-info {
+  font-size: 0.9em;
+  color: #BEBEBE;
+  margin-left: 6em;
+  margin-top: 0.5em;
+  text-decoration: underline;
+}
+
+/* NonTaxableInput styles */
+.non-taxable-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.non-taxable-input-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.non-taxable-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.non-taxable-input-currency {
+  position: absolute;
+  right: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+}
+
+/* ChildInput styles */
+.child-input-container {
+  position: relative;
+}
+
+.child-input-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0.3em;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.child-input-warning {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  color: red;
+  font-size: 0.85em;
+  margin-top: 4px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Discount styles */
+.discount-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.discount-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* AdditionalInfo styles */
+.additional-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 1em;
+}
+
+.additional-info-content {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}

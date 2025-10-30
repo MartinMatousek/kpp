@@ -22,9 +22,9 @@ export default function MoneyInput({ number, setNumber, text, disabled = false }
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', margin: '0.5em 0' }}>
-      <label style={{ minWidth: '5em' }}>{text}</label>
-      <div style={{ position: 'relative', display: 'inline-block' }}>
+    <div className="money-input-container">
+      <label className="money-input-label">{text}</label>
+      <div className="money-input-wrapper">
         <input 
           type="text" 
           className="money-input"
@@ -32,7 +32,7 @@ export default function MoneyInput({ number, setNumber, text, disabled = false }
           onChange={handleChange}
           value={formatNumber(number)}
         />
-        <span style={{ position: 'absolute', right: '1em', top: '50%', transform: 'translateY(-50%)', color: '#666', pointerEvents: 'none' }}>Kč</span>
+        <span className="money-input-currency">Kč</span>
       </div>
     </div>
   );

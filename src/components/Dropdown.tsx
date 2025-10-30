@@ -9,8 +9,8 @@ interface DropdownProps {
 
 export default function Dropdown({ value, onChange, options, label }: DropdownProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', margin: '0.5em 0'}}>
-      {label && <label style={{ marginBottom: '0.3em', fontSize: '0.9em' }}>{label}</label>}
+    <div className="dropdown-container">
+      {label && <label className="dropdown-label">{label}</label>}
       <select
         className="dropdown"
         value={value}

@@ -33,24 +33,24 @@ export default function NonTaxableInput({ number, setNumber, text }: NonTaxableI
   };
   
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', margin: '0.5em 0' }}>
+    <div className="non-taxable-input-container">
       <Tooltip title={isOverflowing ? text.toString() : ""} arrow>
         <span
           ref={spanRef}
           onMouseEnter={checkOverflow}
-          style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+          className="non-taxable-input-label"
         >
           {text}
         </span>
       </Tooltip>
-      <div style={{ position: 'relative', display: 'inline-block' }}>
+      <div className="non-taxable-input-wrapper">
         <input 
           type="text" 
           className="non-taxable-input"
           onChange={handleChange}
           value={displayValue}
         />
-        <span style={{ position: 'absolute', right: '1em', top: '50%', transform: 'translateY(-50%)', color: '#666', pointerEvents: 'none' }}>Kč</span>
+        <span className="non-taxable-input-currency">Kč</span>
       </div>
     </div>
   );
