@@ -42,7 +42,7 @@ function App() {
 
   //year data
   const availableYears: number[] = getAvailableYears();
-  const [selectedYear, setSelectedYear] = useState(availableYears[availableYears.length - 1]);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [yearData, setYearData] = useState<YearData>(loadYearData(Number(selectedYear)));
 
   //vat calculations
