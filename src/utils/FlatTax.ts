@@ -1,6 +1,5 @@
 import type { YearData } from './YearData';
-
-const MONTHS_IN_YEAR = 12;
+import { MONTHS_IN_YEAR } from '../constants';
 
 export interface FlatTaxResult {
   bandId: 1 | 2 | 3 | null;

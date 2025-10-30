@@ -19,6 +19,13 @@ import { useTaxCalculator } from "./hooks/useTaxCalculator";
 import type { DiscountsInput } from "./utils/TaxCalculator";
 import { computeFlatTax } from "./utils/FlatTax";
 import {
+  DEFAULT_FLAT_RATE_PERCENTAGE,
+  PERCENTAGE_DIVISOR,
+  MONTHS_IN_YEAR,
+  MAX_CHILDREN,
+  CHILD_CARE_AGE_LIMIT,
+} from "./constants";
+import {
   globalStyles,
   RootContainer,
   HeaderContainer,
@@ -33,12 +40,6 @@ import {
   FlatTaxContainer,
   FlatTaxBand,
 } from "./App.styles";
-
-const DEFAULT_FLAT_RATE_PERCENTAGE = 60;
-const PERCENTAGE_DIVISOR = 100;
-const MONTHS_IN_YEAR = 12;
-const MAX_CHILDREN = 20;
-const CHILD_CARE_AGE_LIMIT = 3;
 
 function App() {
   //base inputs
