@@ -1,6 +1,5 @@
 import React from "react";
-import { Switch } from "@mui/material";
-import "./Components.css";
+import { Switch, styled } from "@mui/material";
 
 interface BooleanButtonProps {
   isChecked: boolean;
@@ -8,8 +7,39 @@ interface BooleanButtonProps {
   disabled?: boolean;
 }
 
-export default function BooleanButton({ isChecked, setIsChecked, disabled = false }: BooleanButtonProps) {
+const StyledSwitch = styled(Switch)({
+  "& .MuiSwitch-switchBase.Mui-checked": {
+    color: "#ffffff",
+  },
+  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+    backgroundColor: "#06bb00ff",
+    border: "1px solid #BEBEBE",
+  },
+  "& .MuiSwitch-switchBase": {
+    color: "#BEBEBE",
+  },
+  "& .MuiSwitch-thumb": {
+    border: "1px solid #BEBEBE",
+    width: 20,
+    height: 20,
+    boxSizing: "border-box",
+  },
+  "& .MuiSwitch-track": {
+    backgroundColor: "#ffffff",
+    border: "1px solid #BEBEBE",
+  },
+});
+
+export default function BooleanButton({
+  isChecked,
+  setIsChecked,
+  disabled = false,
+}: BooleanButtonProps) {
   return (
-    <Switch className="styled-switch" checked={isChecked} disabled={disabled} onClick={() => setIsChecked(!isChecked)} />
+    <StyledSwitch
+      checked={isChecked}
+      disabled={disabled}
+      onClick={() => setIsChecked(!isChecked)}
+    />
   );
 }

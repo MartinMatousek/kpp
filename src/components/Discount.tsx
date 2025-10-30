@@ -1,13 +1,24 @@
 import React from "react";
 import BooleanButton from "./BooleanButton";
-import { Tooltip } from "@mui/material";
-import "./Components.css";
+import { Tooltip, Box, styled } from "@mui/material";
 
 interface DiscountProps {
   isChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
   text: String;
 }
+
+const DiscountContainer = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+const DiscountLabel = styled("span")({
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
 
 export default function Discount({ isChecked, setIsChecked, text }: DiscountProps) {
   const spanRef = React.useRef<HTMLSpanElement>(null);
@@ -20,17 +31,13 @@ export default function Discount({ isChecked, setIsChecked, text }: DiscountProp
   };
 
   return (
-    <div className="discount-container">
+    <DiscountContainer>
       <Tooltip title={isOverflowing ? text.toString() : ""} arrow>
-        <span 
-          ref={spanRef}
-          onMouseEnter={checkOverflow}
-          className="discount-label"
-        >
+        <DiscountLabel ref={spanRef} onMouseEnter={checkOverflow}>
           {text}
-        </span>
+        </DiscountLabel>
       </Tooltip>
       <BooleanButton isChecked={isChecked} setIsChecked={setIsChecked} />
-    </div>
+    </DiscountContainer>
   );
 }

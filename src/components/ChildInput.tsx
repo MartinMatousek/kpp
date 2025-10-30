@@ -1,6 +1,5 @@
-import React from "react";
-import "./Components.css";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Box, styled } from "@mui/material";
 
 interface ChildInputProps {
   number: number;
@@ -8,6 +7,49 @@ interface ChildInputProps {
   setNumber: React.Dispatch<React.SetStateAction<number>>;
   text: String;
 }
+
+const ChildInputContainer = styled(Box)({
+  position: "relative",
+});
+
+const StyledInput = styled("input")({
+  width: "2.5em",
+  height: "2.5em",
+  marginLeft: "2em",
+  paddingLeft: "0.5em",
+  paddingRight: "0.3em",
+  borderRadius: "1em",
+  fontSize: "1em",
+  border: "2px solid #BEBEBE",
+  transition: "border-color 0.2s ease",
+  textAlign: "center",
+  appearance: "textfield",
+  MozAppearance: "textfield",
+  "&:hover": {
+    borderColor: "#BEBEBE",
+  },
+  "&:focus": {
+    outline: "none",
+    borderColor: "#06bb00ff",
+  },
+  "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
+    opacity: 1,
+    cursor: "pointer",
+    transform: "scale(1.2)",
+    marginLeft: "0.2em",
+  },
+});
+
+const WarningMessage = styled(Box)({
+  position: "absolute",
+  left: 0,
+  top: "100%",
+  color: "red",
+  fontSize: "0.85em",
+  marginTop: 4,
+  whiteSpace: "nowrap",
+  zIndex: 10,
+});
 
 export default function ChildInput({
   number,
@@ -17,11 +59,10 @@ export default function ChildInput({
 }: ChildInputProps) {
   const [showWarning, setShowWarning] = useState(false);
   return (
-    <div className="child-input-container">
+    <ChildInputContainer>
       <label>{text}</label>
-      <input
+      <StyledInput
         type="number"
-        className="child-input"
         onChange={(e) => {
           const val = Number(e.target.value);
           if (val > maxNumber) {
@@ -39,10 +80,10 @@ export default function ChildInput({
         value={number}
       />
       {showWarning && (
-        <div className="child-input-warning">
+        <WarningMessage>
           Zadaný počet ZTP/P je větší než počet dětí.
-        </div>
+        </WarningMessage>
       )}
-    </div>
+    </ChildInputContainer>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import { GlobalStyles } from "@mui/material";
 import Discount from "./components/Discount";
 import AdditionalInfo from "./components/AdditionalInfo";
 import ChildInput from "./components/ChildInput";
@@ -16,8 +16,23 @@ import ResultItem from "./components/ResultItem";
 import FormBox from "./components/FormBox";
 import PeriodToggle from "./components/PeriodToggle";
 import { useTaxCalculator } from "./hooks/useTaxCalculator";
-import type { DiscountsInput } from "./utils/taxCalculator";
+import type { DiscountsInput } from "./utils/TaxCalculator";
 import { computeFlatTax } from "./utils/FlatTax";
+import {
+  globalStyles,
+  RootContainer,
+  HeaderContainer,
+  HeaderTitle,
+  Card,
+  InputRow,
+  HiddenInput,
+  ChildrenInputContainer,
+  ChildrenInputContainerHidden,
+  TaxBaseDisplay,
+  ResultsContainer,
+  FlatTaxContainer,
+  FlatTaxBand,
+} from "./App.styles";
 
 const DEFAULT_FLAT_RATE_PERCENTAGE = 60;
 const PERCENTAGE_DIVISOR = 100;
@@ -102,11 +117,11 @@ function App() {
   const diffMonthly = Math.round(diffYearly / MONTHS_IN_YEAR);
 
   return (
-    <>
-      <div className="header-container">
-        <h1 className="header-title">Kalkulačka</h1>
+    <RootContainer>
+      <GlobalStyles styles={globalStyles} />
+      <HeaderContainer>
+        <HeaderTitle>Kalkulačka</HeaderTitle>
         <Dropdown
-          label="Rok"
           value={selectedYear}
           onChange={(value) => {
             setSelectedYear(Number(value));
@@ -114,39 +129,30 @@ function App() {
           }}
           options={availableYears.map((year) => ({
             value: year,
-            label: String(year),
+            label: `${year}`,
           }))}
         />
-      </div>
-      <div className="card">
+      </HeaderContainer>
+
+      <Card>
         <AdditionalInfo
           isChecked={withVAT}
-          setIsChecked={(checked) => {
-            setWithVAT(checked);
-            const newEarningsWithoutVAT = checked
-              ? earnings / (1 + earningsVATRate)
-              : earnings;
-
-            if (newEarningsWithoutVAT > yearData.flatRate.limit && isFlatRate) {
-              setSavedFlatRate(flatRate);
-              setIsFlatRate(false);
-              setFlatRate(0);
-              setExpenses(savedExpenses);
-            } else if (isFlatRate) {
-              setExpenses(
-                Math.round(newEarningsWithoutVAT * (Number(flatRate) / PERCENTAGE_DIVISOR))
-              );
-            }
-          }}
-          text="s DPH"
+          setIsChecked={setWithVAT}
+          text="Částky včetně DPH"
         />
-        <div className="input-row">
+        <InputRow>
           <MoneyInput
-            number={earnings}
-            setNumber={(number) => {
-              const newEarnings = Number(number);
-              setEarnings(newEarnings);
-
+            number={withVAT ? earnings : earningsWithoutVAT}
+            setNumber={(newEarningsValue) => {
+              const newEarnings = typeof newEarningsValue === 'function' 
+                ? newEarningsValue(withVAT ? earnings : earningsWithoutVAT)
+                : newEarningsValue;
+              
+              if (withVAT) {
+                setEarnings(newEarnings);
+              } else {
+                setEarnings(newEarnings);
+              }
               const newEarningsWithoutVAT = withVAT
                 ? newEarnings / (1 + earningsVATRate)
                 : newEarnings;
@@ -177,7 +183,7 @@ function App() {
               })) || []
             }
           />
-        </div>
+        </InputRow>
         <VATInfo
           amount={withVAT ? earningsWithoutVAT : earningsWithVAT}
           withVAT={withVAT}
@@ -212,7 +218,7 @@ function App() {
             setExpenses(savedExpenses);
             return null;
           })()}
-        <div className="input-row">
+        <InputRow>
           <MoneyInput
             number={expenses}
             setNumber={setExpenses}
@@ -236,7 +242,7 @@ function App() {
               ]}
             />
           )}
-        </div>
+        </InputRow>
 
         <h2>Slevy na dani</h2>
         <Discount
@@ -256,13 +262,13 @@ function App() {
             text="Manžel/manželka se ZTP/P"
           />
         ) : (
-          <div className="hidden-input">
+          <HiddenInput>
             <AdditionalInfo
               isChecked={false}
               setIsChecked={() => {}}
               text="Manžel/manželka se ZTP/P"
             />
-          </div>
+          </HiddenInput>
         )}
         <Discount
           isChecked={disabledDiscount}
@@ -291,7 +297,7 @@ function App() {
           text="Sleva na dítě/děti"
         />
         {childrenDiscount ? (
-          <div className="children-input-container">
+          <ChildrenInputContainer>
             <ChildInput
               number={numberOfChildren}
               setNumber={setNumberOfChildren}
@@ -304,9 +310,9 @@ function App() {
               text="Z toho ZTP/P"
               maxNumber={numberOfChildren}
             />
-          </div>
+          </ChildrenInputContainer>
         ) : (
-          <div className="children-input-container-hidden">
+          <ChildrenInputContainerHidden>
             <ChildInput
               number={numberOfChildren}
               setNumber={setNumberOfChildren}
@@ -319,7 +325,7 @@ function App() {
               text="Z toho ZTP/P"
               maxNumber={numberOfChildren}
             />
-          </div>
+          </ChildrenInputContainerHidden>
         )}
 
         <h2>Nezdanitelné částky</h2>
@@ -339,14 +345,14 @@ function App() {
           text="Ostatní:"
         />
 
-        <div className="tax-base-display">
+        <TaxBaseDisplay>
           <b>Základ daně</b>
           <br />
           {taxes.taxBase.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč
-        </div>
-      </div>
+        </TaxBaseDisplay>
+      </Card>
 
-      <div className="results-container">
+      <ResultsContainer>
         <FormBox title="Odvody a daně">
           <ResultItem
             number={isMonthly ? Math.round(taxes.health / MONTHS_IN_YEAR) : taxes.health}
@@ -373,12 +379,12 @@ function App() {
 
         {flatTax.bandId !== null && (
           <FormBox title="Paušální daň">
-            <div className="flatTax-container">
+            <FlatTaxContainer>
               <div>
                 <b>Pásmo paušální daně</b>
               </div>
-              <div className="flatTax-band">{flatTax.bandId ?? 0}</div>
-            </div>
+              <FlatTaxBand>{flatTax.bandId ?? 0}</FlatTaxBand>
+            </FlatTaxContainer>
             <ResultItem number={flatTaxMonthly} text="Měsíční platba" />
             <ResultItem number={flatTaxYearly} text="Ročně celkem" />
             <ResultItem
@@ -393,8 +399,8 @@ function App() {
             />
           </FormBox>
         )}
-      </div>
-    </>
+      </ResultsContainer>
+    </RootContainer>
   );
 }
 

@@ -1,7 +1,6 @@
 import React from "react";
 import BooleanButton from "./BooleanButton";
-import { Tooltip } from "@mui/material";
-import "./Components.css";
+import { Tooltip, Box, styled } from "@mui/material";
 
 interface DiscountProps {
   isChecked: boolean;
@@ -11,15 +10,35 @@ interface DiscountProps {
   disabledTooltip?: string;
 }
 
-export default function Discount({ isChecked, setIsChecked, text, disabled = false, disabledTooltip = "" }: DiscountProps) {
+const AdditionalInfoContainer = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  width: "100%",
+  gap: "1em",
+});
+
+const AdditionalInfoContent = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  gap: "1em",
+});
+
+export default function Discount({
+  isChecked,
+  setIsChecked,
+  text,
+  disabled = false,
+  disabledTooltip = "",
+}: DiscountProps) {
   return (
-    <div className="additional-info-container">
+    <AdditionalInfoContainer>
       <Tooltip title={disabled && disabledTooltip ? disabledTooltip : ""} arrow>
-        <div className="additional-info-content">
+        <AdditionalInfoContent>
           <label>{text}</label>
           <BooleanButton isChecked={isChecked} setIsChecked={setIsChecked} disabled={disabled} />
-        </div>
+        </AdditionalInfoContent>
       </Tooltip>
-    </div>
+    </AdditionalInfoContainer>
   );
 }
