@@ -178,7 +178,7 @@ function App() {
                 : checked;
             setValue("withVAT", value);
           }}
-          text="Částky včetně DPH"
+          text="s DPH"
         />
         <InputRow>
           <MoneyInput

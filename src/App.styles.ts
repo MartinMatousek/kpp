@@ -50,6 +50,11 @@ export const globalStyles = {
     "&:focus, &:focus-visible": {
       outline: "4px auto -webkit-focus-ring-color",
     },
+    '@media (max-width: 600px)': {
+      fontSize: '0.85em',
+      padding: '0.4em 0.7em',
+      minWidth: 'unset',
+    },
   },
   "@media (prefers-color-scheme: light)": {
     ":root": {
@@ -91,12 +96,31 @@ export const Card = styled(Box)({
   padding: "20px",
   marginBottom: "20px",
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  overflow: 'hidden',
+  '@media (max-width: 600px)': {
+    padding: '8px',
+  },
 });
 
 export const InputRow = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: "1em",
+  flexWrap: 'wrap',
+  '@media (max-width: 600px)': {
+    gap: '0.5em',
+  },
+});
+// Fix for AdditionalInfo overflow on mobile
+export const AdditionalInfoContainer = styled(Box)({
+  minWidth: 0,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  '@media (max-width: 600px)': {
+    fontSize: '0.95em',
+    maxWidth: '90vw',
+  },
 });
 
 export const HiddenInput = styled(Box)({

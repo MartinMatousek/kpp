@@ -13,18 +13,24 @@ const NonTaxableInputContainer = styled(Box)({
   alignItems: "center",
   width: "100%",
   margin: "0.5em 0",
+  "@media (max-width: 600px)": {
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: "0.5em",
+  },
 });
 
 const NonTaxableInputLabel = styled("span")({
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
+  "@media (max-width: 600px)": {
+    whiteSpace: "normal",
+    textOverflow: "unset",
+    overflow: "visible",
+  },
 });
 
-const NonTaxableInputWrapper = styled(Box)({
-  position: "relative",
-  display: "inline-block",
-});
 
 const StyledInput = styled("input")({
   width: "12em",
@@ -36,6 +42,7 @@ const StyledInput = styled("input")({
   border: "2px solid #BEBEBE",
   transition: "border-color 0.2s ease",
   textAlign: "right",
+  boxSizing: "border-box",
   "&:hover": {
     borderColor: "#BEBEBE",
   },
@@ -51,6 +58,9 @@ const StyledInput = styled("input")({
     appearance: "textfield",
     MozAppearance: "textfield",
   },
+  "@media (max-width: 600px)": {
+    width: "100%",
+  },
 });
 
 const CurrencyLabel = styled("span")({
@@ -62,8 +72,15 @@ const CurrencyLabel = styled("span")({
   pointerEvents: "none",
 });
 
+const NonTaxableInputWrapper = styled(Box)({
+  position: "relative",
+  display: "inline-block",
+  "@media (max-width: 600px)": {
+    width: "100%",
+  },
+});
+
 export default function NonTaxableInput({ number, setNumber, text }: NonTaxableInputProps) {
-  const [displayValue, setDisplayValue] = React.useState(formatNumber(number));
   const spanRef = React.useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
 
@@ -73,17 +90,41 @@ export default function NonTaxableInput({ number, setNumber, text }: NonTaxableI
     }
   };
 
-  function formatNumber(value: number): string {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const [inputValue, setInputValue] = React.useState(number === 0 ? '' : number.toString());
+  const [isFocused, setIsFocused] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (!isFocused) {
+      setInputValue(number === 0 ? '' : formatNumber(number));
+    }
+  }, [number, isFocused]);
+
+  function formatNumber(value: number | string): string {
+    const str = typeof value === 'number' ? value.toString() : value;
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/\s/g, "");
-    const numValue = Number(rawValue);
+    const raw = e.target.value.replace(/\s/g, '');
+    setInputValue(raw);
+    const numValue = raw === '' ? 0 : Number(raw);
     if (!isNaN(numValue)) {
       setNumber(numValue);
-      setDisplayValue(formatNumber(numValue));
     }
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    setInputValue(number === 0 ? '' : formatNumber(number));
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    setInputValue(number === 0 ? '' : number.toString());
+    setTimeout(() => {
+      if (inputRef.current) inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+    }, 0);
   };
 
   return (
@@ -94,7 +135,15 @@ export default function NonTaxableInput({ number, setNumber, text }: NonTaxableI
         </NonTaxableInputLabel>
       </Tooltip>
       <NonTaxableInputWrapper>
-        <StyledInput type="text" onChange={handleChange} value={displayValue} />
+        <StyledInput
+          ref={inputRef}
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          placeholder="0"
+        />
         <CurrencyLabel>Kč</CurrencyLabel>
       </NonTaxableInputWrapper>
     </NonTaxableInputContainer>

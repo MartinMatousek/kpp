@@ -16,6 +16,9 @@ const MoneyInputContainer = styled(Box)({
 
 const MoneyInputLabel = styled("label")({
   minWidth: "5em",
+  "@media (max-width: 600px)": {
+    minWidth: "4em",
+  },
 });
 
 const MoneyInputWrapper = styled(Box)({
@@ -55,6 +58,12 @@ const StyledInput = styled("input")({
     appearance: "textfield",
     MozAppearance: "textfield",
   },
+  "@media (max-width: 600px)": {
+    width: "9em",
+    marginLeft: "1em",
+    fontSize: "1.1em",
+    boxSizing: "border-box",
+  },
 });
 
 const CurrencyLabel = styled("span")({
@@ -67,16 +76,41 @@ const CurrencyLabel = styled("span")({
 });
 
 export default function MoneyInput({ number, setNumber, text, disabled = false }: MoneyInputProps) {
-  function formatNumber(value: number): string {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  function formatNumber(value: number | string): string {
+    const str = typeof value === 'number' ? value.toString() : value;
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 
+  const [inputValue, setInputValue] = React.useState(number === 0 ? '' : number.toString());
+  const [isFocused, setIsFocused] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (!isFocused) {
+      setInputValue(number === 0 ? '' : formatNumber(number));
+    }
+  }, [number, isFocused]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/\s/g, "");
-    const numValue = Number(rawValue);
+    const raw = e.target.value.replace(/\s/g, '');
+    setInputValue(raw);
+    const numValue = raw === '' ? 0 : Number(raw);
     if (!isNaN(numValue)) {
       setNumber(numValue);
     }
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    setInputValue(number === 0 ? '' : formatNumber(number));
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    setInputValue(number === 0 ? '' : number.toString());
+    setTimeout(() => {
+      if (inputRef.current) inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+    }, 0);
   };
 
   return (
@@ -84,10 +118,14 @@ export default function MoneyInput({ number, setNumber, text, disabled = false }
       <MoneyInputLabel>{text}</MoneyInputLabel>
       <MoneyInputWrapper>
         <StyledInput
+          ref={inputRef}
           type="text"
           disabled={disabled}
+          value={inputValue}
           onChange={handleChange}
-          value={formatNumber(number)}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          placeholder="0"
         />
         <CurrencyLabel>Kč</CurrencyLabel>
       </MoneyInputWrapper>
