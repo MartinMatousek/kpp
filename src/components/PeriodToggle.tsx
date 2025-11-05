@@ -13,7 +13,9 @@ const PeriodToggleContainer = styled(Box)({
   marginTop: "1rem",
 });
 
-const ToggleButton = styled(Button)<{ $active?: boolean }>(({ $active }) => ({
+const ToggleButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "$active",
+})<{ $active?: boolean }>(({ $active }) => ({
   padding: "0.6rem 1.5rem",
   borderRadius: "1.5rem",
   border: `2px solid ${COLORS.border}`,
