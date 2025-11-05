@@ -17,7 +17,7 @@ const MoneyInputContainer = styled(Box)({
 const MoneyInputLabel = styled("label")({
   minWidth: "5em",
   "@media (max-width: 600px)": {
-    minWidth: "4em",
+    minWidth: "3em",
   },
 });
 
@@ -27,7 +27,7 @@ const MoneyInputWrapper = styled(Box)({
 });
 
 const StyledInput = styled("input")({
-  width: "12em",
+  width: "15em",
   height: "2em",
   marginLeft: "2em",
   paddingLeft: "1em",
@@ -37,32 +37,16 @@ const StyledInput = styled("input")({
   border: "2px solid #BEBEBE",
   transition: "border-color 0.2s ease",
   textAlign: "right",
+  boxSizing: "border-box",
   "&:hover": {
-    borderColor: "#BEBEBE",
+    borderColor: "#999",
   },
   "&:focus": {
     outline: "none",
     borderColor: "#06bb00ff",
   },
-  "&:disabled": {
-    backgroundColor: "#f5f5f5",
-    color: "#999",
-    borderColor: "#DDDDDD",
-    cursor: "not-allowed",
-  },
-  "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-    WebkitAppearance: "none",
-    margin: 0,
-  },
-  "&[type=number]": {
-    appearance: "textfield",
-    MozAppearance: "textfield",
-  },
-  "@media (max-width: 600px)": {
-    width: "9em",
-    marginLeft: "1em",
-    fontSize: "1.1em",
-    boxSizing: "border-box",
+  "@media (max-width: 900px)": {
+    width: "10em",
   },
 });
 

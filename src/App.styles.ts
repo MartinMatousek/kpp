@@ -17,11 +17,7 @@ export const globalStyles = {
   },
   a: {
     fontWeight: 500,
-    color: "#646cff",
     textDecoration: "inherit",
-    "&:hover": {
-      color: "#535bf2",
-    },
   },
   body: {
     margin: 0,
@@ -44,9 +40,6 @@ export const globalStyles = {
     backgroundColor: "#1a1a1a",
     cursor: "pointer",
     transition: "border-color 0.25s",
-    "&:hover": {
-      borderColor: "#646cff",
-    },
     "&:focus, &:focus-visible": {
       outline: "4px auto -webkit-focus-ring-color",
     },
@@ -61,16 +54,12 @@ export const globalStyles = {
       color: "#213547",
       backgroundColor: "#ffffff",
     },
-    "a:hover": {
-      color: "#747bff",
-    },
     button: {
       backgroundColor: "#f9f9f9",
     },
   },
 };
 
-// Styled components
 export const RootContainer = styled(Box)({
   maxWidth: "555px",
   width: "60vw",
@@ -79,14 +68,24 @@ export const RootContainer = styled(Box)({
 });
 
 export const HeaderContainer = styled(Box)({
+  position: "relative",
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "center",
   alignItems: "center",
   marginBottom: "1em",
+  gap: "1em",
+});
+
+export const HeaderActions = styled(Box)({
+  position: "absolute",
+  right: 0,
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5em",
 });
 
 export const HeaderTitle = styled("h1")({
-  marginLeft: "15%",
+  margin: 0,
 });
 
 export const Card = styled(Box)({
@@ -111,7 +110,7 @@ export const InputRow = styled(Box)({
     gap: '0.5em',
   },
 });
-// Fix for AdditionalInfo overflow on mobile
+
 export const AdditionalInfoContainer = styled(Box)({
   minWidth: 0,
   overflow: 'hidden',
@@ -175,4 +174,33 @@ export const FlatTaxBand = styled(Box)({
   fontSize: "1.2em",
   fontWeight: "bold",
   marginTop: "0.4em",
+});
+
+export const FooterContainer = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "1em",
+  marginTop: "2em",
+  paddingBottom: "2em",
+});
+
+export const DisclaimerButton = styled("button")({
+  padding: "0.4em 0.8em",
+  fontSize: "0.9em",
+  cursor: "pointer",
+  borderRadius: "6px",
+  border: "1px solid #ddd",
+  background: "#f9f9f9",
+  whiteSpace: "nowrap",
+  transition: "background-color 0.2s ease",
+  fontFamily: "inherit",
+  "&:focus, &:focus-visible": {
+    outline: "none",
+    boxShadow: "none",
+  },
+  "&:hover": {
+    backgroundColor: "#e8e8e8",
+    outline: "none",
+  },
 });

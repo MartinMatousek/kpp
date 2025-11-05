@@ -7,6 +7,7 @@ import ChildInput from "./components/ChildInput";
 import MoneyInput from "./components/MoneyInput";
 import VATInfo from "./components/VATInfo";
 import Dropdown from "./components/Dropdown";
+import Disclaimer from "./components/Disclaimer";
 import {
   getAvailableYears,
   loadYearData,
@@ -31,6 +32,7 @@ import {
   RootContainer,
   HeaderContainer,
   HeaderTitle,
+  HeaderActions,
   Card,
   InputRow,
   HiddenInput,
@@ -40,6 +42,8 @@ import {
   ResultsContainer,
   FlatTaxContainer,
   FlatTaxBand,
+  FooterContainer,
+  DisclaimerButton,
 } from "./App.styles";
 
 interface FormData {
@@ -72,6 +76,8 @@ function App() {
   const availableYears: number[] = getAvailableYears();
   const currentYear = new Date().getFullYear();
   const initialYearData = loadYearData(currentYear);
+
+  const [disclaimerOpen, setDisclaimerOpen] = useState(false);
 
   const { watch, setValue } = useForm<FormData>({
     defaultValues: {
@@ -155,18 +161,25 @@ function App() {
       <GlobalStyles styles={globalStyles} />
       <HeaderContainer>
         <HeaderTitle>Kalkulačka</HeaderTitle>
-        <Dropdown
-          value={formValues.selectedYear}
-          onChange={(value) => {
-            setValue("selectedYear", Number(value));
-            setYearData(loadYearData(Number(value)));
-          }}
-          options={availableYears.map((year) => ({
-            value: year,
-            label: `${year}`,
-          }))}
-        />
+        <HeaderActions>
+          <Dropdown
+            value={formValues.selectedYear}
+            onChange={(value) => {
+              setValue("selectedYear", Number(value));
+              setYearData(loadYearData(Number(value)));
+            }}
+            options={availableYears.map((year) => ({
+              value: year,
+              label: `${year}`,
+            }))}
+          />
+        </HeaderActions>
       </HeaderContainer>
+
+      <Disclaimer
+        open={disclaimerOpen}
+        onClose={() => setDisclaimerOpen(false)}
+      />
 
       <Card>
         <AdditionalInfo
@@ -507,8 +520,7 @@ function App() {
           <br />
           {taxes.taxBase.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč
         </TaxBaseDisplay>
-      </Card>
-
+  </Card>
       <ResultsContainer>
         <FormBox title="Odvody a daně">
           <ResultItem
@@ -574,6 +586,12 @@ function App() {
           </FormBox>
         )}
       </ResultsContainer>
+
+      <FooterContainer>
+        <DisclaimerButton onClick={() => setDisclaimerOpen(true)}>
+          Vyloučení zodpovědnosti
+        </DisclaimerButton>
+      </FooterContainer>
     </RootContainer>
   );
 }

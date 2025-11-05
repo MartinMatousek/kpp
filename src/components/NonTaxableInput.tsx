@@ -15,7 +15,7 @@ const NonTaxableInputContainer = styled(Box)({
   margin: "0.5em 0",
   "@media (max-width: 600px)": {
     flexDirection: "column",
-    alignItems: "stretch",
+    alignItems: "center",
     gap: "0.5em",
   },
 });
@@ -44,7 +44,7 @@ const StyledInput = styled("input")({
   textAlign: "right",
   boxSizing: "border-box",
   "&:hover": {
-    borderColor: "#BEBEBE",
+    borderColor: "#999",
   },
   "&:focus": {
     outline: "none",
@@ -76,7 +76,7 @@ const NonTaxableInputWrapper = styled(Box)({
   position: "relative",
   display: "inline-block",
   "@media (max-width: 600px)": {
-    width: "100%",
+    width: "60%",
   },
 });
 

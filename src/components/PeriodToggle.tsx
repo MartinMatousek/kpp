@@ -15,7 +15,7 @@ const PeriodToggleContainer = styled(Box)({
 const ToggleButton = styled("button")<{ $active?: boolean }>(({ $active }) => ({
   padding: "0.6rem 1.5rem",
   borderRadius: "1.5rem",
-  border: $active ? "2px solid #FFFFFF" : "2px solid #BEBEBE",
+  border: $active ? "2px solid #BEBEBE" : "2px solid #BEBEBE",
   background: $active ? "#06bb00ff" : "#fff",
   color: $active ? "#fff" : "inherit",
   fontWeight: 400,
@@ -23,7 +23,7 @@ const ToggleButton = styled("button")<{ $active?: boolean }>(({ $active }) => ({
   fontSize: "1rem",
   outline: "none",
   "&:hover": {
-    borderColor: $active ? "#FFFFFF" : "#BEBEBE",
+    borderColor: $active ? "#999" : "#999",
   },
   "&:focus": {
     outline: "none",
