@@ -49,7 +49,7 @@ const StyledInput = styled(Input)({
     outline: "none",
     borderColor: COLORS.green,
   },
-  "@media (max-width: 900px)": {
+  "@media (max-width: 910px)": {
     width: "10em",
   },
 });
