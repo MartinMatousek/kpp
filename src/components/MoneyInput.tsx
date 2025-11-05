@@ -50,7 +50,7 @@ const StyledInput = styled(Input)({
     borderColor: COLORS.green,
   },
   "@media (max-width: 910px)": {
-    width: "10em",
+    width: "11em",
   },
 });
 
