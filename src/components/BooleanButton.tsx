@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, styled } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface BooleanButtonProps {
   isChecked: boolean;
@@ -9,24 +10,24 @@ interface BooleanButtonProps {
 
 const StyledSwitch = styled(Switch)({
   "& .MuiSwitch-switchBase.Mui-checked": {
-    color: "#ffffff",
+    color: COLORS.white,
   },
   "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-    backgroundColor: "#06bb00ff",
-    border: "1px solid #BEBEBE",
+    backgroundColor: COLORS.green,
+    border: `1px solid ${COLORS.border}`,
   },
   "& .MuiSwitch-switchBase": {
-    color: "#BEBEBE",
+    color: COLORS.border,
   },
   "& .MuiSwitch-thumb": {
-    border: "1px solid #BEBEBE",
+    border: `1px solid ${COLORS.border}`,
     width: 20,
     height: 20,
     boxSizing: "border-box",
   },
   "& .MuiSwitch-track": {
-    backgroundColor: "#ffffff",
-    border: "1px solid #BEBEBE",
+    backgroundColor: COLORS.white,
+    border: `1px solid ${COLORS.border}`,
   },
 });
 

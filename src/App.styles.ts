@@ -1,4 +1,14 @@
-import { Box, styled } from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
+
+export const COLORS = {
+  green: "#06bb00ff",
+  greenHover: "#05aa00",
+  border: "#BEBEBE",
+  borderHover: "#999",
+  white: "#ffffff",
+  black: "#000000",
+  red: "#dc3545"
+} as const;
 
 export const globalStyles = {
   ":root": {
@@ -6,7 +16,7 @@ export const globalStyles = {
     lineHeight: 1.5,
     fontWeight: 400,
     fontSize: "clamp(8px, 2vw, 16px)",
-    color: "rgba(0, 0, 0, 0.87)",
+    color: COLORS.black,
     fontSynthesis: "none",
     textRendering: "optimizeLegibility",
     WebkitFontSmoothing: "antialiased",
@@ -37,7 +47,7 @@ export const globalStyles = {
     fontSize: "1em",
     fontWeight: 500,
     fontFamily: "inherit",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: COLORS.black,
     cursor: "pointer",
     transition: "border-color 0.25s",
     "&:focus, &:focus-visible": {
@@ -51,11 +61,11 @@ export const globalStyles = {
   },
   "@media (prefers-color-scheme: light)": {
     ":root": {
-      color: "#213547",
-      backgroundColor: "#ffffff",
+      color: COLORS.black,
+      backgroundColor: COLORS.white,
     },
     button: {
-      backgroundColor: "#f9f9f9",
+      backgroundColor: COLORS.white,
     },
   },
 };
@@ -77,6 +87,10 @@ export const HeaderContainer = styled(Box)({
   paddingTop: "1em",
   paddingBottom: "1em",
   gap: "1em",
+  "@media (max-width: 600px)": {
+    flexDirection: "column",
+    gap: "0.5em",
+  },
 });
 
 export const HeaderActions = styled(Box)({
@@ -85,6 +99,10 @@ export const HeaderActions = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: "0.5em",
+  zIndex: 10,
+  "@media (max-width: 600px)": {
+    position: "static",
+  },
 });
 
 export const HeaderTitle = styled("h1")({
@@ -92,12 +110,12 @@ export const HeaderTitle = styled("h1")({
 });
 
 export const Card = styled(Box)({
-  backgroundColor: "#f9f9f9",
-  border: "1px solid #ddd",
+  backgroundColor: COLORS.white,
+  border: `1px solid ${COLORS.border}`,
   borderRadius: "8px",
   padding: "20px",
   marginBottom: "20px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  boxShadow: `0 2px 4px ${COLORS.border}`,
   overflow: 'hidden',
   '@media (max-width: 600px)': {
     padding: '8px',
@@ -171,9 +189,9 @@ export const FlatTaxBand = styled(Box)({
   width: "1.8rem",
   height: "1.8rem",
   borderRadius: "20%",
-  border: "2px solid #BEBEBE",
-  backgroundColor: "#fff",
-  color: "black",
+  border: `2px solid ${COLORS.border}`,
+  backgroundColor: COLORS.white,
+  color: COLORS.black,
   fontSize: "1.2em",
   fontWeight: "bold",
   marginTop: "0.4em",
@@ -188,22 +206,24 @@ export const FooterContainer = styled(Box)({
   paddingBottom: "2em",
 });
 
-export const DisclaimerButton = styled("button")({
+export const DisclaimerButton = styled(Button)({
   padding: "0.4em 0.8em",
   fontSize: "0.9em",
   cursor: "pointer",
   borderRadius: "6px",
-  border: "1px solid #ddd",
-  background: "#f9f9f9",
+  border: `1px solid ${COLORS.border}`,
+  background: COLORS.white,
+  color: COLORS.black,
   whiteSpace: "nowrap",
   transition: "background-color 0.2s ease",
   fontFamily: "inherit",
+  textTransform: "none",
   "&:focus, &:focus-visible": {
     outline: "none",
     boxShadow: "none",
   },
   "&:hover": {
-    backgroundColor: "#e8e8e8",
+    border: `1px solid ${COLORS.borderHover}`,
     outline: "none",
   },
 });

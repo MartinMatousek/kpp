@@ -1,5 +1,6 @@
 import React from "react";
-import { Tooltip, Box, styled } from "@mui/material";
+import { Tooltip, Box, styled, Input } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface NonTaxableInputProps {
   number: number;
@@ -32,23 +33,26 @@ const NonTaxableInputLabel = styled("span")({
 });
 
 
-const StyledInput = styled("input")({
+const StyledInput = styled(Input)({
   width: "12em",
   height: "2em",
   paddingLeft: "1em",
   paddingRight: "2.5em",
   borderRadius: "1em",
   fontSize: "1.2em",
-  border: "2px solid #BEBEBE",
+  border: `2px solid ${COLORS.border}`,
   transition: "border-color 0.2s ease",
   textAlign: "right",
   boxSizing: "border-box",
+  "&:before, &:after": {
+    display: "none",
+  },
   "&:hover": {
-    borderColor: "#999",
+    borderColor: COLORS.borderHover,
   },
   "&:focus": {
     outline: "none",
-    borderColor: "#06bb00ff",
+    borderColor: COLORS.green,
   },
   "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
     WebkitAppearance: "none",
@@ -68,7 +72,7 @@ const CurrencyLabel = styled("span")({
   right: "1em",
   top: "50%",
   transform: "translateY(-50%)",
-  color: "#666",
+  color: COLORS.border,
   pointerEvents: "none",
 });
 

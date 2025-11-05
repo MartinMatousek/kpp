@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface ResultItemProps {
   number: number;
@@ -34,14 +35,14 @@ const ResultBox = styled(Box)({
 const ResultValue = styled("span")<{ isPositive?: boolean; isNegative?: boolean }>(
   ({ isPositive, isNegative }) => ({
     fontWeight: 600,
-    color: isPositive ? "#dc3545" : isNegative ? "#06bb00ff" : "inherit",
+    color: isPositive ? COLORS.red : isNegative ? COLORS.green : "inherit",
   })
 );
 
 const ResultCurrency = styled("span")<{ isPositive?: boolean; isNegative?: boolean }>(
   ({ isPositive, isNegative }) => ({
     marginLeft: "0.35rem",
-    color: isPositive ? "#dc354580" : isNegative ? "#06bb0080" : "#666",
+    color: isPositive ? `${COLORS.red}80` : isNegative ? `${COLORS.green}80` : COLORS.border,
   })
 );
 

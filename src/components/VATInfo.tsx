@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface VATInfoProps {
   amount: number;
@@ -7,7 +8,7 @@ interface VATInfoProps {
 
 const VATInfoContainer = styled(Box)({
   fontSize: "0.9em",
-  color: "#BEBEBE",
+  color: COLORS.border,
   marginLeft: "6em",
   marginTop: "0.5em",
   textDecoration: "underline",

@@ -8,6 +8,7 @@ import {
   styled,
   Box,
 } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface DisclaimerProps {
   open: boolean;
@@ -17,7 +18,7 @@ interface DisclaimerProps {
 const StyledDialog = styled(Dialog)({
   "& .MuiPaper-root": {
     borderRadius: "8px",
-    border: "1px solid #ddd",
+    border: `1px solid ${COLORS.border}`,
   },
   "& .MuiBackdrop-root": {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -25,32 +26,32 @@ const StyledDialog = styled(Dialog)({
 });
 
 const StyledDialogTitle = styled(DialogTitle)({
-  backgroundColor: "#f9f9f9",
-  borderBottom: "1px solid #ddd",
+  backgroundColor: COLORS.white,
+  borderBottom: `1px solid ${COLORS.border}`,
   fontSize: "1.3em",
   fontWeight: 600,
 });
 
 const StyledDialogContent = styled(DialogContent)({
   padding: "24px",
-  backgroundColor: "#fff",
+  backgroundColor: COLORS.white,
 });
 
 const StyledTypography = styled(Typography)({
   marginBottom: "16px",
   lineHeight: 1.6,
-  color: "rgba(0, 0, 0, 0.87)",
+  color: COLORS.black,
 });
 
 const StyledButton = styled(Button)({
-  backgroundColor: "#06bb00ff",
-  color: "#fff",
+  backgroundColor: COLORS.green,
+  color: COLORS.white,
   padding: "0.5em 1.5em",
   borderRadius: "6px",
   textTransform: "none",
   fontSize: "0.95em",
   "&:hover": {
-    backgroundColor: "#059900",
+    backgroundColor: COLORS.greenHover,
   },
   "&:focus": {
     outline: "none",

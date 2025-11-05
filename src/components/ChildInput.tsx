@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, styled } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface ChildInputProps {
   number: number;
@@ -20,17 +21,17 @@ const StyledInput = styled("input")({
   paddingRight: "0.3em",
   borderRadius: "1em",
   fontSize: "1em",
-  border: "2px solid #BEBEBE",
+  border: `2px solid ${COLORS.border}`,
   transition: "border-color 0.2s ease",
   textAlign: "center",
   appearance: "textfield",
   MozAppearance: "textfield",
   "&:hover": {
-    borderColor: "#BEBEBE",
+    borderColor: COLORS.borderHover,
   },
   "&:focus": {
     outline: "none",
-    borderColor: "#06bb00ff",
+    borderColor: COLORS.green,
   },
   "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
     opacity: 1,

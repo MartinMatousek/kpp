@@ -1,4 +1,5 @@
-import { Box, styled } from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface PeriodToggleProps {
   isMonthly: boolean;
@@ -12,18 +13,19 @@ const PeriodToggleContainer = styled(Box)({
   marginTop: "1rem",
 });
 
-const ToggleButton = styled("button")<{ $active?: boolean }>(({ $active }) => ({
+const ToggleButton = styled(Button)<{ $active?: boolean }>(({ $active }) => ({
   padding: "0.6rem 1.5rem",
   borderRadius: "1.5rem",
-  border: $active ? "2px solid #BEBEBE" : "2px solid #BEBEBE",
-  background: $active ? "#06bb00ff" : "#fff",
-  color: $active ? "#fff" : "inherit",
+  border: `2px solid ${COLORS.border}`,
+  background: $active ? COLORS.green : COLORS.white,
+  color: $active ? COLORS.white : "inherit",
   fontWeight: 400,
   cursor: "pointer",
-  fontSize: "1rem",
+  fontSize: "0.8rem",
+  textTransform: "none",
   outline: "none",
   "&:hover": {
-    borderColor: $active ? "#999" : "#999",
+    borderColor: COLORS.borderHover,
   },
   "&:focus": {
     outline: "none",

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, styled, Typography } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface FormBoxProps {
   title: string;
@@ -7,10 +8,10 @@ interface FormBoxProps {
 }
 
 const FormBoxContainer = styled(Box)({
-  backgroundColor: "#f9f9f9",
-  border: "1px solid #ddd",
+  backgroundColor: COLORS.white,
+  border: `1px solid ${COLORS.border}`,
   borderRadius: "8px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  boxShadow: `0 2px 4px ${COLORS.border}`,
   maxWidth: "24rem",
   minWidth: "18rem",
   margin: "0 auto 5rem",

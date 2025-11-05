@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, styled } from "@mui/material";
+import { Box, Input, InputLabel, styled } from "@mui/material";
+import { COLORS } from "../App.styles";
 
 interface MoneyInputProps {
   number: number;
@@ -14,7 +15,7 @@ const MoneyInputContainer = styled(Box)({
   margin: "0.5em 0",
 });
 
-const MoneyInputLabel = styled("label")({
+const MoneyInputLabel = styled(InputLabel)({
   minWidth: "5em",
   "@media (max-width: 600px)": {
     minWidth: "3em",
@@ -26,7 +27,7 @@ const MoneyInputWrapper = styled(Box)({
   display: "inline-block",
 });
 
-const StyledInput = styled("input")({
+const StyledInput = styled(Input)({
   width: "15em",
   height: "2em",
   marginLeft: "2em",
@@ -34,16 +35,19 @@ const StyledInput = styled("input")({
   paddingRight: "2.5em",
   borderRadius: "1em",
   fontSize: "1.2em",
-  border: "2px solid #BEBEBE",
+  border: `2px solid ${COLORS.border}`,
   transition: "border-color 0.2s ease",
   textAlign: "right",
   boxSizing: "border-box",
+  "&:before, &:after": {
+    display: "none",
+  },
   "&:hover": {
-    borderColor: "#999",
+    borderColor: COLORS.borderHover,
   },
   "&:focus": {
     outline: "none",
-    borderColor: "#06bb00ff",
+    borderColor: COLORS.green,
   },
   "@media (max-width: 900px)": {
     width: "10em",
@@ -55,7 +59,7 @@ const CurrencyLabel = styled("span")({
   right: "1em",
   top: "50%",
   transform: "translateY(-50%)",
-  color: "#666",
+  color: COLORS.border,
   pointerEvents: "none",
 });
 
