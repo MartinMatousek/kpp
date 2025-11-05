@@ -26,6 +26,7 @@ const ToggleButton = styled(Button)<{ $active?: boolean }>(({ $active }) => ({
   outline: "none",
   "&:hover": {
     borderColor: COLORS.borderHover,
+    background: $active ? COLORS.green : COLORS.white,
   },
   "&:focus": {
     outline: "none",
