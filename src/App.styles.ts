@@ -72,7 +72,10 @@ export const HeaderContainer = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  marginTop: "1em",
   marginBottom: "1em",
+  paddingTop: "1em",
+  paddingBottom: "1em",
   gap: "1em",
 });
 
