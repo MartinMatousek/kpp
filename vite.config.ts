@@ -6,7 +6,14 @@ export default defineConfig({
   build: {
     sourcemap: false,
     minify: "esbuild",
-    rollupOptions: {},
-    terserOptions: {},
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          mui: ['@mui/material', '@emotion/react', '@emotion/styled'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
   },
 })
