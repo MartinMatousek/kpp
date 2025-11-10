@@ -6,9 +6,9 @@ on:
       - main
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read & write
+  pages: read & write
+  id-token: read & write
 
 jobs:
   build-deploy:
