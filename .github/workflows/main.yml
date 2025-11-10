@@ -37,6 +37,6 @@ jobs:
         with:
           path: ./dist
       - name: Inspect build output
-        run:  ls -la ./dist || (echo "dist folder missing" && exit 1) du -sh ./dist || true
+        run: ls -la ./dist || (echo "dist folder missing" && exit 1); du -sh ./dist || true
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
