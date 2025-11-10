@@ -591,6 +591,17 @@ function App() {
         <DisclaimerButton onClick={() => setDisclaimerOpen(true)}>
           Vyloučení zodpovědnosti
         </DisclaimerButton>
+        <DisclaimerButton 
+          onClick={() => window.open('https://www.buymeacoffee.com/martinmatousek', '_blank')}
+          sx={{ 
+            backgroundColor: '#967a56',
+            '&:hover': { 
+              backgroundColor: '#7a5e43' 
+            } 
+          }}
+        >
+          ☕ Buy me a coffee
+        </DisclaimerButton>
       </FooterContainer>
     </RootContainer>
   );
