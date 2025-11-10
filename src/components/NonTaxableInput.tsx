@@ -32,7 +32,6 @@ const NonTaxableInputLabel = styled("span")({
   },
 });
 
-
 const StyledInput = styled(Input)({
   width: "12em",
   height: "2em",
@@ -127,7 +126,10 @@ export default function NonTaxableInput({ number, setNumber, text }: NonTaxableI
     setIsFocused(true);
     setInputValue(number === 0 ? '' : number.toString());
     setTimeout(() => {
-      if (inputRef.current) inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+      if (inputRef.current && inputRef.current.value) {
+        const inputLength = inputRef.current.value.length;
+        inputRef.current.setSelectionRange(inputLength, inputLength);
+      }
     }, 0);
   };
 
