@@ -37,25 +37,7 @@ jobs:
         with:
           path: ./dist
 
-      - name: Inspect build output
-        run: |
-          ls -la ./dist || (echo "dist folder missing" && exit 1)
-          du -sh ./dist || true
-
-      - name: Check GitHub Pages enabled
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          status=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages" || true)
-          if [ "$status" != "200" ]; then
-            echo "ERROR: GitHub Pages is not enabled for this repository (HTTP $status)."
-            echo "Enable Pages at: https://github.com/$GITHUB_REPOSITORY/settings/pages"
-            exit 1
-          fi
-
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
