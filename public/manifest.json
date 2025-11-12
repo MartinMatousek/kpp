@@ -1,0 +1,16 @@
+{
+  "name": "Kalkulačka daní pro podnikatele",
+  "short_name": "Kalkulačka",
+  "description": "Bezplatná online kalkulačka pro výpočet daně z příjmu, paušální daně a pojistného pro OSVČ a podnikatele v ČR",
+  "start_url": "/kpp/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#06bb00ff",
+  "icons": [
+    {
+      "src": "/kpp/icon.png",
+      "sizes": "138x143",
+      "type": "image/png"
+    }
+  ]
+}
