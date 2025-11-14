@@ -215,7 +215,7 @@ export const DisclaimerButton = styled(Button)({
   background: COLORS.white,
   color: COLORS.black,
   whiteSpace: "nowrap",
-  transition: "background-color 0.2s ease",
+  transition: "all 0.3s ease",
   fontFamily: "inherit",
   textTransform: "none",
   "&:focus, &:focus-visible": {
@@ -225,6 +225,8 @@ export const DisclaimerButton = styled(Button)({
   "&:hover": {
     border: `1px solid ${COLORS.borderHover}`,
     outline: "none",
+    transform: "translateY(-2px)",
+    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.15)",
   },
 });
 

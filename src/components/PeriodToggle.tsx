@@ -26,9 +26,14 @@ const ToggleButton = styled(Button, {
   fontSize: "0.8rem",
   textTransform: "none",
   outline: "none",
+  transition: "all 0.3s ease",
   "&:hover": {
     borderColor: COLORS.borderHover,
     background: $active ? COLORS.green : COLORS.white,
+    transform: "translateY(-2px)",
+    boxShadow: $active 
+      ? "0 4px 15px rgba(6, 187, 0, 0.3)" 
+      : "0 4px 15px rgba(0, 0, 0, 0.15)",
   },
   "&:focus": {
     outline: "none",
