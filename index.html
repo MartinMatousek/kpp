@@ -16,38 +16,85 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="canonical" href="https://martinmatousek.github.io/kpp/" />
     
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://martinmatousek.github.io/kpp/" />
+    <meta property="og:title" content="Kalkulačka daní pro podnikatele | Výpočet daně z příjmu a paušální daně" />
+    <meta property="og:description" content="Bezplatná online kalkulačka pro výpočet daně z příjmu, paušální daně a pojistného pro OSVČ a podnikatele v ČR. Přesný výpočet čisté mzdy, slev na dani a povinných odvodů." />
+    <meta property="og:image" content="https://martinmatousek.github.io/kpp/icon.png" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:site_name" content="Kalkulačka daní pro podnikatele" />
+    
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://martinmatousek.github.io/kpp/" />
+    <meta property="twitter:title" content="Kalkulačka daní pro podnikatele | Výpočet daně z příjmu a paušální daně" />
+    <meta property="twitter:description" content="Bezplatná online kalkulačka pro výpočet daně z příjmu, paušální daně a pojistného pro OSVČ a podnikatele v ČR." />
+    <meta property="twitter:image" content="https://martinmatousek.github.io/kpp/icon.png" />
+    
     <link rel="preconnect" href="https://cdnjs.buymeacoffee.com" crossorigin />
     <link rel="dns-prefetch" href="https://cdnjs.buymeacoffee.com" />
     
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Kalkulačka daní pro podnikatele",
-      "description": "Bezplatná online kalkulačka pro výpočet daně z příjmu, paušální daně a pojistného pro OSVČ a podnikatele v České republice",
-  "url": "https://martinmatousek.github.io/kpp/",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "Web Browser",
-      "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "CZK"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Martin Matoušek"
-      },
-      "inLanguage": "cs",
-      "featureList": [
-        "Výpočet daně z příjmu",
-        "Paušální daň",
-        "Slevy na dani",
-        "Výpočet pojistného",
-        "DPH kalkulačka",
-        "Výpočet pro OSVČ"
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://martinmatousek.github.io/kpp/#webapp",
+          "name": "Kalkulačka daní pro podnikatele",
+          "alternateName": "KPP Kalkulačka",
+          "description": "Bezplatná online kalkulačka pro výpočet daně z příjmu, paušální daně a pojistného pro OSVČ a podnikatele v České republice",
+          "url": "https://martinmatousek.github.io/kpp/",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web Browser",
+          "browserRequirements": "Requires JavaScript",
+          "screenshot": "https://martinmatousek.github.io/kpp/icon.png",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CZK",
+            "availability": "https://schema.org/InStock"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Martin Matoušek",
+            "@id": "https://martinmatousek.github.io/kpp/#author"
+          },
+          "creator": {
+            "@type": "Person",
+            "name": "Martin Matoušek"
+          },
+          "inLanguage": "cs-CZ",
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "OSVČ a podnikatelé"
+          },
+          "featureList": [
+            "Výpočet daně z příjmu fyzických osob",
+            "Kalkulace paušální daně",
+            "Slevy na dani a odpočty",
+            "Výpočet sociálního a zdravotního pojistného",
+            "DPH kalkulačka",
+            "Výpočty pro OSVČ a malé podnikatele",
+            "Porovnání standardní vs paušální daně"
+          ],
+          "keywords": "kalkulačka daní, paušální daň, OSVČ, daň z příjmu, pojistné, slevy na dani, DPH, podnikatel, Česká republika",
+          "genre": "Finance",
+          "isAccessibleForFree": true
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://martinmatousek.github.io/kpp/#website",
+          "url": "https://martinmatousek.github.io/kpp/",
+          "name": "Kalkulačka daní pro podnikatele",
+          "description": "Bezplatná online kalkulačka pro české podnikatele a OSVČ",
+          "publisher": {
+            "@type": "Person",
+            "name": "Martin Matoušek"
+          },
+          "inLanguage": "cs-CZ"
+        }
       ]
-  }
+    }
   </script>
   </head>
   <body>
