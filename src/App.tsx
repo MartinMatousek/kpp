@@ -46,6 +46,7 @@ import {
   DisclaimerButton,
   CoffeeButton,
 } from "./App.styles";
+import FAQ from "./components/FAQ";
 
 interface FormData {
   earnings: number;
@@ -79,6 +80,7 @@ function App() {
   const initialYearData = loadYearData(currentYear);
 
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
+  const [faqOpen, setFaqOpen] = useState(false);
 
   const { watch, setValue } = useForm<FormData>({
     defaultValues: {
@@ -588,9 +590,17 @@ function App() {
         )}
       </ResultsContainer>
 
+      <FAQ 
+        open={faqOpen}
+        onClose={() => setFaqOpen(false)}
+      />
+
       <FooterContainer>
         <DisclaimerButton onClick={() => setDisclaimerOpen(true)}>
           Vyloučení zodpovědnosti
+        </DisclaimerButton>
+        <DisclaimerButton onClick={() => setFaqOpen(true)}>
+          Často kladené otázky
         </DisclaimerButton>
         <CoffeeButton 
           onClick={() => window.open('https://www.buymeacoffee.com/martinmatousek', '_blank')}

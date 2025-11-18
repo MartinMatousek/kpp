@@ -34,6 +34,7 @@ const StyledDialogTitle = styled(DialogTitle)({
 
 const StyledDialogContent = styled(DialogContent)({
   padding: "24px",
+  marginTop: "16px",
   backgroundColor: COLORS.white,
 });
 
