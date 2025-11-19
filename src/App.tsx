@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { GlobalStyles } from "@mui/material";
 import Discount from "./components/Discount";
 import AdditionalInfo from "./components/AdditionalInfo";
 import ChildInput from "./components/ChildInput";
@@ -28,11 +27,11 @@ import {
   CHILD_CARE_AGE_LIMIT,
 } from "./constants";
 import {
-  globalStyles,
   RootContainer,
   HeaderContainer,
   HeaderTitle,
   HeaderActions,
+  ThemeToggle,
   Card,
   InputRow,
   HiddenInput,
@@ -40,6 +39,7 @@ import {
   ChildrenInputContainerHidden,
   TaxBaseDisplay,
   ResultsContainer,
+
   FlatTaxContainer,
   FlatTaxBand,
   FooterContainer,
@@ -47,6 +47,7 @@ import {
   CoffeeButton,
 } from "./App.styles";
 import FAQ from "./components/FAQ";
+import { useTheme } from "./contexts/ThemeContext";
 
 interface FormData {
   earnings: number;
@@ -75,6 +76,7 @@ interface FormData {
 }
 
 function App() {
+  const { isDarkMode, toggleTheme } = useTheme();
   const availableYears: number[] = getAvailableYears();
   const currentYear = new Date().getFullYear();
   const initialYearData = loadYearData(currentYear);
@@ -161,10 +163,12 @@ function App() {
 
   return (
     <RootContainer>
-      <GlobalStyles styles={globalStyles} />
       <HeaderContainer>
         <HeaderTitle>Kalkulačka</HeaderTitle>
         <HeaderActions>
+          <ThemeToggle onClick={toggleTheme}>
+            {isDarkMode ? "☀️" : "🌘"}
+          </ThemeToggle>
           <Dropdown
             value={formValues.selectedYear}
             onChange={(value) => {

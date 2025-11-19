@@ -1,6 +1,5 @@
 import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
-import { COLORS } from "../App.styles";
 
 interface ResultItemProps {
   number: number;
@@ -16,33 +15,34 @@ const ResultItemContainer = styled(Box)({
   margin: "0.6rem 0",
 });
 
-const ResultTitle = styled(Typography)({
+const ResultTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   textAlign: "center",
-});
+  color: theme.palette.text.primary,
+}));
 
-const ResultBox = styled(Box)({
+const ResultBox = styled(Box)(({ theme }) => ({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
   padding: "0 0.6rem",
-  border: "2px solid #bebebe",
+  border: `2px solid ${theme.palette.divider}`,
   borderRadius: "1.6em",
-  background: "#fff",
+  background: theme.palette.background.paper,
   minWidth: "11rem",
-});
+}));
 
 const ResultValue = styled("span")<{ isPositive?: boolean; isNegative?: boolean }>(
-  ({ isPositive, isNegative }) => ({
+  ({ theme, isPositive, isNegative }) => ({
     fontWeight: 600,
-    color: isPositive ? COLORS.red : isNegative ? COLORS.green : "inherit",
+    color: isPositive ? theme.palette.error.main : isNegative ? theme.palette.success.main : "inherit",
   })
 );
 
 const ResultCurrency = styled("span")<{ isPositive?: boolean; isNegative?: boolean }>(
-  ({ isPositive, isNegative }) => ({
+  ({ theme, isPositive, isNegative }) => ({
     marginLeft: "0.35rem",
-    color: isPositive ? `${COLORS.red}80` : isNegative ? `${COLORS.green}80` : COLORS.border,
+    color: isPositive ? `${theme.palette.error.main}80` : isNegative ? `${theme.palette.success.main}80` : theme.palette.text.secondary,
   })
 );
 

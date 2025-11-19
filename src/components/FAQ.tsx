@@ -12,7 +12,7 @@ import {
   Link 
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { COLORS } from '../App.styles';
+
 
 interface FAQProps {
   open: boolean;
@@ -28,22 +28,24 @@ const StyledDialog = styled(Dialog)({
   },
 });
 
-const StyledDialogTitle = styled(DialogTitle)({
-  backgroundColor: "#f0f0f0",
-  borderBottom: `1px solid ${COLORS.border}`,
+const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : "#f0f0f0",
+  borderBottom: `1px solid ${theme.palette.divider}`,
   fontSize: "1.3em",
   fontWeight: 600,
-});
+}));
 
-const StyledDialogContent = styled(DialogContent)({
+const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
   padding: "16px",
-  marginTop: "16px",
-  backgroundColor: COLORS.white,
-});
+  backgroundColor: theme.palette.background.paper,
+  "&.MuiDialogContent-root": {
+    padding: "24px 24px 24px 24px",
+  },
+}));
 
-const StyledAccordion = styled(Accordion)({
+const StyledAccordion = styled(Accordion)(({ theme }) => ({
   marginBottom: "8px",
-  border: `1px solid ${COLORS.border}`,
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: "8px !important",
   "&:before": {
     display: "none",
@@ -51,10 +53,10 @@ const StyledAccordion = styled(Accordion)({
   "&.Mui-expanded": {
     margin: "8px 0",
   },
-});
+}));
 
-const StyledAccordionSummary = styled(AccordionSummary)({
-  backgroundColor: COLORS.white,
+const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
   borderRadius: "8px",
   "&.Mui-expanded": {
     borderBottomLeftRadius: 0,
@@ -66,35 +68,35 @@ const StyledAccordionSummary = styled(AccordionSummary)({
       margin: "12px 0",
     },
   },
-});
+}));
 
-const StyledAccordionDetails = styled(AccordionDetails)({
-  backgroundColor: "#f9f9f9",
-  borderTop: `1px solid ${COLORS.border}`,
+const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[900] : "#f9f9f9",
+  borderTop: `1px solid ${theme.palette.divider}`,
   padding: "16px 24px",
-});
+}));
 
-const QuestionText = styled(Typography)({
+const QuestionText = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   fontSize: "1em",
-  color: COLORS.black,
-});
+  color: theme.palette.text.primary,
+}));
 
-const AnswerText = styled(Typography)({
+const AnswerText = styled(Typography)(({ theme }) => ({
   fontSize: "0.9em",
   lineHeight: 1.6,
-  color: COLORS.black,
+  color: theme.palette.text.primary,
   marginBottom: "8px",
-});
+}));
 
-const OfficialLink = styled(Link)({
-  color: COLORS.green,
+const OfficialLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.success.main,
   textDecoration: "none",
   fontWeight: 500,
   "&:hover": {
     textDecoration: "underline",
   },
-});
+}));
 
 const faqData = [
   {
@@ -192,18 +194,18 @@ const FAQ: React.FC<FAQProps> = ({ open, onClose }) => {
           </StyledAccordion>
         ))}
       </StyledDialogContent>
-      <DialogActions sx={{ backgroundColor: "#f9f9f9", borderTop: "1px solid #ddd", padding: "16px 24px" }}>
+      <DialogActions sx={{ backgroundColor: (theme) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : "#f9f9f9", borderTop: (theme) => `1px solid ${theme.palette.divider}`, padding: "16px 24px" }}>
         <Button 
           onClick={onClose}
           sx={{
-            backgroundColor: COLORS.green,
-            color: COLORS.white,
+            backgroundColor: (theme) => theme.palette.success.main,
+            color: (theme) => theme.palette.success.contrastText,
             padding: "0.5em 1.5em",
             borderRadius: "6px",
             textTransform: "none",
             fontSize: "0.95em",
             "&:hover": {
-              backgroundColor: COLORS.greenHover,
+              backgroundColor: (theme) => theme.palette.success.dark,
             },
           }}
         >

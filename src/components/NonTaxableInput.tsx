@@ -1,6 +1,5 @@
 import React from "react";
 import { Tooltip, Box, styled, Input } from "@mui/material";
-import { COLORS } from "../App.styles";
 
 interface NonTaxableInputProps {
   number: number;
@@ -21,25 +20,26 @@ const NonTaxableInputContainer = styled(Box)({
   },
 });
 
-const NonTaxableInputLabel = styled("span")({
+const NonTaxableInputLabel = styled("span")(({ theme }) => ({
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
+  color: theme.palette.text.primary,
   "@media (max-width: 600px)": {
     whiteSpace: "normal",
     textOverflow: "unset",
     overflow: "visible",
   },
-});
+}));
 
-const StyledInput = styled(Input)({
+const StyledInput = styled(Input)(({ theme }) => ({
   width: "12em",
   height: "2em",
   paddingLeft: "1em",
   paddingRight: "2.5em",
   borderRadius: "1em",
   fontSize: "1.2em",
-  border: `2px solid ${COLORS.border}`,
+  border: `2px solid ${theme.palette.divider}`,
   transition: "border-color 0.2s ease",
   textAlign: "right",
   boxSizing: "border-box",
@@ -47,11 +47,11 @@ const StyledInput = styled(Input)({
     display: "none",
   },
   "&:hover": {
-    borderColor: COLORS.borderHover,
+    borderColor: theme.palette.text.secondary,
   },
   "&:focus": {
     outline: "none",
-    borderColor: COLORS.green,
+    borderColor: theme.palette.success.main,
   },
   "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
     WebkitAppearance: "none",
@@ -64,16 +64,16 @@ const StyledInput = styled(Input)({
   "@media (max-width: 600px)": {
     width: "100%",
   },
-});
+}));
 
-const CurrencyLabel = styled("span")({
+const CurrencyLabel = styled("span")(({ theme }) => ({
   position: "absolute",
   right: "1em",
   top: "50%",
   transform: "translateY(-50%)",
-  color: COLORS.border,
+  color: theme.palette.text.secondary,
   pointerEvents: "none",
-});
+}));
 
 const NonTaxableInputWrapper = styled(Box)({
   position: "relative",

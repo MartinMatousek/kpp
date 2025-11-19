@@ -1,75 +1,5 @@
 import { Box, Button, styled } from "@mui/material";
 
-export const COLORS = {
-  green: "#06bb00ff",
-  greenHover: "#05aa00",
-  border: "#BEBEBE",
-  borderHover: "#999",
-  white: "#ffffff",
-  black: "#000000",
-  red: "#dc3545"
-} as const;
-
-export const globalStyles = {
-  ":root": {
-    fontFamily: "system-ui, Avenir, Helvetica, Arial, sans-serif",
-    lineHeight: 1.5,
-    fontWeight: 400,
-    fontSize: "clamp(8px, 2vw, 16px)",
-    color: COLORS.black,
-    fontSynthesis: "none",
-    textRendering: "optimizeLegibility",
-    WebkitFontSmoothing: "antialiased",
-    MozOsxFontSmoothing: "grayscale",
-  },
-  "#root": {
-    width: "100%",
-  },
-  a: {
-    fontWeight: 500,
-    textDecoration: "inherit",
-  },
-  body: {
-    margin: 0,
-    display: "flex",
-    placeItems: "center",
-    minWidth: "320px",
-    minHeight: "100vh",
-  },
-  h1: {
-    fontSize: "3.2em",
-    lineHeight: 1.1,
-  },
-  button: {
-    borderRadius: "8px",
-    border: "1px solid transparent",
-    padding: "0.6em 1.2em",
-    fontSize: "1em",
-    fontWeight: 500,
-    fontFamily: "inherit",
-    backgroundColor: COLORS.black,
-    cursor: "pointer",
-    transition: "border-color 0.25s",
-    "&:focus, &:focus-visible": {
-      outline: "4px auto -webkit-focus-ring-color",
-    },
-    '@media (max-width: 600px)': {
-      fontSize: '0.85em',
-      padding: '0.4em 0.7em',
-      minWidth: 'unset',
-    },
-  },
-  "@media (prefers-color-scheme: light)": {
-    ":root": {
-      color: COLORS.black,
-      backgroundColor: COLORS.white,
-    },
-    button: {
-      backgroundColor: COLORS.white,
-    },
-  },
-};
-
 export const RootContainer = styled(Box)({
   maxWidth: "555px",
   width: "60vw",
@@ -105,41 +35,45 @@ export const HeaderActions = styled(Box)({
   },
 });
 
-export const HeaderTitle = styled("h1")({
+export const HeaderTitle = styled("h1")(({ theme }) => ({
   margin: 0,
-});
+  color: theme.palette.text.primary,
+}));
 
-export const Card = styled(Box)({
-  backgroundColor: COLORS.white,
-  border: `1px solid ${COLORS.border}`,
+export const ThemeToggle = styled(Button)(({ theme }) => ({
+  minWidth: "auto",
+  width: "3rem",
+  height: "3rem",
+  borderRadius: "50%",
+  border: `2px solid ${theme.palette.divider}`,
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
+  fontSize: "1.2em",
+  "&:hover": {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
+
+export const Card = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: "8px",
   padding: "20px",
   marginBottom: "20px",
-  boxShadow: `0 2px 4px ${COLORS.border}`,
-  overflow: 'hidden',
-  '@media (max-width: 600px)': {
-    padding: '8px',
+  boxShadow: theme.shadows[1],
+  overflow: "hidden",
+  "@media (max-width: 600px)": {
+    padding: "8px",
   },
-});
+}));
 
 export const InputRow = styled(Box)({
   display: "flex",
   alignItems: "center",
   gap: "1em",
-  flexWrap: 'wrap',
-  '@media (max-width: 600px)': {
-    gap: '0.5em',
-  },
-});
-
-export const AdditionalInfoContainer = styled(Box)({
-  minWidth: 0,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  '@media (max-width: 600px)': {
-    fontSize: '0.95em',
-    maxWidth: '90vw',
+  flexWrap: "wrap",
+  "@media (max-width: 600px)": {
+    gap: "0.5em",
   },
 });
 
@@ -177,25 +111,37 @@ export const ResultsContainer = styled(Box)({
   justifyContent: "center",
 });
 
+export const ResultContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: "8px",
+  padding: "1em",
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "0.5em",
+}));
+
 export const FlatTaxContainer = styled(Box)({
   textAlign: "center",
   marginTop: "0.8em",
 });
 
-export const FlatTaxBand = styled(Box)({
+export const FlatTaxBand = styled(Box)(({ theme }) => ({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
   width: "1.8rem",
   height: "1.8rem",
   borderRadius: "20%",
-  border: `2px solid ${COLORS.border}`,
-  backgroundColor: COLORS.white,
-  color: COLORS.black,
+  border: `2px solid ${theme.palette.divider}`,
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
   fontSize: "1.2em",
   fontWeight: "bold",
   marginTop: "0.4em",
-});
+}));
 
 export const FooterContainer = styled(Box)({
   display: "flex",
@@ -206,14 +152,14 @@ export const FooterContainer = styled(Box)({
   paddingBottom: "2em",
 });
 
-export const DisclaimerButton = styled(Button)({
+export const DisclaimerButton = styled(Button)(({ theme }) => ({
   padding: "0.4em 0.8em",
   fontSize: "0.9em",
   cursor: "pointer",
   borderRadius: "6px",
-  border: `1px solid ${COLORS.border}`,
-  background: COLORS.white,
-  color: COLORS.black,
+  border: `1px solid ${theme.palette.divider}`,
+  background: theme.palette.background.paper,
+  color: theme.palette.text.primary,
   whiteSpace: "nowrap",
   transition: "all 0.3s ease",
   fontFamily: "inherit",
@@ -223,12 +169,12 @@ export const DisclaimerButton = styled(Button)({
     boxShadow: "none",
   },
   "&:hover": {
-    border: `1px solid ${COLORS.borderHover}`,
+    backgroundColor: theme.palette.action.hover,
     outline: "none",
     transform: "translateY(-2px)",
-    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.15)",
+    boxShadow: theme.shadows[4],
   },
-});
+}));
 
 export const CoffeeButton = styled(Button)({
   backgroundColor: '#8B4513',

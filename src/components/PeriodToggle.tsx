@@ -1,5 +1,4 @@
 import { Box, Button, styled } from "@mui/material";
-import { COLORS } from "../App.styles";
 
 interface PeriodToggleProps {
   isMonthly: boolean;
@@ -15,12 +14,12 @@ const PeriodToggleContainer = styled(Box)({
 
 const ToggleButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== "$active",
-})<{ $active?: boolean }>(({ $active }) => ({
+})<{ $active?: boolean }>(({ theme, $active }) => ({
   padding: "0.6rem 1.5rem",
   borderRadius: "1.5rem",
-  border: `2px solid ${COLORS.border}`,
-  background: $active ? COLORS.green : COLORS.white,
-  color: $active ? COLORS.white : "inherit",
+  border: `2px solid ${theme.palette.divider}`,
+  background: $active ? theme.palette.success.main : theme.palette.background.paper,
+  color: $active ? theme.palette.success.contrastText : theme.palette.text.primary,
   fontWeight: 400,
   cursor: "pointer",
   fontSize: "0.8rem",
@@ -28,12 +27,12 @@ const ToggleButton = styled(Button, {
   outline: "none",
   transition: "all 0.3s ease",
   "&:hover": {
-    borderColor: COLORS.borderHover,
-    background: $active ? COLORS.green : COLORS.white,
+    borderColor: theme.palette.text.secondary,
+    background: $active ? theme.palette.success.main : theme.palette.background.paper,
     transform: "translateY(-2px)",
     boxShadow: $active 
-      ? "0 4px 15px rgba(6, 187, 0, 0.3)" 
-      : "0 4px 15px rgba(0, 0, 0, 0.15)",
+      ? `0 4px 15px ${theme.palette.success.main}4D` 
+      : theme.shadows[4],
   },
   "&:focus": {
     outline: "none",

@@ -1,29 +1,29 @@
 import React from "react";
 import { Box, styled, Typography } from "@mui/material";
-import { COLORS } from "../App.styles";
 
 interface FormBoxProps {
   title: string;
   children: React.ReactNode;
 }
 
-const FormBoxContainer = styled(Box)({
-  backgroundColor: COLORS.white,
-  border: `1px solid ${COLORS.border}`,
+const FormBoxContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: "8px",
-  boxShadow: `0 2px 4px ${COLORS.border}`,
+  boxShadow: theme.shadows[2],
   maxWidth: "24rem",
   minWidth: "18rem",
   margin: "0 auto 5rem",
   paddingBottom: "1rem",
-});
+}));
 
-const FormBoxTitle = styled(Typography)({
+const FormBoxTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   textAlign: "center",
   marginBottom: "0.3rem",
   marginTop: "0.5rem",
-});
+  color: theme.palette.text.primary,
+}));
 
 const FormBoxContent = styled(Box)({
   display: "flex",

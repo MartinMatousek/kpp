@@ -1,18 +1,17 @@
 import { Box, styled } from "@mui/material";
-import { COLORS } from "../App.styles";
 
 interface VATInfoProps {
   amount: number;
   withVAT: boolean;
 }
 
-const VATInfoContainer = styled(Box)({
+const VATInfoContainer = styled(Box)(({ theme }) => ({
   fontSize: "0.9em",
-  color: COLORS.border,
+  color: theme.palette.text.secondary,
   marginLeft: "6em",
   marginTop: "0.5em",
   textDecoration: "underline",
-});
+}));
 
 export default function VATInfo({ amount, withVAT }: VATInfoProps) {
   return (

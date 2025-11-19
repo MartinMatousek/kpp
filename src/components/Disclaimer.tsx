@@ -8,57 +8,58 @@ import {
   styled,
   Box,
 } from "@mui/material";
-import { COLORS } from "../App.styles";
+
 
 interface DisclaimerProps {
   open: boolean;
   onClose: () => void;
 }
 
-const StyledDialog = styled(Dialog)({
+const StyledDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiPaper-root": {
     borderRadius: "8px",
-    border: `1px solid ${COLORS.border}`,
+    border: `1px solid ${theme.palette.divider}`,
   },
   "& .MuiBackdrop-root": {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
-});
+}));
 
-const StyledDialogTitle = styled(DialogTitle)({
-  backgroundColor: COLORS.white,
-  borderBottom: `1px solid ${COLORS.border}`,
+const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : "#f0f0f0",
+  borderBottom: `1px solid ${theme.palette.divider}`,
   fontSize: "1.3em",
   fontWeight: 600,
-});
+}));
 
-const StyledDialogContent = styled(DialogContent)({
-  padding: "24px",
-  marginTop: "16px",
-  backgroundColor: COLORS.white,
-});
+const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  "&.MuiDialogContent-root": {
+    padding: "24px 24px 24px 24px",
+  },
+}));
 
-const StyledTypography = styled(Typography)({
+const StyledTypography = styled(Typography)(({ theme }) => ({
   marginBottom: "16px",
   lineHeight: 1.6,
-  color: COLORS.black,
-});
+  color: theme.palette.text.primary,
+}));
 
-const StyledButton = styled(Button)({
-  backgroundColor: COLORS.green,
-  color: COLORS.white,
+const StyledButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.success.main,
+  color: theme.palette.success.contrastText,
   padding: "0.5em 1.5em",
   borderRadius: "6px",
   textTransform: "none",
   fontSize: "0.95em",
   "&:hover": {
-    backgroundColor: COLORS.greenHover,
+    backgroundColor: theme.palette.success.dark,
   },
   "&:focus": {
     outline: "none",
     boxShadow: "none",
   },
-});
+}));
 
 export default function Disclaimer({ open, onClose }: DisclaimerProps) {
   return (
@@ -95,7 +96,7 @@ export default function Disclaimer({ open, onClose }: DisclaimerProps) {
           Používáním této kalkulačky souhlasíte s výše uvedeným vyloučením odpovědnosti.
         </StyledTypography>
       </StyledDialogContent>
-      <DialogActions sx={{ backgroundColor: "#f9f9f9", borderTop: "1px solid #ddd", padding: "16px 24px" }}>
+      <DialogActions sx={{ backgroundColor: (theme) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : "#f9f9f9", borderTop: (theme) => `1px solid ${theme.palette.divider}`, padding: "16px 24px" }}>
         <StyledButton onClick={onClose}>
           Rozumím
         </StyledButton>
