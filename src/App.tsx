@@ -28,24 +28,29 @@ import {
 } from "./constants";
 import {
   RootContainer,
-  HeaderContainer,
-  HeaderTitle,
-  HeaderActions,
-  ThemeToggle,
-  Card,
   InputRow,
   HiddenInput,
   ChildrenInputContainer,
   ChildrenInputContainerHidden,
   TaxBaseDisplay,
-  ResultsContainer,
-
   FlatTaxContainer,
   FlatTaxBand,
+} from "./styles/AppLayout.styles";
+import {
+  HeaderContainer,
+  HeaderTitle,
+  HeaderActions,
+  ThemeToggle,
   FooterContainer,
+} from "./styles/AppHeader.styles";
+import {
+  Card,
+  ResultsContainer,
+} from "./styles/AppCards.styles";
+import {
   DisclaimerButton,
   CoffeeButton,
-} from "./App.styles";
+} from "./styles/AppButtons.styles";
 import FAQ from "./components/FAQ";
 import { useTheme } from "./contexts/ThemeContext";
 
