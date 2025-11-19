@@ -1,5 +1,5 @@
 import type { YearData } from './YearData';
-import { MONTHS_IN_YEAR } from '../constants';
+import { MONTHS_IN_YEAR } from '../AppConstants';
 
 export interface FlatTaxResult {
   bandId: 1 | 2 | 3 | null;

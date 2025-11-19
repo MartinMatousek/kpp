@@ -8,7 +8,7 @@ import {
   PERCENTAGE_DIVISOR,
   CHILD_DISCOUNT_THRESHOLD_SECOND,
   CHILD_DISCOUNT_THRESHOLD_THIRD,
-} from "../constants";
+} from "../AppConstants";
 
 export interface ChildrenDiscountInput {
 	enabled: boolean;

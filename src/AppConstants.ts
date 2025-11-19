@@ -12,3 +12,10 @@ export const MAX_CHILDREN = 20;
 export const CHILD_CARE_AGE_LIMIT = 3;
 export const CHILD_DISCOUNT_THRESHOLD_SECOND = 2;
 export const CHILD_DISCOUNT_THRESHOLD_THIRD = 3;
+
+export const FLAT_RATE_OPTIONS = [
+  { value: 30, label: "30 %" },
+  { value: 40, label: "40 %" },
+  { value: 60, label: "60 %" },
+  { value: 80, label: "80 %" },
+] as const;
