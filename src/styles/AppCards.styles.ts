@@ -18,6 +18,11 @@ export const ResultsContainer = styled(Box)({
   gap: "1rem",
   marginTop: "2rem",
   justifyContent: "center",
+  "@media (max-width: 600px)": {
+    flexDirection: "column",
+    gap: "0.5rem",
+    marginTop: "0rem",
+  },
 });
 
 export const ResultContainer = styled(Box)(({ theme }) => ({

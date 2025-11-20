@@ -7,6 +7,10 @@ export const ResultItemContainer = styled(Box)({
   alignItems: "center",
   gap: "0.4rem",
   margin: "0.6rem 0",
+  "@media (max-width: 600px)": {
+    margin: "0.3rem 0",
+    gap: "0.3rem",
+  },
 });
 
 export const ResultTitle = styled(Typography)(({ theme }) => ({

@@ -2,9 +2,14 @@ import { Box, styled } from "@mui/material";
 
 export const RootContainer = styled(Box)({
   maxWidth: "555px",
-  width: "60vw",
+  width: "100%",
   margin: "0 auto",
+  padding: "0 1rem",
   textAlign: "center",
+  "@media (min-width: 600px)": {
+    width: "60vw",
+    padding: "0",
+  },
 });
 
 export const InputRow = styled(Box)({
@@ -14,6 +19,7 @@ export const InputRow = styled(Box)({
   flexWrap: "wrap",
   "@media (max-width: 600px)": {
     gap: "0.5em",
+    flexWrap: "nowrap",
   },
 });
 
@@ -28,6 +34,7 @@ export const ChildrenInputContainer = styled(Box)({
   justifyContent: "center",
   gap: "16px",
   marginTop: "8px",
+  flexWrap: "wrap",
 });
 
 export const ChildrenInputContainerHidden = styled(Box)({
@@ -37,6 +44,7 @@ export const ChildrenInputContainerHidden = styled(Box)({
   justifyContent: "center",
   gap: "16px",
   marginTop: "8px",
+  flexWrap: "wrap",
 });
 
 export const TaxBaseDisplay = styled(Box)({

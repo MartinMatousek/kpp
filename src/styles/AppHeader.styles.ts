@@ -54,4 +54,9 @@ export const FooterContainer = styled(Box)({
   gap: "1em",
   marginTop: "2em",
   paddingBottom: "2em",
+  flexWrap: "wrap",
+  "@media (max-width: 600px)": {
+    gap: "0.5em",
+    marginTop: "0em",
+  },
 });

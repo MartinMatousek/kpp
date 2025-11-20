@@ -44,6 +44,10 @@ export const StyledInput = styled(Input)(({ theme }) => ({
   "@media (max-width: 910px)": {
     width: "11em",
   },
+  "@media (max-width: 600px)": {
+    width: "10em",
+    marginLeft: "0.5em",
+  },
 }));
 
 export const CurrencyLabel = styled("span")(({ theme }) => ({

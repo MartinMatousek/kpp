@@ -22,6 +22,11 @@ export const DisclaimerButton = styled(Button)(({ theme }) => ({
     transform: "translateY(-2px)",
     boxShadow: theme.shadows[4],
   },
+  "@media (max-width: 600px)": {
+    padding: "0.3em 0.6em",
+    fontSize: "0.8em",
+    minWidth: "auto",
+  },
 }));
 
 export const CoffeeButton = styled(Button)({
@@ -100,5 +105,10 @@ export const CoffeeButton = styled(Button)({
       transform: 'translateY(-12px) translateX(0px) rotate(0deg)', 
       opacity: 0 
     }
-  }
+  },
+  "@media (max-width: 600px)": {
+    padding: "0.3em 0.6em",
+    fontSize: "0.8em",
+    minWidth: "auto",
+  },
 });

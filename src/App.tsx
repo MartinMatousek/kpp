@@ -13,6 +13,7 @@ import {
   RootContainer,
   InputRow,
   TaxBaseDisplay,
+  HiddenInput,
 } from "./styles/AppLayout.styles";
 import {
   HeaderContainer,
@@ -90,7 +91,7 @@ function App() {
           setIsChecked={handleVATToggle}
           text="s DPH"
         />
-        
+
         <InputRow>
           <MoneyInput
             number={
@@ -126,12 +127,20 @@ function App() {
             text="Výdaje:"
             disabled={formValues.isFlatRate}
           />
-          {formValues.isFlatRate && (
+          {formValues.isFlatRate ? (
             <Dropdown
               value={formValues.flatRate}
               onChange={(value) => handleFlatRateChange(Number(value))}
               options={[...FLAT_RATE_OPTIONS]}
             />
+          ) : (
+            <HiddenInput>
+              <Dropdown
+                value={formValues.flatRate}
+                onChange={() => {}}
+                options={[...FLAT_RATE_OPTIONS]}
+              />
+            </HiddenInput>
           )}
         </InputRow>
 
@@ -162,14 +171,14 @@ function App() {
         <DisclaimerButton onClick={() => setDisclaimerOpen(true)}>
           Vyloučení zodpovědnosti
         </DisclaimerButton>
-        <DisclaimerButton onClick={() => setFaqOpen(true)}>
-          Často kladené otázky
-        </DisclaimerButton>
         <CoffeeButton 
           onClick={() => window.open('https://www.buymeacoffee.com/martinmatousek', '_blank')}
         >
           ☕ Kup mi kávu
         </CoffeeButton>
+        <DisclaimerButton onClick={() => setFaqOpen(true)}>
+          Často kladené otázky
+        </DisclaimerButton>
       </FooterContainer>
     </RootContainer>
   );
