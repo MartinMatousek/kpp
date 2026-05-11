@@ -33,6 +33,9 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           )
         }
         text="Sleva na poplatníka"
+        months={formValues.taxpayerDiscountMonths}
+        setMonths={(n) => setValue("taxpayerDiscountMonths", n)}
+        maxMonths={formValues.globalMonths}
       />
       <Discount
         isChecked={formValues.spouseDiscount}
@@ -45,6 +48,9 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           )
         }
         text={`Sleva na manžela/manželku pečující o dítě do ${CHILD_CARE_AGE_LIMIT} let`}
+        months={formValues.spouseDiscountMonths}
+        setMonths={(n) => setValue("spouseDiscountMonths", n)}
+        maxMonths={formValues.globalMonths}
       />
       {formValues.spouseDiscount ? (
         <AdditionalInfo
@@ -79,6 +85,9 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           if (checked) setValue("disabledThreeDiscount", false);
         }}
         text="Sleva pro invalidní důchod I. a II. Stupně"
+        months={formValues.disabledDiscountMonths}
+        setMonths={(n) => setValue("disabledDiscountMonths", n)}
+        maxMonths={formValues.globalMonths}
       />
       <Discount
         isChecked={formValues.disabledThreeDiscount}
@@ -91,6 +100,9 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           if (checked) setValue("disabledDiscount", false);
         }}
         text="Sleva pro invalidní důchod III. Stupně"
+        months={formValues.disabledThreeDiscountMonths}
+        setMonths={(n) => setValue("disabledThreeDiscountMonths", n)}
+        maxMonths={formValues.globalMonths}
       />
       <Discount
         isChecked={formValues.ztpDiscount}
@@ -103,6 +115,9 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           )
         }
         text="Sleva pro držitele průkazu ZTP/P"
+        months={formValues.ztpDiscountMonths}
+        setMonths={(n) => setValue("ztpDiscountMonths", n)}
+        maxMonths={formValues.globalMonths}
       />
       <Discount
         isChecked={formValues.childrenDiscount}
@@ -115,6 +130,9 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           )
         }
         text="Sleva na dítě/děti"
+        months={formValues.childrenDiscountMonths}
+        setMonths={(n) => setValue("childrenDiscountMonths", n)}
+        maxMonths={formValues.globalMonths}
       />
       {formValues.childrenDiscount ? (
         <ChildrenInputContainer>

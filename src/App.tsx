@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import AdditionalInfo from "./components/AdditionalInfo";
 import MoneyInput from "./components/MoneyInput";
 import VATInfo from "./components/VATInfo";
@@ -14,6 +15,8 @@ import {
   InputRow,
   TaxBaseDisplay,
   HiddenInput,
+  MonthsRow,
+  MonthsLabel,
 } from "./styles/AppLayout.styles";
 import {
   HeaderContainer,
@@ -57,6 +60,7 @@ function App() {
     handleVATRateChange,
     handleFlatRateToggle,
     handleFlatRateChange,
+    handleGlobalMonthsChange,
     
     yearOptions,
     vatRateOptions,
@@ -143,6 +147,22 @@ function App() {
             </HiddenInput>
           )}
         </InputRow>
+
+        <MonthsRow>
+          <Tooltip
+            title="Počet měsíců, po které bylo IČO aktivní. Ovlivňuje minimální odvody na zdravotní a sociální pojištění a výši paušální daně."
+            arrow
+            enterTouchDelay={0}
+            leaveTouchDelay={3000}
+          >
+            <MonthsLabel>Počet aktivních měsíců IČO</MonthsLabel>
+          </Tooltip>
+          <Dropdown
+            value={formValues.globalMonths}
+            onChange={handleGlobalMonthsChange}
+            options={Array.from({ length: 12 }, (_, i) => ({ value: i + 1, label: `${i + 1}` }))}
+          />
+        </MonthsRow>
 
         <DiscountSection formValues={formValues} setValue={setValue} />
 
