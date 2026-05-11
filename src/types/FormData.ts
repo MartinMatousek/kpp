@@ -22,4 +22,12 @@ export interface FormData {
 
   selectedYear: number;
   earningsVATRate: number;
+
+  globalMonths: number;
+  taxpayerDiscountMonths: number;
+  spouseDiscountMonths: number;
+  disabledDiscountMonths: number;
+  disabledThreeDiscountMonths: number;
+  ztpDiscountMonths: number;
+  childrenDiscountMonths: number;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import type { FormData } from "../types/FormData";
 import { getAvailableYears, loadYearData, type YearData } from "../utils/YearData";
@@ -39,8 +39,17 @@ export function useAppForm() {
       otherExpenses: 0,
       selectedYear: currentYear,
       earningsVATRate: initialYearData.vatRates[initialYearData.vatRates.length - 1] / 100,
+      globalMonths: 12,
+      taxpayerDiscountMonths: 12,
+      spouseDiscountMonths: 12,
+      disabledDiscountMonths: 12,
+      disabledThreeDiscountMonths: 12,
+      ztpDiscountMonths: 12,
+      childrenDiscountMonths: 12,
     },
   });
+
+  const prevGlobalMonthsRef = useRef<number>(12);
 
   const formValues = watch();
 
@@ -73,6 +82,12 @@ export function useAppForm() {
       count: formValues.numberOfChildren,
       ztpCount: formValues.numberOfZtpChildren,
     },
+    taxpayerMonths: formValues.taxpayerDiscountMonths,
+    spouseMonths: formValues.spouseDiscountMonths,
+    disabledMonths: formValues.disabledDiscountMonths,
+    disabledThreeMonths: formValues.disabledThreeDiscountMonths,
+    ztpMonths: formValues.ztpDiscountMonths,
+    childrenMonths: formValues.childrenDiscountMonths,
   };
 
   const taxes = useTaxCalculator({
@@ -83,13 +98,37 @@ export function useAppForm() {
     investmentInsurance: formValues.investmentInsurance,
     interestPaid: formValues.interestPaid,
     otherExpenses: formValues.otherExpenses,
+    globalMonths: formValues.globalMonths,
   });
 
   const flatTax = computeFlatTax(
     yearData,
     earningsWithoutVAT,
-    formValues.flatRate
+    formValues.flatRate,
+    formValues.globalMonths
   );
+
+  const perDiscountMonthFields: Array<keyof FormData> = [
+    "taxpayerDiscountMonths",
+    "spouseDiscountMonths",
+    "disabledDiscountMonths",
+    "disabledThreeDiscountMonths",
+    "ztpDiscountMonths",
+    "childrenDiscountMonths",
+  ];
+
+  const handleGlobalMonthsChange = (value: string | number) => {
+    const n = Number(value);
+    const prev = prevGlobalMonthsRef.current;
+    setValue("globalMonths", n);
+    for (const field of perDiscountMonthFields) {
+      const cur = formValues[field] as number;
+      if (cur === prev || cur > n) {
+        setValue(field, n);
+      }
+    }
+    prevGlobalMonthsRef.current = n;
+  };
 
   const handleVATToggle = (checked: boolean | ((prev: boolean) => boolean)) => {
     const value = typeof checked === "function" ? checked(formValues.withVAT) : checked;
@@ -168,6 +207,7 @@ export function useAppForm() {
     handleVATRateChange,
     handleFlatRateToggle,
     handleFlatRateChange,
+    handleGlobalMonthsChange,
     
     yearOptions,
     vatRateOptions,

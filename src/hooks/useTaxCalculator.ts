@@ -18,5 +18,12 @@ export function useTaxCalculator(input: TaxInput): TaxOutput {
     input.investmentInsurance,
     input.interestPaid,
     input.otherExpenses,
+    input.globalMonths,
+    input.discounts?.taxpayerMonths,
+    input.discounts?.spouseMonths,
+    input.discounts?.disabledMonths,
+    input.discounts?.disabledThreeMonths,
+    input.discounts?.ztpMonths,
+    input.discounts?.childrenMonths,
   ]);
 }

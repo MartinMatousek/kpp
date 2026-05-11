@@ -24,6 +24,12 @@ export interface DiscountsInput {
 	disabledThree: boolean;
 	ztp: boolean;
 	children: ChildrenDiscountInput;
+	taxpayerMonths: number;
+	spouseMonths: number;
+	disabledMonths: number;
+	disabledThreeMonths: number;
+	ztpMonths: number;
+	childrenMonths: number;
 }
 
 export interface TaxInput {
@@ -34,6 +40,7 @@ export interface TaxInput {
 	investmentInsurance: number;
 	interestPaid: number;
 	otherExpenses: number;
+	globalMonths: number;
 }
 
 export interface TaxOutput {
@@ -53,7 +60,8 @@ export function computeTax(input: TaxInput): TaxOutput {
 		discounts,
 		investmentInsurance,
 		interestPaid,
-			otherExpenses,
+		otherExpenses,
+		globalMonths,
 	} = input;
 
 	const profit = earningsWithoutVAT - expenses;
@@ -62,8 +70,8 @@ export function computeTax(input: TaxInput): TaxOutput {
 
 	const tax = Math.max(0, round(progressiveTax(yearData, taxBaseYear) - computeDiscounts(yearData, discounts)));
 
-	const healthYear = computeContribution(yearData, profit, 'health');
-	const socialYear = computeContribution(yearData, profit, 'social');
+	const healthYear = computeContribution(yearData, profit, 'health', globalMonths);
+	const socialYear = computeContribution(yearData, profit, 'social', globalMonths);
 
 	return {
 		taxBase: round(taxBaseYear),
@@ -93,37 +101,39 @@ function progressiveTax(yearData: YearData, base: number): number {
 
 function computeDiscounts(yearData: YearData, d: DiscountsInput): number {
 	const ds = yearData.discounts;
-	const taxpayer = d.taxpayer ? ds.taxpayer : 0;
-	const spouse = d.spouse ? ds.spouse * (d.spouseZTP ? ds.spouseZTP : 1) : 0;
-	const disabled = d.disabled ? ds.disabled : 0;
-	const disabledThree = d.disabledThree ? ds.disabledThree : 0;
-	const ztp = d.ztp ? ds.ztp : 0;
+	const taxpayer = d.taxpayer ? round(ds.taxpayer * d.taxpayerMonths / MONTHS_IN_YEAR) : 0;
+	const spouse = d.spouse ? round(ds.spouse * (d.spouseZTP ? ds.spouseZTP : 1) * d.spouseMonths / MONTHS_IN_YEAR) : 0;
+	const disabled = d.disabled ? round(ds.disabled * d.disabledMonths / MONTHS_IN_YEAR) : 0;
+	const disabledThree = d.disabledThree ? round(ds.disabledThree * d.disabledThreeMonths / MONTHS_IN_YEAR) : 0;
+	const ztp = d.ztp ? round(ds.ztp * d.ztpMonths / MONTHS_IN_YEAR) : 0;
 
 	const childCount = d.children.enabled ? Math.max(0, d.children.count) : 0;
 	const ztpCount = d.children.enabled
 		? Math.max(0, d.children.ztpCount)
 		: 0;
 
-	let children = 0;
-	if (childCount >= 1) children += ds.child.first;
-	if (childCount >= CHILD_DISCOUNT_THRESHOLD_SECOND) children += ds.child.second;
-	if (childCount >= CHILD_DISCOUNT_THRESHOLD_THIRD) children += ds.child.third * (childCount - CHILD_DISCOUNT_THRESHOLD_SECOND);
-    
-    if (ztpCount >= 1) children += ds.child.first;
-	if (ztpCount >= CHILD_DISCOUNT_THRESHOLD_SECOND) children += ds.child.second;
-	if (ztpCount >= CHILD_DISCOUNT_THRESHOLD_THIRD) children += ds.child.third * (ztpCount - CHILD_DISCOUNT_THRESHOLD_SECOND);
+	let childrenFull = 0;
+	if (childCount >= 1) childrenFull += ds.child.first;
+	if (childCount >= CHILD_DISCOUNT_THRESHOLD_SECOND) childrenFull += ds.child.second;
+	if (childCount >= CHILD_DISCOUNT_THRESHOLD_THIRD) childrenFull += ds.child.third * (childCount - CHILD_DISCOUNT_THRESHOLD_SECOND);
+
+	if (ztpCount >= 1) childrenFull += ds.child.first;
+	if (ztpCount >= CHILD_DISCOUNT_THRESHOLD_SECOND) childrenFull += ds.child.second;
+	if (ztpCount >= CHILD_DISCOUNT_THRESHOLD_THIRD) childrenFull += ds.child.third * (ztpCount - CHILD_DISCOUNT_THRESHOLD_SECOND);
+
+	const children = round(childrenFull * d.childrenMonths / MONTHS_IN_YEAR);
 
 	return taxpayer + spouse + disabled + disabledThree + ztp + children;
 }
 
-function computeContribution(yearData: YearData, profit: number, kind: 'health' | 'social'): number {
+function computeContribution(yearData: YearData, profit: number, kind: 'health' | 'social', months: number): number {
 	const data = yearData.contributions?.[kind];
 	const rate = data?.rate ?? (kind === 'health' ? DEFAULT_HEALTH_RATE : DEFAULT_SOCIAL_RATE);
-	const baseRatio = kind === 'health' ? HEALTH_BASE_RATIO : SOCIAL_BASE_RATIO;
+	const baseRatio = data?.baseRatio ?? (kind === 'health' ? HEALTH_BASE_RATIO : SOCIAL_BASE_RATIO);
 	const minMonthly = data?.minMonthly ?? 0;
 
 	const yearly = profit * rate * baseRatio;
-	const minYearly = minMonthly * MONTHS_IN_YEAR;
+	const minYearly = minMonthly * months;
 	return Math.max(yearly, minYearly);
 }
 
