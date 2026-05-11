@@ -18,9 +18,9 @@ export class KppMCP extends McpAgent {
       {
         description:
           "Vypočítá daň z příjmu, zdravotní a sociální pojistné pro českého podnikatele (OSVČ). " +
-          "Vrátí roční i měsíční přehled pro progresivní i paušální daň. " +
+          "Vrátí roční i měsíční přehled pro progresivní i paušální daň. netIncome = příjmy - daň - pojistné (výdaje nejsou odečteny). expenses.flatRate uvádí % paušálu pokud byl použit. " +
           "Calculates Czech income tax, health and social insurance for a self-employed entrepreneur. " +
-          "Returns annual and monthly breakdown for both progressive and flat-rate tax systems.",
+          "Returns annual and monthly breakdown. netIncome = earnings minus tax and insurance only (expenses not deducted). expenses.flatRate shows flat-rate % if used.",
         inputSchema: {
           year: z
             .number().int()
@@ -64,6 +64,9 @@ export class KppMCP extends McpAgent {
             })
             .default(60)
             .describe("Výdajový paušál % pro posouzení paušální daně / Expense flat-rate % (30/40/60/80)"),
+
+          expensesAreFlatRate: z.boolean().default(false)
+            .describe("Jsou zadané výdaje paušální? Pokud ano, zobrazí se flatRate % na výstupu. / Are the expenses flat-rate? If true, flatRate % is shown in output."),
 
           discounts: z.object({
             taxpayer:             z.boolean().default(true).describe("Sleva na poplatníka"),
@@ -118,25 +121,37 @@ export class KppMCP extends McpAgent {
         const flat = computeFlatTax(yearData, earningsWithoutVAT, input.flatRate, input.globalMonths);
         const m = input.globalMonths;
 
+        const progressiveObligations = prog.tax + prog.health + prog.social;
         const result = {
           year: input.year,
           earningsWithoutVAT: Math.round(earningsWithoutVAT),
+          expenses: {
+            amount: input.expenses,
+            flatRate: input.expensesAreFlatRate ? input.flatRate : null,
+          },
           progressive: {
             taxBase:          prog.taxBase,
             incomeTax:        prog.tax,
             healthInsurance:  prog.health,
             socialInsurance:  prog.social,
-            totalObligations: prog.tax + prog.health + prog.social,
-            netIncome:        Math.round(earningsWithoutVAT - input.expenses - prog.tax - prog.health - prog.social),
+            totalObligations: progressiveObligations,
+            netIncome:        Math.round(earningsWithoutVAT - progressiveObligations),
             monthly: {
               incomeTax:        Math.round(prog.tax    / m),
               healthInsurance:  Math.round(prog.health / m),
               socialInsurance:  Math.round(prog.social / m),
-              totalObligations: Math.round((prog.tax + prog.health + prog.social) / m),
+              totalObligations: Math.round(progressiveObligations / m),
+              netIncome:        Math.round((earningsWithoutVAT - progressiveObligations) / m),
             },
           },
           flatRateTax: flat.bandId !== null
-            ? { eligible: true, band: flat.bandId, monthly: flat.monthly, yearly: flat.yearly }
+            ? {
+                eligible: true,
+                band: flat.bandId,
+                monthly: flat.monthly,
+                yearly: flat.yearly,
+                netIncome: Math.round(earningsWithoutVAT - flat.yearly),
+              }
             : { eligible: false, reason: "Income or expense ratio exceeds flat-rate band limits" },
         };
 
