@@ -1,31 +1,21 @@
 import { Box, Button, styled } from "@mui/material";
 
 export const HeaderContainer = styled(Box)({
-  position: "relative",
   display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   marginTop: "1em",
   marginBottom: "1em",
   paddingTop: "1em",
   paddingBottom: "1em",
-  gap: "1em",
-  "@media (max-width: 600px)": {
-    flexDirection: "column",
-    gap: "0.5em",
-  },
+  gap: "0.5em",
 });
 
 export const HeaderActions = styled(Box)({
-  position: "absolute",
-  right: 0,
   display: "flex",
   alignItems: "center",
   gap: "0.5em",
-  zIndex: 10,
-  "@media (max-width: 600px)": {
-    position: "static",
-  },
 });
 
 export const HeaderTitle = styled("h1")(({ theme }) => ({
@@ -55,7 +45,7 @@ export const FooterContainer = styled(Box)({
   marginTop: "2em",
   paddingBottom: "2em",
   flexWrap: "wrap",
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     gap: "0.5em",
     marginTop: "0em",
   },

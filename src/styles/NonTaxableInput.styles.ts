@@ -6,7 +6,7 @@ export const NonTaxableInputContainer = styled(Box)({
   alignItems: "center",
   width: "100%",
   margin: "0.5em 0",
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     flexDirection: "column",
     alignItems: "center",
     gap: "0.5em",
@@ -18,7 +18,7 @@ export const NonTaxableInputLabel = styled("span")(({ theme }) => ({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   color: theme.palette.text.primary,
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     whiteSpace: "normal",
     textOverflow: "unset",
     overflow: "visible",
@@ -54,7 +54,7 @@ export const StyledInput = styled(Input)(({ theme }) => ({
     appearance: "textfield",
     MozAppearance: "textfield",
   },
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     width: "100%",
   },
 }));
@@ -71,7 +71,7 @@ export const CurrencyLabel = styled("span")(({ theme }) => ({
 export const NonTaxableInputWrapper = styled(Box)({
   position: "relative",
   display: "inline-block",
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     width: "60%",
   },
 });

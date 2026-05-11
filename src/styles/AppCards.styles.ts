@@ -8,7 +8,7 @@ export const Card = styled(Box)(({ theme }) => ({
   marginBottom: "20px",
   boxShadow: theme.shadows[1],
   overflow: "hidden",
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     padding: "8px",
   },
 }));
@@ -18,7 +18,7 @@ export const ResultsContainer = styled(Box)({
   gap: "1rem",
   marginTop: "2rem",
   justifyContent: "center",
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     flexDirection: "column",
     gap: "0.5rem",
     marginTop: "0rem",

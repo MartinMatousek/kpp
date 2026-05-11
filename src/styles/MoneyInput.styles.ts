@@ -9,7 +9,7 @@ export const MoneyInputContainer = styled(Box)({
 export const MoneyInputLabel = styled(InputLabel)(({ theme }) => ({
   minWidth: "5em",
   color: theme.palette.text.primary,
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     minWidth: "3em",
   },
 }));
@@ -44,7 +44,7 @@ export const StyledInput = styled(Input)(({ theme }) => ({
   "@media (max-width: 910px)": {
     width: "11em",
   },
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     width: "10em",
     marginLeft: "0.5em",
   },

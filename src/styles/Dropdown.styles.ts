@@ -33,7 +33,7 @@ export const StyledSelect = styled(Select)(({ theme }) => ({
     padding: "0.4em 2em 0.4em 0.7em",
     textAlign: "center",
   },
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     width: "auto",
     maxWidth: "100%",
   },
@@ -59,7 +59,7 @@ export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   "&.Mui-selected.Mui-focusVisible": {
     backgroundColor: `${theme.palette.success.main} !important`,
   },
-  "@media (max-width: 600px)": {
+  "@media (max-width: 470px)": {
     padding: "0.7em 0.5em",
   },
 }));
