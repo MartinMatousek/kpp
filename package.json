@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://martinmatousek.github.io/kpp",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-static.mjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

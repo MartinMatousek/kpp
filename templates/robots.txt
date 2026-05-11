@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://dane.martinmatousek.com/sitemap.xml
+Sitemap: {{SITE_URL}}/sitemap.xml
 
 # Allow all major search engines
 User-agent: Googlebot
