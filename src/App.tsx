@@ -8,6 +8,7 @@ import DiscountSection from "./components/DiscountSection";
 import NonTaxableSection from "./components/NonTaxableSection";
 import TaxResults from "./components/TaxResults";
 import FAQ from "./components/FAQ";
+import McpInfo from "./components/McpInfo";
 import { useAppForm } from "./hooks/useAppForm";
 import { FLAT_RATE_OPTIONS } from "./AppConstants";
 import {
@@ -47,6 +48,8 @@ function App() {
     setDisclaimerOpen,
     faqOpen,
     setFaqOpen,
+    mcpInfoOpen,
+    setMcpInfoOpen,
     
     earningsWithoutVAT,
     earningsWithVAT,
@@ -182,9 +185,14 @@ function App() {
         flatTax={flatTax}
       />
 
-      <FAQ 
+      <FAQ
         open={faqOpen}
         onClose={() => setFaqOpen(false)}
+      />
+
+      <McpInfo
+        open={mcpInfoOpen}
+        onClose={() => setMcpInfoOpen(false)}
       />
 
       <FooterContainer>
@@ -198,6 +206,9 @@ function App() {
         </CoffeeButton>
         <DisclaimerButton onClick={() => setFaqOpen(true)}>
           Často kladené otázky
+        </DisclaimerButton>
+        <DisclaimerButton onClick={() => setMcpInfoOpen(true)}>
+          MCP Server
         </DisclaimerButton>
       </FooterContainer>
     </RootContainer>

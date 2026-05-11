@@ -1,12 +1,11 @@
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import type { FormData } from "../types/FormData";
-import { getAvailableYears, loadYearData, type YearData } from "../utils/YearData";
-import { calculateVATAmounts } from "../utils/VATCalculations";
+import { getAvailableYears, loadYearData } from "../core/data";
+import type { YearData, DiscountsInput } from "../core/types";
+import { calculateVATAmounts, computeFlatTax } from "../core/calculator";
 import { useFlatRateLogic } from "./useFlatRateLogic";
 import { useTaxCalculator } from "./useTaxCalculator";
-import { computeFlatTax } from "../utils/FlatTax";
-import type { DiscountsInput } from "../utils/TaxCalculator";
 
 export function useAppForm() {
   const currentYear = new Date().getFullYear();
@@ -14,6 +13,7 @@ export function useAppForm() {
   
   const [disclaimerOpen, setDisclaimerOpen] = useState(false);
   const [faqOpen, setFaqOpen] = useState(false);
+  const [mcpInfoOpen, setMcpInfoOpen] = useState(false);
   
   const [yearData, setYearData] = useState<YearData>(initialYearData);
   
@@ -193,7 +193,9 @@ export function useAppForm() {
     setDisclaimerOpen,
     faqOpen,
     setFaqOpen,
-    
+    mcpInfoOpen,
+    setMcpInfoOpen,
+
     earningsWithoutVAT,
     earningsWithVAT,
     taxes,

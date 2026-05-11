@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { UseFormSetValue } from "react-hook-form";
 import type { FormData } from "../types/FormData";
-import type { YearData } from "../utils/YearData";
+import type { YearData } from "../core/types";
 import { DEFAULT_FLAT_RATE_PERCENTAGE, PERCENTAGE_DIVISOR } from "../AppConstants";
 
 interface UseFlatRateLogicProps {

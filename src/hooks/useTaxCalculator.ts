@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { computeTax, type TaxInput, type TaxOutput } from '../utils/TaxCalculator';
+import { computeTax } from '../core/calculator';
+import type { TaxInput, TaxOutput } from '../core/types';
 
 export function useTaxCalculator(input: TaxInput): TaxOutput {
   return useMemo(() => computeTax(input), [

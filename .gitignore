@@ -17,6 +17,11 @@ public/sitemap.xml
 public/robots.txt
 public/manifest.json
 
+# Cloudflare Workers
+mcp-worker/.wrangler
+mcp-worker/node_modules
+mcp-worker/dist
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
