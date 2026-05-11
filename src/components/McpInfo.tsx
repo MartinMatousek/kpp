@@ -20,7 +20,7 @@ export default function McpInfo({ open, onClose }: McpInfoProps) {
       <StyledDialogTitle>MCP Server</StyledDialogTitle>
       <StyledDialogContent>
         <StyledTypography variant="body1">
-          Tato kalkulačka je dostupná jako <strong>MCP</strong>.
+          Tato kalkulačka je dostupná jako <strong>MCP server</strong>.
         </StyledTypography>
         <StyledTypography variant="body1">
           <strong>Jak připojit kalkulačku k AI:</strong>
@@ -42,10 +42,10 @@ export default function McpInfo({ open, onClose }: McpInfoProps) {
           <strong>Co kalkulačka umí spočítat:</strong>
         </StyledTypography>
         <McpList component="ul">
-          <Typography variant="body2" component="li">Daň z příjmu (progresivní sazba 15 % / 23 %)</Typography>
-          <Typography variant="body2" component="li">Zdravotní a sociální pojistné</Typography>
+          <Typography variant="body2" component="li">Daň z příjmu</Typography>
+          <Typography variant="body2" component="li">Zdravotní a sociální odvody</Typography>
           <Typography variant="body2" component="li">Paušální daň — pásmo a výše platby</Typography>
-          <Typography variant="body2" component="li">Slevy na dani (poplatník, manžel/ka, děti, invalidita)</Typography>
+          <Typography variant="body2" component="li">Slevy na dani</Typography>
           <Typography variant="body2" component="li">Přepočet příjmů s DPH i bez DPH</Typography>
         </McpList>
         <StyledTypography variant="body2" sx={{ fontStyle: "italic" }}>
