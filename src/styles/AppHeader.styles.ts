@@ -23,7 +23,7 @@ export const HeaderTitle = styled("h1")(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-export const ThemeToggle = styled(Button)(({ theme }) => ({
+const HeaderButton = styled(Button)(({ theme }) => ({
   minWidth: "auto",
   width: "3rem",
   height: "3rem",
@@ -31,11 +31,20 @@ export const ThemeToggle = styled(Button)(({ theme }) => ({
   border: `2px solid ${theme.palette.divider}`,
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
-  fontSize: "1.2em",
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
   },
 }));
+
+export const ThemeToggle = styled(HeaderButton)({
+  fontSize: "1.2em",
+});
+
+export const LangToggle = styled(HeaderButton)({
+  fontSize: "0.80em",
+  fontWeight: 700,
+  textTransform: "uppercase",
+});
 
 export const FooterContainer = styled(Box)({
   display: "flex",

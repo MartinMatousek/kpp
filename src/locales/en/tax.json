@@ -1,0 +1,15 @@
+{
+  "taxesBox": "Taxes & insurance",
+  "health": "Health insurance",
+  "pension": "Pension insurance",
+  "incomeTax": "Income tax",
+  "total": "Total",
+  "flatRateBox": "Flat-rate tax",
+  "flatRateBand": "Flat-rate tax band",
+  "monthlyPayment": "Monthly payment",
+  "annualTotal": "Annual total",
+  "monthlyDiff": "Monthly difference",
+  "annualDiff": "Annual difference",
+  "monthly": "Monthly",
+  "annual": "Annual"
+}

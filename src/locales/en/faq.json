@@ -1,0 +1,48 @@
+{
+  "title": "Frequently asked questions about taxes and insurance",
+  "close": "Close",
+  "items": [
+    {
+      "id": 1,
+      "question": "What are the flat-rate tax rates for self-employed in {{year}}?",
+      "answer": "Band I: {{band1}} CZK\nBand II: {{band2}} CZK\nBand III: {{band3}} CZK\nMore information can be found on the official website of the Czech Financial Administration.",
+      "link": "https://financnisprava.gov.cz/cs/dane/dane/dan-z-prijmu/pausalni-dan/informace-k-institutu-pausalni-dane-pro-rok-2025",
+      "linkText": "Flat-rate tax for {{year}}"
+    },
+    {
+      "id": 2,
+      "question": "Where can I find the current tax discount amounts?",
+      "answer": "The taxpayer discount for {{year}} is {{taxpayer}} CZK per year. Other discounts and tax benefits are listed on the official public administration portal.",
+      "link": "https://portal.gov.cz/en/informace/personal-income-taxes-INF-293",
+      "linkText": "Full overview of tax discounts for {{year}}"
+    },
+    {
+      "id": 3,
+      "question": "What are the insurance contribution rates for self-employed?",
+      "answer": "Social insurance {{social}}%, health insurance {{health}}%.",
+      "link": "https://cssz.gov.cz/web/lang/platba-pojistneho-osvc?lang=en",
+      "linkText": "Insurance rates for self-employed"
+    },
+    {
+      "id": 4,
+      "question": "When and how to file a tax return?",
+      "answer": "Standard deadline: by April 1 of the following year.\nElectronic filing: by May 1 of the following year.\nVia a tax advisor: by July 1 of the following year.",
+      "link": "https://portal.gov.cz/en/informace/lhuty-a-formy-podani-danoveho-priznani-INF-327",
+      "linkText": "More information about filing a tax return"
+    },
+    {
+      "id": 5,
+      "question": "Where can I find the official VAT rates?",
+      "answer": "VAT rates are governed by Act No. 235/2004 Coll. on value added tax. The standard rate is {{vatStandard}}%, the reduced rate is {{vatReduced}}%.",
+      "link": "https://portal.gov.cz/en/informace/general-vat-rules-and-rates-INF-205",
+      "linkText": "VAT rates"
+    },
+    {
+      "id": 6,
+      "question": "Where can I get help with my tax obligations?",
+      "answer": "Official advice is provided by the Czech Financial Administration via their helpline, email, or in person at tax offices.",
+      "link": "https://financnisprava.gov.cz/en/contacts",
+      "linkText": "Czech Financial Administration"
+    }
+  ]
+}

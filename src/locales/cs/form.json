@@ -1,0 +1,18 @@
+{
+  "discountsHeading": "Slevy na dani",
+  "taxpayerDiscount": "Sleva na poplatníka",
+  "spouseDiscount": "Sleva na manžela/manželku pečující o dítě do {{age}} let",
+  "spouseZTP": "Manžel/manželka se ZTP/P",
+  "disabledDiscount12": "Sleva pro invalidní důchod I. a II. Stupně",
+  "disabledDiscount3": "Sleva pro invalidní důchod III. Stupně",
+  "ztpDiscount": "Sleva pro držitele průkazu ZTP/P",
+  "childDiscount": "Sleva na dítě/děti",
+  "numberOfChildren": "Počet dětí",
+  "ofWhichZTP": "Z toho ZTP/P",
+  "nonTaxableHeading": "Nezdanitelné částky",
+  "investmentInsurance": "Zaplacené investiční připojištění:",
+  "interestPaid": "Zaplacené úroky:",
+  "other": "Ostatní:",
+  "monthsAbbr": "měs.",
+  "ztpWarning": "Zadaný počet ZTP/P je větší než počet dětí."
+}

@@ -1,0 +1,14 @@
+{
+  "title": "MCP Server",
+  "intro": "This calculator is also available as an <strong>MCP server</strong>.",
+  "howToConnect": "How to connect the calculator to AI:",
+  "addConfig": "Add the following to your AI tool configuration:",
+  "whatItCanDo": "What the calculator can compute:",
+  "li1": "Income tax",
+  "li2": "Health and social insurance",
+  "li3": "Flat-rate tax — band and payment amount",
+  "li4": "Tax discounts",
+  "li5": "Earnings conversion with and without VAT",
+  "availableYears": "Available data for years: {{years}}.",
+  "close": "Close"
+}

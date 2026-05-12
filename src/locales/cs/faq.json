@@ -1,0 +1,48 @@
+{
+  "title": "Často kladené otázky o daních a pojistném",
+  "close": "Zavřít",
+  "items": [
+    {
+      "id": 1,
+      "question": "Jaké jsou sazby paušální daně pro OSVČ v roce {{year}}?",
+      "answer": "I. pásmo: {{band1}} Kč\nII. pásmo: {{band2}} Kč\nIII. pásmo: {{band3}} Kč\nDalší informace najdete na oficiálních stránkách Finanční správy ČR.",
+      "link": "https://financnisprava.gov.cz/cs/dane/dane/dan-z-prijmu/pausalni-dan/informace-k-institutu-pausalni-dane-pro-rok-2025",
+      "linkText": "Paušální daň pro rok {{year}}"
+    },
+    {
+      "id": 2,
+      "question": "Kde najdu aktuální výši slev na dani?",
+      "answer": "Sleva na poplatníka pro rok {{year}} činí {{taxpayer}} Kč ročně. Další slevy a daňová zvýhodnění jsou uvedena na oficiálních stránkách veřejné správy.",
+      "link": "https://portal.gov.cz/informace/danove-zvyhodneni-a-slevy-na-dani-z-prijmu-INF-410",
+      "linkText": "Kompletní přehled slev na dani pro rok {{year}}"
+    },
+    {
+      "id": 3,
+      "question": "Jaké jsou sazby pojistného pro OSVČ?",
+      "answer": "Sociální pojištění {{social}}%, zdravotní pojištění {{health}}%.",
+      "link": "https://cssz.gov.cz/web/lang/platba-pojistneho-osvc",
+      "linkText": "Sazby pojistného pro OSVČ"
+    },
+    {
+      "id": 4,
+      "question": "Kdy a jak podat daňové přiznání?",
+      "answer": "Základní lhůta: do 1. dubna následujícího roku.\nElektronické podání: do 1. května následujícího roku.\nProstřednictvím daňového poradce: do 1. července následujícího roku.",
+      "link": "https://portal.gov.cz/rozcestniky/dan-z-prijmu-fyzickych-osob-RZC-100",
+      "linkText": "Více informací o podání daňového přiznání"
+    },
+    {
+      "id": 5,
+      "question": "Kde najdu oficiální sazby DPH?",
+      "answer": "Sazby DPH jsou upraveny zákonem č. 235/2004 Sb. o dani z přidané hodnoty. Základní sazba je {{vatStandard}}%, snížená sazba {{vatReduced}}%.",
+      "link": "https://portal.gov.cz/informace/danove-zvyhodneni-a-slevy-na-dani-z-prijmu-INF-410",
+      "linkText": "Sazby DPH"
+    },
+    {
+      "id": 6,
+      "question": "Kde získám pomoc s daňovými povinnostmi?",
+      "answer": "Oficiální poradenství poskytuje Finanční správa ČR prostřednictvím infolinky, e-mailu nebo osobně na finančních úřadech.",
+      "link": "https://financnisprava.gov.cz/cs/financni-sprava/kontakty",
+      "linkText": "Kontaktní údaje Finanční správy ČR"
+    }
+  ]
+}

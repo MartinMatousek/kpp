@@ -1,0 +1,22 @@
+{
+  "appTitle": "Kalkulačka",
+  "withVAT": "s DPH",
+  "income": "Příjmy:",
+  "flatRateExpenses": "Paušální výdaje",
+  "expenses": "Výdaje:",
+  "activeMonths": "Počet aktivních měsíců IČO",
+  "activeMonthsTooltip": "Počet měsíců, po které bylo IČO aktivní. Ovlivňuje minimální odvody na zdravotní a sociální pojištění a výši paušální daně.",
+  "taxBase": "Základ daně",
+  "disclaimer": "Vyloučení zodpovědnosti",
+  "buyMeCoffee": "☕ Kup mi kávu",
+  "faq": "Často kladené otázky",
+  "mcpServer": "MCP Server",
+  "currency": "Kč",
+  "vatExcl": "bez DPH",
+  "vatIncl": "s DPH",
+  "flatRateDisabledTooltip": "Paušální výdaje nelze využívat s příjmy nad {{limit}} Kč",
+  "meta": {
+    "title": "Kalkulačka daní pro podnikatele | Výpočet daně z příjmu a paušální daně",
+    "description": "Bezplatná online kalkulačka pro výpočet daně z příjmu, paušální daně a pojistného pro OSVČ a podnikatele v ČR. Přesný výpočet čisté mzdy, slev na dani a povinných odvodů."
+  }
+}

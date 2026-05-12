@@ -1,0 +1,15 @@
+{
+  "taxesBox": "Odvody a daně",
+  "health": "Zdravotní pojištění",
+  "pension": "Důchodové pojištění",
+  "incomeTax": "Daň z příjmu",
+  "total": "Celkem",
+  "flatRateBox": "Paušální daň",
+  "flatRateBand": "Pásmo paušální daně",
+  "monthlyPayment": "Měsíční platba",
+  "annualTotal": "Ročně celkem",
+  "monthlyDiff": "Rozdíl měsíčně",
+  "annualDiff": "Rozdíl ročně",
+  "monthly": "Měsíčně",
+  "annual": "Ročně"
+}

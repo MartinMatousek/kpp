@@ -1,0 +1,18 @@
+{
+  "discountsHeading": "Tax discounts",
+  "taxpayerDiscount": "Taxpayer discount",
+  "spouseDiscount": "Spouse caring for child under {{age}} years",
+  "spouseZTP": "Spouse with ZTP/P disability card",
+  "disabledDiscount12": "Disability pension grade I and II",
+  "disabledDiscount3": "Disability pension grade III",
+  "ztpDiscount": "ZTP/P disability card holder",
+  "childDiscount": "Child tax discount",
+  "numberOfChildren": "Number of children",
+  "ofWhichZTP": "Of which ZTP/P",
+  "nonTaxableHeading": "Non-taxable deductions",
+  "investmentInsurance": "Investment insurance paid:",
+  "interestPaid": "Interest paid:",
+  "other": "Other:",
+  "monthsAbbr": "mo.",
+  "ztpWarning": "The ZTP/P count cannot exceed the total number of children."
+}

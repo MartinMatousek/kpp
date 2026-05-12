@@ -1,0 +1,22 @@
+{
+  "appTitle": "Tax Calculator",
+  "withVAT": "incl. VAT",
+  "income": "Income:",
+  "flatRateExpenses": "Flat-rate expenses",
+  "expenses": "Expenses:",
+  "activeMonths": "Active business months",
+  "activeMonthsTooltip": "Number of months your business (IČO) was active. Affects minimum health and social insurance payments and the flat-rate tax amount.",
+  "taxBase": "Tax base",
+  "disclaimer": "Disclaimer",
+  "buyMeCoffee": "☕ Buy me a coffee",
+  "faq": "FAQ",
+  "mcpServer": "MCP Server",
+  "currency": "CZK",
+  "vatExcl": "excl. VAT",
+  "vatIncl": "incl. VAT",
+  "flatRateDisabledTooltip": "Flat-rate expenses cannot be used with income above {{limit}} CZK",
+  "meta": {
+    "title": "Czech Tax Calculator for Self-Employed | Income & Flat-Rate Tax",
+    "description": "Free online calculator for Czech income tax, flat-rate tax and insurance contributions for self-employed (OSVČ) and entrepreneurs. Accurate calculation of net income, tax discounts, and mandatory insurance."
+  }
+}

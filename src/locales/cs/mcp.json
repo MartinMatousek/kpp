@@ -1,0 +1,14 @@
+{
+  "title": "MCP Server",
+  "intro": "Tato kalkulačka je dostupná jako <strong>MCP server</strong>.",
+  "howToConnect": "Jak připojit kalkulačku k AI:",
+  "addConfig": "Přidejte do konfigurace vašeho AI nástroje:",
+  "whatItCanDo": "Co kalkulačka umí spočítat:",
+  "li1": "Daň z příjmu",
+  "li2": "Zdravotní a sociální odvody",
+  "li3": "Paušální daň — pásmo a výše platby",
+  "li4": "Slevy na dani",
+  "li5": "Přepočet příjmů s DPH i bez DPH",
+  "availableYears": "Dostupná data pro roky: {{years}}.",
+  "close": "Zavřít"
+}
