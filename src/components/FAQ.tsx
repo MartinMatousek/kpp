@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DialogActions, Button } from '@mui/material';
+import { loadYearData } from '../core/data';
 import {
   StyledDialog,
   StyledDialogTitle,
@@ -12,78 +14,91 @@ import {
   OfficialLink,
 } from '../styles/FAQ.styles';
 
+interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+  link: string;
+  linkText: string;
+}
+
 interface FAQProps {
   open: boolean;
   onClose: () => void;
 }
 
-const faqData = [
-  {
-    id: 1,
-    question: "Jaké jsou sazby paušální daně pro OSVČ v roce 2025?",
-    answer: "I. pásmo: 8 716 Kč\nII. pásmo: 16 745 Kč\nIII. pásmo: 27 139 Kč\n Další informace najdete na oficiálních stránkách Finanční správy ČR.",
-    link: "https://financnisprava.gov.cz/cs/dane/dane/dan-z-prijmu/pausalni-dan/informace-k-institutu-pausalni-dane-pro-rok-2025",
-    linkText: "Paušální daň pro rok 2025"
-  },
-  {
-    id: 2,
-    question: "Kde najdu aktuální výši slev na dani?",
-    answer: "Sleva na poplatníka pro rok 2025 činí 30 840 Kč ročně. Další slevy a daňová zvýhodnění jsou uvedena na oficiálních stránkách veřejné správy.",
-    link: "https://portal.gov.cz/informace/danove-zvyhodneni-a-slevy-na-dani-z-prijmu-INF-410",
-    linkText: "Kompletní přehled slev na dani pro rok 2025"
-  },
-  {
-    id: 3,
-    question: "Jaké jsou sazby pojistného pro OSVČ?",
-    answer: "Sociální pojištění 29,2%, zdravotní pojištění 13,5%.",
-    link: "https://www.kurzy.cz/podnikani/osvc-zalohy-2025/",
-    linkText: "Sazby pojistného pro OSVČ"
-  },
-  {
-    id: 4,
-    question: "Kdy a jak podat daňové přiznání?",
-    answer: "Základní lhůta: do 1. dubna následujícího roku.\nElektronické podání: do 1. května následujícího roku.\nProstřednictvím daňového poradce: do 1. července následujícího roku.",
-    link: "https://portal.gov.cz/rozcestniky/dan-z-prijmu-fyzickych-osob-RZC-100",
-    linkText: "Více informací o podání daňového přiznání"
-  },
-  {
-    id: 5,
-    question: "Kde najdu oficiální sazby DPH?",
-    answer: "Sazby DPH jsou upraveny zákonem č. 235/2004 Sb. o dani z přidané hodnoty. Základní sazba je 21%, snížená sazba 12%.",
-    link: "https://www.zakonyprolidi.cz/cs/2004-235#f2549355",
-    linkText: "Sazby DPH"
-  },
-  {
-    id: 6,
-    question: "Kde získám pomoc s daňovými povinnostmi?",
-    answer: "Oficiální poradenství poskytuje Finanční správa ČR prostřednictvím infolinky, e-mailu nebo osobně na finančních úřadech.",
-    link: "https://www.financnisprava.cz/cs/financni-sprava/kontakty",
-    linkText: "Kontaktní údaje Finanční správy ČR"
-  }
-];
-
 const FAQ: React.FC<FAQProps> = ({ open, onClose }) => {
+  const { t, i18n } = useTranslation('faq');
   const [expanded, setExpanded] = useState<number | false>(false);
+
+  const yearData = useMemo(() => {
+    const year = new Date().getFullYear();
+    try { return loadYearData(year); } catch { return loadYearData(2025); }
+  }, []);
+
+  const interpolation = useMemo(() => {
+    const year = yearData.year;
+    const bands = yearData.flatRate.bands;
+    const band1 = bands.find(b => b.id === 1)!.monthly.toLocaleString('cs-CZ');
+    const band2 = bands.find(b => b.id === 2)!.monthly.toLocaleString('cs-CZ');
+    const band3 = bands.find(b => b.id === 3)!.monthly.toLocaleString('cs-CZ');
+    const taxpayer = yearData.discounts.taxpayer.toLocaleString('cs-CZ');
+    const social = (yearData.contributions?.social?.rate ?? 0.292) * 100;
+    const health = (yearData.contributions?.health?.rate ?? 0.135) * 100;
+    const vatRates = [...yearData.vatRates].sort((a, b) => a - b);
+    const vatReduced = vatRates[0];
+    const vatStandard = vatRates[vatRates.length - 1];
+    return { year, band1, band2, band3, taxpayer, social, health, vatReduced, vatStandard };
+  }, [yearData]);
+
+  const faqItems = useMemo(() => {
+    const raw = t('items', { returnObjects: true }) as FAQItem[];
+    return raw.map(item => ({
+      ...item,
+      question: t(`items.${item.id - 1}.question`, interpolation),
+      answer: t(`items.${item.id - 1}.answer`, interpolation),
+      linkText: t(`items.${item.id - 1}.linkText`, interpolation),
+    }));
+  }, [t, interpolation]);
+
+  useEffect(() => {
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer.replace(/\n/g, ' ') },
+      })),
+    };
+    let script = document.getElementById('faq-jsonld') as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'faq-jsonld';
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(jsonLd);
+    return () => { document.getElementById('faq-jsonld')?.remove(); };
+  }, [i18n.language, faqItems]);
 
   const handleChange = (panel: number) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   return (
-    <StyledDialog 
-      open={open} 
-      onClose={onClose} 
-      maxWidth="md" 
+    <StyledDialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
       fullWidth
       disableRestoreFocus={true}
       disableEnforceFocus={false}
       keepMounted={false}
     >
-      <StyledDialogTitle>
-        Často kladené otázky o daních a pojistném
-      </StyledDialogTitle>
+      <StyledDialogTitle>{t('title')}</StyledDialogTitle>
       <StyledDialogContent>
-        {faqData.map((faq) => (
+        {faqItems.map((faq) => (
           <StyledAccordion
             key={faq.id}
             expanded={expanded === faq.id}
@@ -94,19 +109,11 @@ const FAQ: React.FC<FAQProps> = ({ open, onClose }) => {
               aria-controls={`panel${faq.id}-content`}
               id={`panel${faq.id}-header`}
             >
-              <QuestionText>
-                {faq.question}
-              </QuestionText>
+              <QuestionText>{faq.question}</QuestionText>
             </StyledAccordionSummary>
             <StyledAccordionDetails>
-              <AnswerText style={{ whiteSpace: 'pre-line' }}>
-                {faq.answer}
-              </AnswerText>
-              <OfficialLink 
-                href={faq.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
+              <AnswerText style={{ whiteSpace: 'pre-line' }}>{faq.answer}</AnswerText>
+              <OfficialLink href={faq.link} target="_blank" rel="noopener noreferrer">
                 {faq.linkText} ↗
               </OfficialLink>
             </StyledAccordionDetails>
@@ -114,7 +121,7 @@ const FAQ: React.FC<FAQProps> = ({ open, onClose }) => {
         ))}
       </StyledDialogContent>
       <DialogActions sx={{ backgroundColor: (theme) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : "#f9f9f9", borderTop: (theme) => `1px solid ${theme.palette.divider}`, padding: "16px 24px" }}>
-        <Button 
+        <Button
           onClick={onClose}
           sx={{
             backgroundColor: (theme) => theme.palette.success.main,
@@ -123,12 +130,10 @@ const FAQ: React.FC<FAQProps> = ({ open, onClose }) => {
             borderRadius: "6px",
             textTransform: "none",
             fontSize: "0.95em",
-            "&:hover": {
-              backgroundColor: (theme) => theme.palette.success.dark,
-            },
+            "&:hover": { backgroundColor: (theme) => theme.palette.success.dark },
           }}
         >
-          Zavřít
+          {t('close')}
         </Button>
       </DialogActions>
     </StyledDialog>
