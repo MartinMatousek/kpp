@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { UseFormSetValue } from "react-hook-form";
 import ResultItem from "./ResultItem";
 import FormBox from "./FormBox";
@@ -16,6 +17,7 @@ interface TaxResultsProps {
 }
 
 export default function TaxResults({ formValues, setValue, taxes, flatTax }: TaxResultsProps) {
+  const { t } = useTranslation("tax");
   const flatTaxMonthly = flatTax.monthly;
   const flatTaxYearly = flatTax.yearly;
   const totalStandardYearly = taxes.health + taxes.social + taxes.tax;
@@ -24,38 +26,22 @@ export default function TaxResults({ formValues, setValue, taxes, flatTax }: Tax
 
   return (
     <ResultsContainer>
-      <FormBox title="Odvody a daně">
+      <FormBox title={t("taxesBox")}>
         <ResultItem
-          number={
-            formValues.isMonthly
-              ? Math.round(taxes.health / MONTHS_IN_YEAR)
-              : taxes.health
-          }
-          text="Zdravotní pojištění"
+          number={formValues.isMonthly ? Math.round(taxes.health / MONTHS_IN_YEAR) : taxes.health}
+          text={t("health")}
         />
         <ResultItem
-          number={
-            formValues.isMonthly
-              ? Math.round(taxes.social / MONTHS_IN_YEAR)
-              : taxes.social
-          }
-          text="Důchodové pojištění"
+          number={formValues.isMonthly ? Math.round(taxes.social / MONTHS_IN_YEAR) : taxes.social}
+          text={t("pension")}
         />
         <ResultItem
-          number={
-            formValues.isMonthly
-              ? Math.round(taxes.tax / MONTHS_IN_YEAR)
-              : taxes.tax
-          }
-          text="Daň z příjmu"
+          number={formValues.isMonthly ? Math.round(taxes.tax / MONTHS_IN_YEAR) : taxes.tax}
+          text={t("incomeTax")}
         />
         <ResultItem
-          number={
-            formValues.isMonthly
-              ? Math.round(totalStandardYearly / MONTHS_IN_YEAR)
-              : totalStandardYearly
-          }
-          text="Celkem"
+          number={formValues.isMonthly ? Math.round(totalStandardYearly / MONTHS_IN_YEAR) : totalStandardYearly}
+          text={t("total")}
         />
         <PeriodToggle
           isMonthly={formValues.isMonthly}
@@ -64,25 +50,17 @@ export default function TaxResults({ formValues, setValue, taxes, flatTax }: Tax
       </FormBox>
 
       {flatTax.bandId !== null && (
-        <FormBox title="Paušální daň">
+        <FormBox title={t("flatRateBox")}>
           <FlatTaxContainer>
             <div>
-              <b>Pásmo paušální daně</b>
+              <b>{t("flatRateBand")}</b>
             </div>
             <FlatTaxBand>{flatTax.bandId ?? 0}</FlatTaxBand>
           </FlatTaxContainer>
-          <ResultItem number={flatTaxMonthly} text="Měsíční platba" />
-          <ResultItem number={flatTaxYearly} text="Ročně celkem" />
-          <ResultItem
-            number={Math.round(diffMonthly)}
-            text="Rozdíl měsíčně"
-            isDifference={true}
-          />
-          <ResultItem
-            number={Math.round(diffYearly)}
-            text="Rozdíl ročně"
-            isDifference={true}
-          />
+          <ResultItem number={flatTaxMonthly} text={t("monthlyPayment")} />
+          <ResultItem number={flatTaxYearly} text={t("annualTotal")} />
+          <ResultItem number={Math.round(diffMonthly)} text={t("monthlyDiff")} isDifference={true} />
+          <ResultItem number={Math.round(diffYearly)} text={t("annualDiff")} isDifference={true} />
         </FormBox>
       )}
     </ResultsContainer>

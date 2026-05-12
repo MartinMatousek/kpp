@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   PeriodToggleContainer,
   ToggleButton,
@@ -9,13 +10,14 @@ interface PeriodToggleProps {
 }
 
 export default function PeriodToggle({ isMonthly, setIsMonthly }: PeriodToggleProps) {
+  const { t } = useTranslation("tax");
   return (
     <PeriodToggleContainer>
       <ToggleButton $active={isMonthly} onClick={() => setIsMonthly(true)}>
-        Měsíčně
+        {t("monthly")}
       </ToggleButton>
       <ToggleButton $active={!isMonthly} onClick={() => setIsMonthly(false)}>
-        Ročně
+        {t("annual")}
       </ToggleButton>
     </PeriodToggleContainer>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Tooltip } from "@mui/material";
 import {
   NonTaxableInputContainer,
@@ -15,6 +16,7 @@ interface NonTaxableInputProps {
 }
 
 export default function NonTaxableInput({ number, setNumber, text }: NonTaxableInputProps) {
+  const { t } = useTranslation("common");
   const spanRef = React.useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
 
@@ -81,7 +83,7 @@ export default function NonTaxableInput({ number, setNumber, text }: NonTaxableI
           onFocus={handleFocus}
           placeholder="0"
         />
-        <CurrencyLabel>Kč</CurrencyLabel>
+        <CurrencyLabel>{t("currency")}</CurrencyLabel>
       </NonTaxableInputWrapper>
     </NonTaxableInputContainer>
   );

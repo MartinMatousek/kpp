@@ -1,3 +1,4 @@
+import { useTranslation, Trans } from "react-i18next";
 import { Typography } from "@mui/material";
 import {
   StyledDialog,
@@ -15,19 +16,18 @@ interface McpInfoProps {
 }
 
 export default function McpInfo({ open, onClose }: McpInfoProps) {
+  const { t } = useTranslation("mcp");
   return (
     <StyledDialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <StyledDialogTitle>MCP Server</StyledDialogTitle>
+      <StyledDialogTitle>{t("title")}</StyledDialogTitle>
       <StyledDialogContent>
         <StyledTypography variant="body1">
-          Tato kalkulačka je dostupná jako <strong>MCP server</strong>.
+          <Trans i18nKey="mcp:intro" components={{ strong: <strong /> }} />
         </StyledTypography>
         <StyledTypography variant="body1">
-          <strong>Jak připojit kalkulačku k AI:</strong>
+          <strong>{t("howToConnect")}</strong>
         </StyledTypography>
-        <StyledTypography variant="body2">
-          Přidejte do konfigurace vašeho AI nástroje:
-        </StyledTypography>
+        <StyledTypography variant="body2">{t("addConfig")}</StyledTypography>
         <McpCodeBlock component="pre">
 {`{
   "mcpServers": {
@@ -39,21 +39,21 @@ export default function McpInfo({ open, onClose }: McpInfoProps) {
 }`}
         </McpCodeBlock>
         <StyledTypography variant="body1">
-          <strong>Co kalkulačka umí spočítat:</strong>
+          <strong>{t("whatItCanDo")}</strong>
         </StyledTypography>
         <McpList component="ul">
-          <Typography variant="body2" component="li">Daň z příjmu</Typography>
-          <Typography variant="body2" component="li">Zdravotní a sociální odvody</Typography>
-          <Typography variant="body2" component="li">Paušální daň — pásmo a výše platby</Typography>
-          <Typography variant="body2" component="li">Slevy na dani</Typography>
-          <Typography variant="body2" component="li">Přepočet příjmů s DPH i bez DPH</Typography>
+          <Typography variant="body2" component="li">{t("li1")}</Typography>
+          <Typography variant="body2" component="li">{t("li2")}</Typography>
+          <Typography variant="body2" component="li">{t("li3")}</Typography>
+          <Typography variant="body2" component="li">{t("li4")}</Typography>
+          <Typography variant="body2" component="li">{t("li5")}</Typography>
         </McpList>
         <StyledTypography variant="body2" sx={{ fontStyle: "italic" }}>
-          Dostupná data pro roky: {AVAILABLE_YEARS.join(", ")}.
+          {t("availableYears", { years: AVAILABLE_YEARS.join(", ") })}
         </StyledTypography>
       </StyledDialogContent>
       <McpDialogActions>
-        <StyledButton onClick={onClose}>Zavřít</StyledButton>
+        <StyledButton onClick={onClose}>{t("close")}</StyledButton>
       </McpDialogActions>
     </StyledDialog>
   );

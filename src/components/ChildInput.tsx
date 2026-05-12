@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ChildInputContainer,
   StyledInput,
@@ -18,6 +19,7 @@ export default function ChildInput({
   text,
   maxNumber,
 }: ChildInputProps) {
+  const { t } = useTranslation("form");
   const [showWarning, setShowWarning] = useState(false);
   return (
     <ChildInputContainer>
@@ -41,9 +43,7 @@ export default function ChildInput({
         value={number}
       />
       {showWarning && (
-        <WarningMessage>
-          Zadaný počet ZTP/P je větší než počet dětí.
-        </WarningMessage>
+        <WarningMessage>{t("ztpWarning")}</WarningMessage>
       )}
     </ChildInputContainer>
   );

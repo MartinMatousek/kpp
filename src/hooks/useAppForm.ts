@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import type { FormData } from "../types/FormData";
 import { getAvailableYears, loadYearData } from "../core/data";
 import type { YearData, DiscountsInput } from "../core/types";
@@ -8,6 +9,7 @@ import { useFlatRateLogic } from "./useFlatRateLogic";
 import { useTaxCalculator } from "./useTaxCalculator";
 
 export function useAppForm() {
+  const { t } = useTranslation("common");
   const currentYear = new Date().getFullYear();
   const initialYearData = loadYearData(currentYear);
   
@@ -179,9 +181,12 @@ export function useAppForm() {
     label: `${rate} %`,
   })) || [];
 
-  const flatRateDisabledTooltip = `Paušální výdaje nelze využívat s příjmy nad ${yearData.flatRate.limit.toLocaleString("cs-CZ")} Kč`;
-  
-  const formattedTaxBase = taxes.taxBase.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Kč";
+  const flatRateDisabledTooltip = t("flatRateDisabledTooltip", {
+    limit: yearData.flatRate.limit.toLocaleString("cs-CZ"),
+  });
+
+  const formattedTaxBase =
+    taxes.taxBase.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " " + t("currency");
 
   return {
     formValues,

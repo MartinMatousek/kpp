@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   MoneyInputContainer,
   MoneyInputLabel,
@@ -15,6 +16,7 @@ interface MoneyInputProps {
 }
 
 export default function MoneyInput({ number, setNumber, text, disabled = false }: MoneyInputProps) {
+  const { t } = useTranslation("common");
   function formatNumber(value: number | string): string {
     const str = typeof value === 'number' ? value.toString() : value;
     return str.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -69,7 +71,7 @@ export default function MoneyInput({ number, setNumber, text, disabled = false }
           onFocus={handleFocus}
           placeholder="0"
         />
-        <CurrencyLabel>Kč</CurrencyLabel>
+        <CurrencyLabel>{t("currency")}</CurrencyLabel>
       </MoneyInputWrapper>
     </MoneyInputContainer>
   );

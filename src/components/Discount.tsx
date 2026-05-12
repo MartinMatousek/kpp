@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import BooleanButton from "./BooleanButton";
 import { MenuItem, Tooltip } from "@mui/material";
 import {
@@ -20,6 +21,7 @@ interface DiscountProps {
 }
 
 export default function Discount({ isChecked, setIsChecked, text, months, setMonths, maxMonths = 12 }: DiscountProps) {
+  const { t } = useTranslation("form");
   const spanRef = React.useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
 
@@ -39,7 +41,7 @@ export default function Discount({ isChecked, setIsChecked, text, months, setMon
       <DiscountControls>
         {isChecked && months !== undefined && setMonths !== undefined && (
           <MonthsSelectWrapper>
-            <MonthsSelectLabel>měs.</MonthsSelectLabel>
+            <MonthsSelectLabel>{t("monthsAbbr")}</MonthsSelectLabel>
             <MonthsSelect
               value={months}
               onChange={(e) => setMonths(Number(e.target.value))}

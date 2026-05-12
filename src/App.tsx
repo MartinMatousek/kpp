@@ -1,4 +1,5 @@
 import { Tooltip } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import AdditionalInfo from "./components/AdditionalInfo";
 import MoneyInput from "./components/MoneyInput";
 import VATInfo from "./components/VATInfo";
@@ -9,7 +10,9 @@ import NonTaxableSection from "./components/NonTaxableSection";
 import TaxResults from "./components/TaxResults";
 import FAQ from "./components/FAQ";
 import McpInfo from "./components/McpInfo";
+import LanguageToggle from "./components/LanguageToggle";
 import { useAppForm } from "./hooks/useAppForm";
+import { useDocumentMeta } from "./i18n/useDocumentMeta";
 import { FLAT_RATE_OPTIONS } from "./AppConstants";
 import {
   RootContainer,
@@ -37,25 +40,27 @@ import { useTheme } from "./contexts/ThemeContext";
 
 function App() {
   const { isDarkMode, toggleTheme } = useTheme();
-  
+  const { t } = useTranslation("common");
+  useDocumentMeta();
+
   const {
     formValues,
     setValue,
-    
+
     yearData,
-    
+
     disclaimerOpen,
     setDisclaimerOpen,
     faqOpen,
     setFaqOpen,
     mcpInfoOpen,
     setMcpInfoOpen,
-    
+
     earningsWithoutVAT,
     earningsWithVAT,
     taxes,
     flatTax,
-    
+
     handleVATToggle,
     handleMoneyInputChange,
     handleExpensesChange,
@@ -64,7 +69,7 @@ function App() {
     handleFlatRateToggle,
     handleFlatRateChange,
     handleGlobalMonthsChange,
-    
+
     yearOptions,
     vatRateOptions,
     flatRateDisabledTooltip,
@@ -74,8 +79,9 @@ function App() {
   return (
     <RootContainer>
       <HeaderContainer>
-        <HeaderTitle>Kalkulačka</HeaderTitle>
+        <HeaderTitle>{t("appTitle")}</HeaderTitle>
         <HeaderActions>
+          <LanguageToggle />
           <ThemeToggle onClick={toggleTheme}>
             {isDarkMode ? "☀️" : "🌘"}
           </ThemeToggle>
@@ -96,7 +102,7 @@ function App() {
         <AdditionalInfo
           isChecked={formValues.withVAT}
           setIsChecked={handleVATToggle}
-          text="s DPH"
+          text={t("withVAT")}
         />
 
         <InputRow>
@@ -105,7 +111,7 @@ function App() {
               formValues.withVAT ? formValues.earnings : earningsWithoutVAT
             }
             setNumber={handleMoneyInputChange}
-            text="Příjmy:"
+            text={t("income")}
           />
           <Dropdown
             value={formValues.earningsVATRate}
@@ -124,14 +130,14 @@ function App() {
           disabled={earningsWithoutVAT > yearData.flatRate.limit}
           disabledTooltip={flatRateDisabledTooltip}
           setIsChecked={handleFlatRateToggle}
-          text="Paušální výdaje"
+          text={t("flatRateExpenses")}
         />
 
         <InputRow>
           <MoneyInput
             number={formValues.expenses}
             setNumber={handleExpensesChange}
-            text="Výdaje:"
+            text={t("expenses")}
             disabled={formValues.isFlatRate}
           />
           {formValues.isFlatRate ? (
@@ -153,12 +159,12 @@ function App() {
 
         <MonthsRow>
           <Tooltip
-            title="Počet měsíců, po které bylo IČO aktivní. Ovlivňuje minimální odvody na zdravotní a sociální pojištění a výši paušální daně."
+            title={t("activeMonthsTooltip")}
             arrow
             enterTouchDelay={0}
             leaveTouchDelay={3000}
           >
-            <MonthsLabel>Počet aktivních měsíců IČO</MonthsLabel>
+            <MonthsLabel>{t("activeMonths")}</MonthsLabel>
           </Tooltip>
           <Dropdown
             value={formValues.globalMonths}
@@ -172,7 +178,7 @@ function App() {
         <NonTaxableSection formValues={formValues} setValue={setValue} />
 
         <TaxBaseDisplay>
-          <b>Základ daně</b>
+          <b>{t("taxBase")}</b>
           <br />
           {formattedTaxBase}
         </TaxBaseDisplay>
@@ -197,18 +203,18 @@ function App() {
 
       <FooterContainer>
         <DisclaimerButton onClick={() => setDisclaimerOpen(true)}>
-          Vyloučení zodpovědnosti
+          {t("disclaimer")}
         </DisclaimerButton>
-        <CoffeeButton 
+        <CoffeeButton
           onClick={() => window.open('https://www.buymeacoffee.com/martinmatousek', '_blank')}
         >
-          ☕ Kup mi kávu
+          {t("buyMeCoffee")}
         </CoffeeButton>
         <DisclaimerButton onClick={() => setFaqOpen(true)}>
-          Často kladené otázky
+          {t("faq")}
         </DisclaimerButton>
         <DisclaimerButton onClick={() => setMcpInfoOpen(true)}>
-          MCP Server
+          {t("mcpServer")}
         </DisclaimerButton>
       </FooterContainer>
     </RootContainer>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   ResultItemContainer,
   ResultTitle,
@@ -13,6 +14,7 @@ interface ResultItemProps {
 }
 
 export default function ResultItem({ number, text, isDifference = false }: ResultItemProps) {
+  const { t } = useTranslation("common");
   function formatNumber(value: number) {
     const absValue = Math.abs(value);
     const formatted = absValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -34,7 +36,7 @@ export default function ResultItem({ number, text, isDifference = false }: Resul
           {formatNumber(number)}
         </ResultValue>
         <ResultCurrency isPositive={isPositive} isNegative={isNegative}>
-          Kč
+          {t("currency")}
         </ResultCurrency>
       </ResultBox>
     </ResultItemContainer>
