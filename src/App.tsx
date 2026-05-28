@@ -175,7 +175,7 @@ function App() {
 
         <DiscountSection formValues={formValues} setValue={setValue} />
 
-        <NonTaxableSection formValues={formValues} setValue={setValue} />
+        <NonTaxableSection formValues={formValues} setValue={setValue} nonTaxableLimits={yearData.nonTaxableLimits} />
 
         <TaxBaseDisplay>
           <b>{t("taxBase")}</b>

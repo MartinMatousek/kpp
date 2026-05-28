@@ -14,5 +14,6 @@
   "interestPaid": "Zaplacené úroky:",
   "other": "Ostatní:",
   "monthsAbbr": "měs.",
-  "ztpWarning": "Zadaný počet ZTP/P je větší než počet dětí."
+  "ztpWarning": "Zadaný počet ZTP/P je větší než počet dětí.",
+  "limitWarning": "Překročen roční limit {{limit}} Kč"
 }

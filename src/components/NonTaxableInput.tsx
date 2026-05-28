@@ -7,16 +7,20 @@ import {
   StyledInput,
   CurrencyLabel,
   NonTaxableInputWrapper,
+  LimitWarningLabel,
 } from "../styles/NonTaxableInput.styles";
 
 interface NonTaxableInputProps {
   number: number;
   setNumber: React.Dispatch<React.SetStateAction<number>>;
   text: String;
+  limit?: number;
 }
 
-export default function NonTaxableInput({ number, setNumber, text }: NonTaxableInputProps) {
+export default function NonTaxableInput({ number, setNumber, text, limit }: NonTaxableInputProps) {
   const { t } = useTranslation("common");
+  const { t: tForm } = useTranslation("form");
+  const isOverLimit = limit !== undefined && number > limit;
   const spanRef = React.useRef<HTMLSpanElement>(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
 
@@ -67,24 +71,32 @@ export default function NonTaxableInput({ number, setNumber, text }: NonTaxableI
   };
 
   return (
-    <NonTaxableInputContainer>
-      <Tooltip title={isOverflowing ? text.toString() : ""} arrow>
-        <NonTaxableInputLabel ref={spanRef} onMouseEnter={checkOverflow}>
-          {text}
-        </NonTaxableInputLabel>
-      </Tooltip>
-      <NonTaxableInputWrapper>
-        <StyledInput
-          ref={inputRef}
-          type="text"
-          value={inputValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          placeholder="0"
-        />
-        <CurrencyLabel>{t("currency")}</CurrencyLabel>
-      </NonTaxableInputWrapper>
-    </NonTaxableInputContainer>
+    <>
+      <NonTaxableInputContainer>
+        <Tooltip title={isOverflowing ? text.toString() : ""} arrow>
+          <NonTaxableInputLabel ref={spanRef} onMouseEnter={checkOverflow}>
+            {text}
+          </NonTaxableInputLabel>
+        </Tooltip>
+        <NonTaxableInputWrapper>
+          <StyledInput
+            ref={inputRef}
+            type="text"
+            value={inputValue}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            placeholder="0"
+            sx={isOverLimit ? { borderColor: "error.main", "&:hover": { borderColor: "error.main" } } : undefined}
+          />
+          <CurrencyLabel>{t("currency")}</CurrencyLabel>
+        </NonTaxableInputWrapper>
+      </NonTaxableInputContainer>
+      {isOverLimit && (
+        <LimitWarningLabel>
+          {tForm("limitWarning", { limit: limit!.toLocaleString("cs-CZ") })}
+        </LimitWarningLabel>
+      )}
+    </>
   );
 }

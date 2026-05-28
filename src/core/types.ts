@@ -1,3 +1,8 @@
+export interface NonTaxableLimits {
+  investmentInsurance: number;
+  interestPaid: number;
+}
+
 export interface YearData {
   year: number;
   vatRates: number[];
@@ -5,6 +10,7 @@ export interface YearData {
     health?: { rate: number; baseRatio: number; minMonthly: number };
     social?: { rate: number; baseRatio: number; minMonthly: number };
   };
+  nonTaxableLimits: NonTaxableLimits;
   flatRate: {
     limit: number;
     bands: Array<{ id: 1 | 2 | 3; monthly: number; incomeLimit: number; expenseLimit: number }>;

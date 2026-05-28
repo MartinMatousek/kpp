@@ -2,13 +2,15 @@ import { useTranslation } from "react-i18next";
 import type { UseFormSetValue } from "react-hook-form";
 import NonTaxableInput from "./NonTaxableInput";
 import type { FormData } from "../types/FormData";
+import type { NonTaxableLimits } from "../core/types";
 
 interface NonTaxableSectionProps {
   formValues: FormData;
   setValue: UseFormSetValue<FormData>;
+  nonTaxableLimits: NonTaxableLimits;
 }
 
-export default function NonTaxableSection({ formValues, setValue }: NonTaxableSectionProps) {
+export default function NonTaxableSection({ formValues, setValue, nonTaxableLimits }: NonTaxableSectionProps) {
   const { t } = useTranslation("form");
   return (
     <>
@@ -19,6 +21,7 @@ export default function NonTaxableSection({ formValues, setValue }: NonTaxableSe
           setValue("investmentInsurance", typeof value === "function" ? value(formValues.investmentInsurance) : value)
         }
         text={t("investmentInsurance")}
+        limit={nonTaxableLimits.investmentInsurance}
       />
       <NonTaxableInput
         number={formValues.interestPaid}
@@ -26,6 +29,7 @@ export default function NonTaxableSection({ formValues, setValue }: NonTaxableSe
           setValue("interestPaid", typeof value === "function" ? value(formValues.interestPaid) : value)
         }
         text={t("interestPaid")}
+        limit={nonTaxableLimits.interestPaid}
       />
       <NonTaxableInput
         number={formValues.otherExpenses}

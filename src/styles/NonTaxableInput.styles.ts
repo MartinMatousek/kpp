@@ -75,3 +75,12 @@ export const NonTaxableInputWrapper = styled(Box)({
     width: "60%",
   },
 });
+
+export const LimitWarningLabel = styled("span")(({ theme }) => ({
+  display: "block",
+  color: theme.palette.error.main,
+  fontSize: "0.8em",
+  textAlign: "right",
+  marginTop: "-0.25em",
+  marginBottom: "0.25em",
+}));

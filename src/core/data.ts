@@ -5,6 +5,7 @@ export const AVAILABLE_YEARS = [2024, 2025, 2026] as const;
 const YEAR_DATA: Record<number, YearData> = {
   2024: {
     year: 2024, vatRates: [12, 21],
+    nonTaxableLimits: { investmentInsurance: 48000, interestPaid: 150000 },
     contributions: {
       health: { rate: 0.135, baseRatio: 0.5, minMonthly: 2968 },
       social: { rate: 0.292, baseRatio: 0.5, minMonthly: 3852 },
@@ -29,6 +30,7 @@ const YEAR_DATA: Record<number, YearData> = {
   },
   2025: {
     year: 2025, vatRates: [12, 21],
+    nonTaxableLimits: { investmentInsurance: 48000, interestPaid: 150000 },
     contributions: {
       health: { rate: 0.135, baseRatio: 0.5, minMonthly: 3143 },
       social: { rate: 0.292, baseRatio: 0.5, minMonthly: 4759 },
@@ -53,6 +55,7 @@ const YEAR_DATA: Record<number, YearData> = {
   },
   2026: {
     year: 2026, vatRates: [12, 21],
+    nonTaxableLimits: { investmentInsurance: 48000, interestPaid: 150000 },
     contributions: {
       health: { rate: 0.135, baseRatio: 0.5, minMonthly: 3306 },
       social: { rate: 0.292, baseRatio: 0.5, minMonthly: 5720 },

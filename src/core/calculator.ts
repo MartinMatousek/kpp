@@ -11,8 +11,11 @@ const round = (n: number) => Math.round(n);
 
 export function computeTax(input: TaxInput): TaxOutput {
   const { yearData, earningsWithoutVAT, expenses, discounts, investmentInsurance, interestPaid, otherExpenses, globalMonths } = input;
+  const { nonTaxableLimits } = yearData;
   const profit = earningsWithoutVAT - expenses;
-  const taxBaseYear = Math.max(0, profit - investmentInsurance - interestPaid - otherExpenses);
+  const effectiveInsurance = Math.min(investmentInsurance, nonTaxableLimits.investmentInsurance);
+  const effectiveInterest = Math.min(interestPaid, nonTaxableLimits.interestPaid);
+  const taxBaseYear = Math.max(0, profit - effectiveInsurance - effectiveInterest - otherExpenses);
   const tax = Math.max(0, round(progressiveTax(yearData, taxBaseYear) - computeDiscounts(yearData, discounts)));
   return {
     taxBase: round(taxBaseYear),

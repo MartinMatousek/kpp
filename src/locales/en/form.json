@@ -14,5 +14,6 @@
   "interestPaid": "Interest paid:",
   "other": "Other:",
   "monthsAbbr": "mo.",
-  "ztpWarning": "The ZTP/P count cannot exceed the total number of children."
+  "ztpWarning": "The ZTP/P count cannot exceed the total number of children.",
+  "limitWarning": "Exceeds annual limit of {{limit}} CZK"
 }
