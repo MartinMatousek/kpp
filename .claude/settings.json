@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "kpp-dan": {
-      "type": "http",
-      "url": "http://localhost:8792/mcp"
-    }
-  }
-}

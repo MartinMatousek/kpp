@@ -32,3 +32,4 @@ mcp-worker/dist
 *.njsproj
 *.sln
 *.sw?
+.claude

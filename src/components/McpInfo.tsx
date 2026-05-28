@@ -31,7 +31,7 @@ export default function McpInfo({ open, onClose }: McpInfoProps) {
         <McpCodeBlock component="pre">
 {`{
   "mcpServers": {
-    "kpp-dan": {
+    "kpp-tax": {
       "type": "http",
       "url": "https://dane.martinmatousek.dev/mcp"
     }
