@@ -33,7 +33,7 @@ export default function McpInfo({ open, onClose }: McpInfoProps) {
   "mcpServers": {
     "kpp-dan": {
       "type": "http",
-      "url": "https://kpp-mcp.martinmatousek.com/mcp"
+      "url": "https://kpp-mcp.martinmatousek.dev/mcp"
     }
   }
 }`}
