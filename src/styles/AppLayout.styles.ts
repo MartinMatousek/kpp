@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, IconButton, styled, Typography } from "@mui/material";
 
 export const RootContainer = styled(Box)({
   maxWidth: "555px",
@@ -10,6 +10,35 @@ export const RootContainer = styled(Box)({
     width: "60vw",
     padding: "0",
   },
+});
+
+export const SectionHeading = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "4px",
+  cursor: "pointer",
+  "& h2": {
+    margin: 0,
+  },
+});
+
+export const SectionToggleButton = styled(IconButton)(({ theme }) => ({
+  position: "relative",
+  width: "1.75em",
+  height: "1.75em",
+  padding: 0,
+  color: theme.palette.secondary.main,
+  "&.collapsed": {
+    color: theme.palette.primary.main,
+  },
+}));
+
+export const SectionToggleChevron = styled("span")({
+  display: "block",
+  lineHeight: 1,
+  fontSize: "1.2em",
+  fontWeight: 400,
 });
 
 export const InputRow = styled(Box)({
@@ -67,9 +96,15 @@ export const MonthsLabel = styled(Typography)(({ theme }) => ({
   textUnderlineOffset: "3px",
 }));
 
-export const TaxBaseDisplay = styled(Box)({
+export const TaxBaseDisplay = styled(Box)(({ theme }) => ({
   fontSize: "1.3em",
-  marginTop: "2em",
+  marginTop: "0.6em",
+  paddingTop: "0.6em",
+  borderTop: `1px solid ${theme.palette.divider}`,
+}));
+
+export const TaxBaseSpacer = styled(Box)({
+  height: "1em",
 });
 
 export const FlatTaxContainer = styled(Box)({

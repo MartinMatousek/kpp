@@ -27,7 +27,6 @@ export function useFlatRateLogic({
     ) {
       setSavedFlatRate(formValues.flatRate);
       setValue("isFlatRate", false);
-      setValue("flatRate", 0);
       setValue("expenses", savedExpenses);
     }
   }, [earningsWithoutVAT, yearData.flatRate.limit, formValues.isFlatRate, formValues.flatRate, savedExpenses, setValue]);
@@ -36,7 +35,6 @@ export function useFlatRateLogic({
     setValue("isFlatRate", checked);
     if (!checked) {
       setSavedFlatRate(formValues.flatRate);
-      setValue("flatRate", 0);
       setValue("expenses", savedExpenses);
     } else {
       setSavedExpenses(formValues.expenses);
@@ -62,7 +60,6 @@ export function useFlatRateLogic({
     ) {
       setSavedFlatRate(formValues.flatRate);
       setValue("isFlatRate", false);
-      setValue("flatRate", 0);
       setValue("expenses", savedExpenses);
     } else if (formValues.isFlatRate) {
       setValue(

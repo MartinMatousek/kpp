@@ -5,6 +5,7 @@ import type { FormData } from "../types/FormData";
 import { getAvailableYears, loadYearData } from "../core/data";
 import type { YearData, DiscountsInput } from "../core/types";
 import { calculateVATAmounts, computeFlatTax } from "../core/calculator";
+import { DEFAULT_FLAT_RATE_PERCENTAGE } from "../AppConstants";
 import { useFlatRateLogic } from "./useFlatRateLogic";
 import { useTaxCalculator } from "./useTaxCalculator";
 
@@ -25,7 +26,7 @@ export function useAppForm() {
       expenses: 0,
       withVAT: false,
       isFlatRate: false,
-      flatRate: 0,
+      flatRate: DEFAULT_FLAT_RATE_PERCENTAGE,
       isMonthly: false,
       taxpayerDiscount: true,
       spouseDiscount: false,

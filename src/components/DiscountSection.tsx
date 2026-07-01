@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { UseFormSetValue } from "react-hook-form";
+import { Collapse, Tooltip } from "@mui/material";
 import Discount from "./Discount";
 import AdditionalInfo from "./AdditionalInfo";
 import ChildInput from "./ChildInput";
@@ -8,6 +10,9 @@ import {
   ChildrenInputContainer,
   ChildrenInputContainerHidden,
   HiddenInput,
+  SectionHeading,
+  SectionToggleButton,
+  SectionToggleChevron,
 } from "../styles/AppLayout.styles";
 import {
   MAX_CHILDREN,
@@ -21,9 +26,23 @@ interface DiscountSectionProps {
 
 export default function DiscountSection({ formValues, setValue }: DiscountSectionProps) {
   const { t } = useTranslation("form");
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <>
-      <h2>{t("discountsHeading")}</h2>
+      <SectionHeading onClick={() => setIsOpen((prev) => !prev)}>
+        <h2>{t("discountsHeading")}</h2>
+        <Tooltip title={isOpen ? t("collapseSection") : t("expandSection")} arrow>
+          <SectionToggleButton
+            size="small"
+            className={isOpen ? "" : "collapsed"}
+            aria-label={isOpen ? t("collapseSection") : t("expandSection")}
+            aria-expanded={isOpen}
+          >
+            <SectionToggleChevron>{isOpen ? "−" : "+"}</SectionToggleChevron>
+          </SectionToggleButton>
+        </Tooltip>
+      </SectionHeading>
+      <Collapse in={isOpen}>
       <Discount
         isChecked={formValues.taxpayerDiscount}
         setIsChecked={(value) =>
@@ -144,6 +163,7 @@ export default function DiscountSection({ formValues, setValue }: DiscountSectio
           />
         </ChildrenInputContainerHidden>
       )}
+      </Collapse>
     </>
   );
 }
