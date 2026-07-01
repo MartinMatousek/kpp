@@ -177,7 +177,7 @@ export function useAppForm() {
   }));
 
   const vatRateOptions = yearData?.vatRates.map((rate) => ({
-    value: rate / 100,
+    value: rate,
     label: `${rate} %`,
   })) || [];
 
