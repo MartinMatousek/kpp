@@ -8,8 +8,14 @@
   "flatRateBand": "Pásmo paušální daně",
   "monthlyPayment": "Měsíční platba",
   "annualTotal": "Ročně celkem",
+  "annualTotalForMonths": "Ročně celkem ({{months}} měs.)",
+  "annualTotalFullYear": "Ročně celkem (12 měs.)",
+  "annualDiffForMonths": "Rozdíl ročně ({{months}} měs.)",
+  "annualDiffFullYear": "Rozdíl ročně (12 měs.)",
   "monthlyDiff": "Rozdíl měsíčně",
   "annualDiff": "Rozdíl ročně",
   "monthly": "Měsíčně",
-  "annual": "Ročně"
+  "annual": "Ročně",
+  "flatRateMonthsWarning": "Režim paušální daně je za běžných okolností platný po celých 12 měsíců v roce.",
+  "flatRateMonthsWarningLink": "Podrobnosti"
 }

@@ -126,3 +126,12 @@ export const FlatTaxBand = styled(Box)(({ theme }) => ({
   fontWeight: "bold",
   marginTop: "0.4em",
 }));
+
+export const FlatTaxWarning = styled(Box)(({ theme }) => ({
+  marginTop: "0.8em",
+  fontSize: "0.85em",
+  color: theme.palette.warning.main,
+  "& a": {
+    color: "inherit",
+  },
+}));

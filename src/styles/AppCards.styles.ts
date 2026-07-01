@@ -15,6 +15,7 @@ export const Card = styled(Box)(({ theme }) => ({
 
 export const ResultsContainer = styled(Box)({
   display: "flex",
+  alignItems: "flex-start",
   gap: "1rem",
   marginTop: "2rem",
   justifyContent: "center",

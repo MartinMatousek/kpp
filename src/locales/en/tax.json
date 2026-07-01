@@ -8,8 +8,14 @@
   "flatRateBand": "Flat-rate tax band",
   "monthlyPayment": "Monthly payment",
   "annualTotal": "Annual total",
+  "annualTotalForMonths": "Annual total ({{months}} mo.)",
+  "annualTotalFullYear": "Annual total (12 mo.)",
+  "annualDiffForMonths": "Annual difference ({{months}} mo.)",
+  "annualDiffFullYear": "Annual difference (12 mo.)",
   "monthlyDiff": "Monthly difference",
   "annualDiff": "Annual difference",
   "monthly": "Monthly",
-  "annual": "Annual"
+  "annual": "Annual",
+  "flatRateMonthsWarning": "Under normal circumstances, the flat-rate tax scheme is valid for all 12 months of the year.",
+  "flatRateMonthsWarningLink": "Details"
 }

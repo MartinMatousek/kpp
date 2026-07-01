@@ -7,6 +7,7 @@ export const FormBoxContainer = styled(Box)(({ theme }) => ({
   boxShadow: theme.shadows[2],
   maxWidth: "24rem",
   minWidth: "18rem",
+  minHeight: "29rem",
   margin: "0 auto 5rem",
   paddingBottom: "1rem",
 }));

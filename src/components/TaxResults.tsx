@@ -5,7 +5,7 @@ import FormBox from "./FormBox";
 import PeriodToggle from "./PeriodToggle";
 import type { FormData } from "../types/FormData";
 import type { TaxOutput, FlatTaxResult } from "../core/types";
-import { FlatTaxContainer, FlatTaxBand } from "../styles/AppLayout.styles";
+import { FlatTaxContainer, FlatTaxBand, FlatTaxWarning } from "../styles/AppLayout.styles";
 import { ResultsContainer } from "../styles/AppCards.styles";
 import { MONTHS_IN_YEAR } from "../AppConstants";
 
@@ -22,7 +22,11 @@ export default function TaxResults({ formValues, setValue, taxes, flatTax }: Tax
   const flatTaxYearly = flatTax.yearly;
   const totalStandardYearly = taxes.health + taxes.social + taxes.tax;
   const diffYearly = flatTaxYearly - totalStandardYearly;
-  const diffMonthly = Math.round(diffYearly / MONTHS_IN_YEAR);
+  const diffMonthly = Math.round(diffYearly / formValues.globalMonths);
+
+  const isPartialYear = formValues.globalMonths < MONTHS_IN_YEAR;
+  const flatTaxYearlyFullYear = flatTaxMonthly * MONTHS_IN_YEAR;
+  const diffYearlyFullYear = flatTaxYearlyFullYear - totalStandardYearly;
 
   return (
     <ResultsContainer>
@@ -58,9 +62,32 @@ export default function TaxResults({ formValues, setValue, taxes, flatTax }: Tax
             <FlatTaxBand>{flatTax.bandId ?? 0}</FlatTaxBand>
           </FlatTaxContainer>
           <ResultItem number={flatTaxMonthly} text={t("monthlyPayment")} />
-          <ResultItem number={flatTaxYearly} text={t("annualTotal")} />
           <ResultItem number={Math.round(diffMonthly)} text={t("monthlyDiff")} isDifference={true} />
-          <ResultItem number={Math.round(diffYearly)} text={t("annualDiff")} isDifference={true} />
+          <ResultItem
+            number={flatTaxYearly}
+            text={isPartialYear ? t("annualTotalForMonths", { months: formValues.globalMonths }) : t("annualTotal")}
+          />
+          <ResultItem
+            number={Math.round(diffYearly)}
+            text={isPartialYear ? t("annualDiffForMonths", { months: formValues.globalMonths }) : t("annualDiff")}
+            isDifference={true}
+          />
+          {isPartialYear && (
+            <>
+              <ResultItem number={flatTaxYearlyFullYear} text={t("annualTotalFullYear")} />
+              <ResultItem number={Math.round(diffYearlyFullYear)} text={t("annualDiffFullYear")} isDifference={true} />
+              <FlatTaxWarning>
+                {t("flatRateMonthsWarning")}{" "}
+                <a
+                  href="https://financnisprava.gov.cz/cs/dane/dane/dan-z-prijmu/pausalni-dan/obecne-informace"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t("flatRateMonthsWarningLink")}
+                </a>
+              </FlatTaxWarning>
+            </>
+          )}
         </FormBox>
       )}
     </ResultsContainer>
