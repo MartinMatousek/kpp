@@ -40,7 +40,7 @@ export function useAppForm() {
       interestPaid: 0,
       otherExpenses: 0,
       selectedYear: currentYear,
-      earningsVATRate: initialYearData.vatRates[initialYearData.vatRates.length - 1] / 100,
+      earningsVATRate: initialYearData.vatRates[initialYearData.vatRates.length - 1],
       globalMonths: 12,
       taxpayerDiscountMonths: 12,
       spouseDiscountMonths: 12,

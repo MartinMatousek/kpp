@@ -58,14 +58,14 @@ const YEAR_DATA: Record<number, YearData> = {
     nonTaxableLimits: { investmentInsurance: 48000, interestPaid: 150000 },
     contributions: {
       health: { rate: 0.135, baseRatio: 0.5, minMonthly: 3306 },
-      social: { rate: 0.292, baseRatio: 0.5, minMonthly: 5720 },
+      social: { rate: 0.292, baseRatio: 0.5, minMonthly: 5005 },
     },
     flatRate: {
       limit: 2000000,
       bands: [
-        { id: 1, monthly: 9984,  incomeLimit: 1000000, expenseLimit: 0 },
-        { id: 1, monthly: 9984,  incomeLimit: 1500000, expenseLimit: 60 },
-        { id: 1, monthly: 9984,  incomeLimit: 2000000, expenseLimit: 80 },
+        { id: 1, monthly: 9162,  incomeLimit: 1000000, expenseLimit: 0 },
+        { id: 1, monthly: 9162,  incomeLimit: 1500000, expenseLimit: 60 },
+        { id: 1, monthly: 9162,  incomeLimit: 2000000, expenseLimit: 80 },
         { id: 2, monthly: 16745, incomeLimit: 1500000, expenseLimit: 0 },
         { id: 2, monthly: 16745, incomeLimit: 2000000, expenseLimit: 60 },
         { id: 3, monthly: 27139, incomeLimit: 2000000, expenseLimit: 0 },
